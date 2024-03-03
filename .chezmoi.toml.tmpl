@@ -18,6 +18,9 @@ interval = 15
 
 {{- end }}
 
+[data.ui]
+theme = {{ promptChoiceOnce $data "ui.theme" "[ui] theme" (list "dark" "light" "auto") | quote }}
+
 [data.git]
 enabled = {{ $git_enabled := promptBoolOnce $data "git.enabled" "Setup git" }}{{ $git_enabled }}
 

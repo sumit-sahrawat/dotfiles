@@ -1,0 +1,8 @@
+{{- $current := .ui.theme -}}
+{{- if eq $current "auto" -}}
+{{-     $is_dark := eq (output "/opt/homebrew/bin/dark-mode" "status" | trim) "on" -}}
+{{-     $current = ternary "dark" "light" $is_dark -}}
+{{- end -}}
+{{- $schemes := dict "dark" "mocha"
+                     "light" "latte" -}}
+{{- get $schemes $current -}}

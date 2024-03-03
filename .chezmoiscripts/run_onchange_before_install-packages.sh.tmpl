@@ -19,6 +19,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if eq .ui.theme "auto" }}
+{{- $brews = concat $brews (list
+	"dark-mode"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
