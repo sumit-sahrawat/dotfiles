@@ -61,6 +61,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .sd.enabled }}
+{{- $brews = concat $brews (list
+	"sd"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
