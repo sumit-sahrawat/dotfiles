@@ -79,6 +79,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .procs.enabled }}
+{{- $brews = concat $brews (list
+	"procs"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
