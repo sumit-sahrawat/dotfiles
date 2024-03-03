@@ -55,6 +55,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .fd.enabled }}
+{{- $brews = concat $brews (list
+	"fd"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
