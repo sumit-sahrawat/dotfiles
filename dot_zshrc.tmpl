@@ -33,6 +33,12 @@ zstyle ':z4h:ssh:*'           enable 'no'
 ###############################################################################
 # Clone git repositories using `z4h install`
 
+{{- if .git.enabled }}
+
+z4h install zimfw/git
+
+{{- end }}
+
 ###############################################################################
 # Initialize zsh4humans. Console/Network I/O is unavailable after this.
 z4h init || return
@@ -90,5 +96,45 @@ alias :hm='chezmoi merge'
 alias :hp='chezmoi apply --init'
 alias :hu='chezmoi update --init'
 alias :hU='chezmoi update --init --refresh-externals'
+
+{{- if .git.enabled }}
+
+gprefix=':g'
+
+zstyle ':zim:git' aliases-prefix "${gprefix}"
+z4h load --compile zimfw/git
+
+# cocogitto (cg)
+alias :cgk='cog check --ignore-merge-commits'
+alias :cgc='cog commit --edit'
+alias :cgm='cog commit'
+alias :cgM='cog commit --breaking-change'
+alias :cgf='cog edit'
+alias :cgi='cog init'
+alias :cgl='cog log'
+alias :cgL='cog changelog'
+alias :cgb='cog bump --auto'
+alias :cgh='cog install-hook --all'
+alias :cghc='cog install-hook commit-msg'
+alias :cghp='cog install-hook pre-push'
+
+# difftastic
+alias ${gprefix}wdp="${aliases[${gprefix}wd]/ --no-ext-diff/} --no-ext-diff"
+alias ${gprefix}wd="${aliases[${gprefix}wd]/ --no-ext-diff/} --ext-diff"
+alias ${gprefix}csp="${aliases[${gprefix}cs]/ --no-ext-diff/} --no-ext-diff"
+alias ${gprefix}cs="${aliases[${gprefix}cs]/ --no-ext-diff/} --ext-diff"
+alias ${gprefix}idp="${aliases[${gprefix}id]/ --no-ext-diff/} --no-ext-diff"
+alias ${gprefix}id="${aliases[${gprefix}id]/ --no-ext-diff/} --ext-diff"
+alias ${gprefix}ldp="${aliases[${gprefix}ld]/ --no-ext-diff/} --no-ext-diff"
+alias ${gprefix}ld="${aliases[${gprefix}ld]/ --no-ext-diff/} --ext-diff"
+alias ${gprefix}sdp="${aliases[${gprefix}sd]/ --no-ext-diff/} --no-ext-diff"
+alias ${gprefix}sd="${aliases[${gprefix}sd]/ --no-ext-diff/} --ext-diff"
+
+# https://www.youtube.com/watch?v=aolI_Rz0ZqY
+alias "${gprefix}??"="git blame -wCCC"
+
+unset gprefix
+
+{{- end }}
 
 {{- end }}
