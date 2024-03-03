@@ -67,6 +67,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .duf.enabled }}
+{{- $brews = concat $brews (list
+	"duf"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
