@@ -74,3 +74,14 @@ enabled = {{ promptBoolOnce $data "zsh.enabled" "Setup zsh" }}
 [data.helix]
 enabled = {{ promptBoolOnce $data "helix.enabled" "Setup helix" }}
 executable = "hx"
+
+[data.alacritty]
+enabled = {{ $alacritty_enabled := promptBoolOnce $data "alacritty.enabled" "Setup alacritty" }}{{ $alacritty_enabled }}
+
+{{- if $alacritty_enabled }}
+
+[data.alacritty.font]
+pragmata = {{ promptBoolOnce $data "alacritty.font.pragmata" "Use PragmataPro for Alacritty" }}
+size = {{ promptIntOnce $data "alacritty.font.size" "[alacritty] font size" 16 }}
+
+{{- end }}

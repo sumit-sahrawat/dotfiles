@@ -1,0 +1,26 @@
+{{- if .alacritty.enabled -}}
+
+import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "catppuccin-flavor" . }}.toml" ]
+
+[font]
+size = {{ .alacritty.font.size }}
+
+{{- if .alacritty.font.pragmata }}
+
+[font.normal]
+family = "PragmataPro Mono"
+
+{{- end }}
+
+[window]
+option_as_alt = "Both"
+startup_mode = "Maximized"
+
+[keyboard]
+bindings = [
+	{ key = "T"  , mods = "Command"      , action = "CreateNewTab" },
+	{ key = "Tab", mods = "Control"      , action = "SelectNextTab" },
+	{ key = "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
+]
+
+{{- end }}

@@ -31,6 +31,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .alacritty.enabled }}
+{{- $casks = concat $casks (list
+	"alacritty"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
