@@ -5,6 +5,13 @@
 
 export FZF_DEFAULT_OPTS='--color=16'
 
+{{- if .helix.enabled }}
+
+export EDITOR=hx
+export VISUAL=hx
+
+{{- end }}
+
 ###############################################################################
 # zsh4humans (https://github.com/romkatv/zsh4humans/blob/v5/README.md)
 

@@ -70,3 +70,7 @@ key = {{ promptStringOnce $data "git.personal.user.key" "[git] personal.user.key
 
 [data.zsh]
 enabled = {{ promptBoolOnce $data "zsh.enabled" "Setup zsh" }}
+
+[data.helix]
+enabled = {{ promptBoolOnce $data "helix.enabled" "Setup helix" }}
+executable = "hx"

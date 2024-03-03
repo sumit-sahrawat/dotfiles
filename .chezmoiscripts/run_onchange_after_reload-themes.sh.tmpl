@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# {{ includeTemplate "catppuccin-flavor" . }}
+
+{{- if .helix.enabled }}
+
+pkill -USR1 {{ .helix.executable }} || true
+
+{{- end }}

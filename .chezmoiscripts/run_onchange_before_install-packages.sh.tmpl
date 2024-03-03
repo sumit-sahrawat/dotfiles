@@ -25,6 +25,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .helix.enabled }}
+{{- $brews = concat $brews (list
+	"helix"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
