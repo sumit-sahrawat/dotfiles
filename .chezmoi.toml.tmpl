@@ -10,6 +10,7 @@
 enabled = {{ $keyboard_enabled := promptBoolOnce $data "keyboard.enabled" "Setup keyboard" }}{{ $keyboard_enabled }}
 
 {{- if $keyboard_enabled }}
+caps2ctrl = {{ promptBoolOnce . "keyboard.caps2ctrl" "Change CapsLock to Control" }}
 
 [data.keyboard.repeat]
 delay = 195
