@@ -73,6 +73,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .dust.enabled }}
+{{- $brews = concat $brews (list
+	"dust"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
