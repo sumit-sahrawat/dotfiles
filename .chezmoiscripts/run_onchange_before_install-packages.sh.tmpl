@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! hash brew >/dev/null; then
+	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+{{- $brews := list }}
+{{- $casks := list }}
+
+{{- if .git.enabled }}
+{{- $brews = concat $brews (list
+	"git"
+	"gh"
+	"hut"
+	"difftastic"
+	"cocogitto"
+) }}
+{{- end }}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{- range ($brews | sortAlpha | uniq) }}
+brew "{{ . }}"
+{{- end }}
+{{- range ($casks | sortAlpha | uniq) }}
+cask "{{ . }}"
+{{- end }}
+EOF
