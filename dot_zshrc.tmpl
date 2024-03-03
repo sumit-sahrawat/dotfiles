@@ -150,4 +150,12 @@ unset gprefix
 
 {{- end }}
 
+{{- if .eza.enabled }}
+
+alias ls=eza
+alias :t='eza --tree'
+alias :ta='eza --tree --all'
+
+{{- end }}
+
 {{- end }}

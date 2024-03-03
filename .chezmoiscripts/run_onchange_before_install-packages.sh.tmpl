@@ -43,6 +43,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .eza.enabled }}
+{{- $brews = concat $brews (list
+	"eza"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
