@@ -1,0 +1,94 @@
+{{- if .zsh.enabled -}}
+
+###############################################################################
+# Environment
+
+export FZF_DEFAULT_OPTS='--color=16'
+
+###############################################################################
+# zsh4humans (https://github.com/romkatv/zsh4humans/blob/v5/README.md)
+
+# https://github.com/romkatv/zsh4humans/blob/v5/tips.md#prompt
+POSTEDIT=$'\n\n\e[2A'
+
+zstyle ':z4h:'                auto-update      'no'
+zstyle ':z4h:'                auto-update-days '28'
+
+zstyle ':z4h:bindkey'         keyboard  'mac'
+zstyle ':z4h:'                start-tmux 'no'
+# zstyle ':z4h:'                start-tmux command tmux -u new -A -D -t z4h
+zstyle ':z4h:'                prompt-at-bottom 'no'
+zstyle ':z4h:'                propagate-cwd yes
+
+zstyle ':z4h:'                term-shell-integration 'yes'
+
+zstyle ':z4h:autosuggestions' forward-char 'partial-accept'
+zstyle ':z4h:autosuggestions' end-of-line 'partial-accept'
+
+zstyle ':z4h:fzf-complete'    recurse-dirs 'yes'
+zstyle ':z4h:*'               fzf-flags "${FZF_DEFAULT_OPTS}"
+
+zstyle ':z4h:ssh:*'           enable 'no'
+
+###############################################################################
+# Clone git repositories using `z4h install`
+
+###############################################################################
+# Initialize zsh4humans. Console/Network I/O is unavailable after this.
+z4h init || return
+
+###############################################################################
+# Customizations
+
+# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt no_auto_menu  # require an extra TAB press to open the completion menu
+setopt no_auto_cd    # don't cd without cd
+
+# Extend PATH.
+path=(
+	~/.local/bin
+	$path
+)
+
+# Source additional local files if they exist.
+z4h source --compile ~/.bashrc
+z4h source --compile ~/.private.zsh
+
+# Define key bindings.
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+# Autoload functions.
+autoload -Uz zmv
+
+# Define functions and completions.
+function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+compdef _directories md
+
+###############################################################################
+# Aliases
+
+# Basics
+alias c='cat'
+alias o='open'
+alias q='exit'
+
+# System upgrade
+alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade && z4h update'
+
+# chezmoi
+alias :ha='chezmoi add'
+alias :hA='chezmoi add --template'
+alias :hc='cd "$(chezmoi source-path)"'
+alias :hd='chezmoi diff --init'
+alias :he='chezmoi edit --init --apply'
+alias :hs='chezmoi edit-config'
+alias :hS='chezmoi cat-config'
+alias :hm='chezmoi merge'
+alias :hp='chezmoi apply --init'
+alias :hu='chezmoi update --init'
+alias :hU='chezmoi update --init --refresh-externals'
+
+{{- end }}

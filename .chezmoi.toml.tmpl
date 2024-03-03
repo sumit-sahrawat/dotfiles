@@ -64,3 +64,6 @@ key = {{ promptStringOnce $data "git.personal.user.key" "[git] personal.user.key
 {{- end }}
 
 {{- end }}
+
+[data.zsh]
+enabled = {{ promptBoolOnce $data "zsh.enabled" "Setup zsh" }}
