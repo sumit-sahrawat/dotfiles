@@ -85,3 +85,6 @@ pragmata = {{ promptBoolOnce $data "alacritty.font.pragmata" "Use PragmataPro fo
 size = {{ promptIntOnce $data "alacritty.font.size" "[alacritty] font size" 16 }}
 
 {{- end }}
+
+[data.bat]
+enabled = {{ promptBoolOnce $data "bat.enabled" "Setup bat" }}

@@ -84,7 +84,12 @@ compdef _directories md
 # Aliases
 
 # Basics
+{{- if .bat.enabled }}
+alias c='bat --style=plain'
+alias b='bat --style=default'
+{{- else }}
 alias c='cat'
+{{- end }}
 alias e='${EDITOR}'
 alias o='open'
 alias q='exit'

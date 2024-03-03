@@ -37,6 +37,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .bat.enabled }}
+{{- $brews = concat $brews (list
+	"bat"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
