@@ -1,0 +1,12 @@
+branch_whitelist = ["main"]
+ignore_merge_commits = true
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+remote = "github.com"
+repository = "dotfiles"
+owner = "sumit-sahrawat"
+authors = [
+	{ signature = "Sumit Sahrawat", username = "sumit-sahrawat" },
+]
