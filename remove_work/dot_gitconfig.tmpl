@@ -1,0 +1,10 @@
+{{- if and .git.enabled .git.work.enabled -}}
+
+[user]
+	name = {{ .git.work.user.name }}
+	email = {{ .git.work.user.email }}
+	signingkey = {{ .git.work.user.key }}
+[core]
+	sshCommand = "ssh -i {{ .git.work.user.key | squote }} -o IdentitiesOnly=yes -F /dev/null"
+
+{{- end }}

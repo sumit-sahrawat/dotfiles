@@ -1,0 +1,34 @@
+{{- if .git.enabled -}}
+
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[diff]
+	external = difft
+[fetch]
+	prune = true
+[init]
+	defaultBranch = main
+[rerere]
+	enabled = true
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+{{- if .git.code.enabled }}
+[includeIf "gitdir:~/code/**"]
+	path = ~/code/.gitconfig
+{{- end }}
+{{- if .git.work.enabled }}
+[includeIf "gitdir:~/work/**"]
+	path = ~/work/.gitconfig
+{{- end }}
+{{- if .git.personal.enabled }}
+[includeIf "gitdir:~/personal/**"]
+	path = ~/personal/.gitconfig
+{{- end }}
+
+{{- end }}

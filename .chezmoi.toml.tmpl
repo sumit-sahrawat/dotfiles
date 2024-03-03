@@ -17,3 +17,50 @@ delay = 195
 interval = 15
 
 {{- end }}
+
+[data.git]
+enabled = {{ $git_enabled := promptBoolOnce $data "git.enabled" "Setup git" }}{{ $git_enabled }}
+
+{{- if $git_enabled }}
+
+{{- $default_git_user_name := "Sumit Sahrawat" }}
+{{- $default_git_user_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
+{{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
+
+[data.git.code]
+enabled = {{ $git_code_enabled := promptBoolOnce $data "git.code.enabled" "Setup git code dir config (~/code/gitconfig)" }}{{ $git_code_enabled }}
+
+{{- if $git_code_enabled }}
+
+[data.git.code.user]
+name = {{ promptStringOnce $data "git.code.user.name" "[git] code.user.name" $default_git_user_name | quote }}
+email = {{ promptStringOnce $data "git.code.user.email" "[git] code.user.email" $default_git_user_email | quote }}
+key = {{ promptStringOnce $data "git.code.user.key" "[git] code.user.key" (joinPath $ssh_dir "code") | quote }}
+
+{{- end }}
+
+[data.git.work]
+enabled = {{ $git_work_enabled := promptBoolOnce $data "git.work.enabled" "Setup git work dir config (~/work/gitconfig)" }}{{ $git_work_enabled }}
+
+{{- if $git_work_enabled }}
+
+[data.git.work.user]
+name = {{ promptStringOnce $data "git.work.user.name" "[git] work.user.name" $default_git_user_name | quote }}
+email = {{ promptStringOnce $data "git.work.user.email" "[git] work.user.email" $default_git_user_email | quote }}
+key = {{ promptStringOnce $data "git.work.user.key" "[git] work.user.key" (joinPath $ssh_dir "work") | quote }}
+
+{{- end }}
+
+[data.git.personal]
+enabled = {{ $git_personal_enabled := promptBoolOnce $data "git.personal.enabled" "Setup git personal dir config (~/personal/gitconfig)" }}{{ $git_personal_enabled }}
+
+{{- if $git_personal_enabled }}
+
+[data.git.personal.user]
+name = {{ promptStringOnce $data "git.personal.user.name" "[git] personal.user.name" $default_git_user_name | quote }}
+email = {{ promptStringOnce $data "git.personal.user.email" "[git] personal.user.email" $default_git_user_email | quote }}
+key = {{ promptStringOnce $data "git.personal.user.key" "[git] personal.user.key" (joinPath $ssh_dir "personal") | quote }}
+
+{{- end }}
+
+{{- end }}
