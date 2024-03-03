@@ -49,6 +49,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .ripgrep.enabled }}
+{{- $brews = concat $brews (list
+	"ripgrep"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
