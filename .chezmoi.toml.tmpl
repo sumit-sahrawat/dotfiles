@@ -1,0 +1,18 @@
+{{- if ne .chezmoi.os "darwin" -}}
+{{-     writeToStdout "[dotfiles] We only support MacOS. Aborting.\n" -}}
+{{-     exit 1 -}}
+{{- end -}}
+
+[data]
+{{- $data := .chezmoi.config.data }}
+
+[data.keyboard]
+enabled = {{ $keyboard_enabled := promptBoolOnce $data "keyboard.enabled" "Setup keyboard" }}{{ $keyboard_enabled }}
+
+{{- if $keyboard_enabled }}
+
+[data.keyboard.repeat]
+delay = 195
+interval = 15
+
+{{- end }}
