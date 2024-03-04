@@ -27,6 +27,7 @@ enabled = {{ $git_enabled := promptBoolOnce . "git.enabled" "Setup git" }}{{ $gi
 
 {{- $default_git_user_name := "Sumit Sahrawat" }}
 {{- $default_git_user_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
+{{- $default_git_user_key := "id_ed25519" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
 [data.git.code]
@@ -37,7 +38,8 @@ enabled = {{ $git_code_enabled := promptBoolOnce . "git.code.enabled" "Setup git
 [data.git.code.user]
 name = {{ promptStringOnce . "git.code.user.name" "[git] code.user.name" $default_git_user_name | quote }}
 email = {{ promptStringOnce . "git.code.user.email" "[git] code.user.email" $default_git_user_email | quote }}
-key = {{ promptStringOnce . "git.code.user.key" "[git] code.user.key" (joinPath $ssh_dir "code") | quote }}
+key_name = {{ $git_code_user_key_name := promptStringOnce . "git.code.user.key_name" "[git] code.user.key_name" $default_git_user_key }}{{ $git_code_user_key_name | quote }}
+key = {{ joinPath $ssh_dir $git_code_user_key_name | quote }}
 
 {{- end }}
 
@@ -49,7 +51,8 @@ enabled = {{ $git_work_enabled := promptBoolOnce . "git.work.enabled" "Setup git
 [data.git.work.user]
 name = {{ promptStringOnce . "git.work.user.name" "[git] work.user.name" $default_git_user_name | quote }}
 email = {{ promptStringOnce . "git.work.user.email" "[git] work.user.email" $default_git_user_email | quote }}
-key = {{ promptStringOnce . "git.work.user.key" "[git] work.user.key" (joinPath $ssh_dir "work") | quote }}
+key_name = {{ $git_work_user_key_name := promptStringOnce . "git.work.user.key_name" "[git] work.user.key_name" $default_git_user_key }}{{ $git_work_user_key_name | quote }}
+key = {{ joinPath $ssh_dir $git_work_user_key_name | quote }}
 
 {{- end }}
 
@@ -61,7 +64,8 @@ enabled = {{ $git_personal_enabled := promptBoolOnce . "git.personal.enabled" "S
 [data.git.personal.user]
 name = {{ promptStringOnce . "git.personal.user.name" "[git] personal.user.name" $default_git_user_name | quote }}
 email = {{ promptStringOnce . "git.personal.user.email" "[git] personal.user.email" $default_git_user_email | quote }}
-key = {{ promptStringOnce . "git.personal.user.key" "[git] personal.user.key" (joinPath $ssh_dir "personal") | quote }}
+key_name = {{ $git_personal_user_key_name := promptStringOnce . "git.personal.user.key_name" "[git] personal.user.key_name" $default_git_user_key }}{{ $git_personal_user_key_name | quote }}
+key = {{ joinPath $ssh_dir $git_personal_user_key_name | quote }}
 
 {{- end }}
 

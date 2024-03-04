@@ -1,9 +1,9 @@
 {{ if .git.code.enabled -}}
-{{ .git.code.user.email }} {{ output "cat" (print .git.code.user.key | replaceAllRegex "(\\.pub|$)" ".pub") | trim }}
+{{ .git.code.user.email }} {{ output "cat" (printf "%s.pub" .git.code.user.key) | trim }}
 {{ end -}}
 {{ if .git.work.enabled -}}
-{{ .git.work.user.email }} {{ output "cat" (print .git.work.user.key | replaceAllRegex "(\\.pub|$)" ".pub") | trim }}
+{{ .git.work.user.email }} {{ output "cat" (printf "%s.pub" .git.work.user.key) | trim }}
 {{ end -}}
 {{ if .git.personal.enabled -}}
-{{ .git.personal.user.email }} {{ output "cat" (print .git.personal.user.key | replaceAllRegex "(\\.pub|$)" ".pub") | trim }}
+{{ .git.personal.user.email }} {{ output "cat" (printf "%s.pub" .git.personal.user.key) | trim }}
 {{ end -}}
