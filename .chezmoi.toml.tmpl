@@ -4,10 +4,9 @@
 {{- end -}}
 
 [data]
-{{- $data := .chezmoi.config.data }}
 
 [data.keyboard]
-enabled = {{ $keyboard_enabled := promptBoolOnce $data "keyboard.enabled" "Setup keyboard" }}{{ $keyboard_enabled }}
+enabled = {{ $keyboard_enabled := promptBoolOnce . "keyboard.enabled" "Setup keyboard" }}{{ $keyboard_enabled }}
 
 {{- if $keyboard_enabled }}
 caps2ctrl = {{ promptBoolOnce . "keyboard.caps2ctrl" "Change CapsLock to Control" }}
@@ -19,10 +18,10 @@ interval = 15
 {{- end }}
 
 [data.ui]
-theme = {{ promptChoiceOnce $data "ui.theme" "[ui] theme" (list "dark" "light" "auto") | quote }}
+theme = {{ promptChoiceOnce . "ui.theme" "[ui] theme" (list "dark" "light" "auto") | quote }}
 
 [data.git]
-enabled = {{ $git_enabled := promptBoolOnce $data "git.enabled" "Setup git" }}{{ $git_enabled }}
+enabled = {{ $git_enabled := promptBoolOnce . "git.enabled" "Setup git" }}{{ $git_enabled }}
 
 {{- if $git_enabled }}
 
@@ -31,81 +30,81 @@ enabled = {{ $git_enabled := promptBoolOnce $data "git.enabled" "Setup git" }}{{
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
 [data.git.code]
-enabled = {{ $git_code_enabled := promptBoolOnce $data "git.code.enabled" "Setup git code dir config (~/code/gitconfig)" }}{{ $git_code_enabled }}
+enabled = {{ $git_code_enabled := promptBoolOnce . "git.code.enabled" "Setup git code dir config (~/code/gitconfig)" }}{{ $git_code_enabled }}
 
 {{- if $git_code_enabled }}
 
 [data.git.code.user]
-name = {{ promptStringOnce $data "git.code.user.name" "[git] code.user.name" $default_git_user_name | quote }}
-email = {{ promptStringOnce $data "git.code.user.email" "[git] code.user.email" $default_git_user_email | quote }}
-key = {{ promptStringOnce $data "git.code.user.key" "[git] code.user.key" (joinPath $ssh_dir "code") | quote }}
+name = {{ promptStringOnce . "git.code.user.name" "[git] code.user.name" $default_git_user_name | quote }}
+email = {{ promptStringOnce . "git.code.user.email" "[git] code.user.email" $default_git_user_email | quote }}
+key = {{ promptStringOnce . "git.code.user.key" "[git] code.user.key" (joinPath $ssh_dir "code") | quote }}
 
 {{- end }}
 
 [data.git.work]
-enabled = {{ $git_work_enabled := promptBoolOnce $data "git.work.enabled" "Setup git work dir config (~/work/gitconfig)" }}{{ $git_work_enabled }}
+enabled = {{ $git_work_enabled := promptBoolOnce . "git.work.enabled" "Setup git work dir config (~/work/gitconfig)" }}{{ $git_work_enabled }}
 
 {{- if $git_work_enabled }}
 
 [data.git.work.user]
-name = {{ promptStringOnce $data "git.work.user.name" "[git] work.user.name" $default_git_user_name | quote }}
-email = {{ promptStringOnce $data "git.work.user.email" "[git] work.user.email" $default_git_user_email | quote }}
-key = {{ promptStringOnce $data "git.work.user.key" "[git] work.user.key" (joinPath $ssh_dir "work") | quote }}
+name = {{ promptStringOnce . "git.work.user.name" "[git] work.user.name" $default_git_user_name | quote }}
+email = {{ promptStringOnce . "git.work.user.email" "[git] work.user.email" $default_git_user_email | quote }}
+key = {{ promptStringOnce . "git.work.user.key" "[git] work.user.key" (joinPath $ssh_dir "work") | quote }}
 
 {{- end }}
 
 [data.git.personal]
-enabled = {{ $git_personal_enabled := promptBoolOnce $data "git.personal.enabled" "Setup git personal dir config (~/personal/gitconfig)" }}{{ $git_personal_enabled }}
+enabled = {{ $git_personal_enabled := promptBoolOnce . "git.personal.enabled" "Setup git personal dir config (~/personal/gitconfig)" }}{{ $git_personal_enabled }}
 
 {{- if $git_personal_enabled }}
 
 [data.git.personal.user]
-name = {{ promptStringOnce $data "git.personal.user.name" "[git] personal.user.name" $default_git_user_name | quote }}
-email = {{ promptStringOnce $data "git.personal.user.email" "[git] personal.user.email" $default_git_user_email | quote }}
-key = {{ promptStringOnce $data "git.personal.user.key" "[git] personal.user.key" (joinPath $ssh_dir "personal") | quote }}
+name = {{ promptStringOnce . "git.personal.user.name" "[git] personal.user.name" $default_git_user_name | quote }}
+email = {{ promptStringOnce . "git.personal.user.email" "[git] personal.user.email" $default_git_user_email | quote }}
+key = {{ promptStringOnce . "git.personal.user.key" "[git] personal.user.key" (joinPath $ssh_dir "personal") | quote }}
 
 {{- end }}
 
 {{- end }}
 
 [data.zsh]
-enabled = {{ promptBoolOnce $data "zsh.enabled" "Setup zsh" }}
+enabled = {{ promptBoolOnce . "zsh.enabled" "Setup zsh" }}
 
 [data.helix]
-enabled = {{ promptBoolOnce $data "helix.enabled" "Setup helix" }}
+enabled = {{ promptBoolOnce . "helix.enabled" "Setup helix" }}
 executable = "hx"
 
 [data.alacritty]
-enabled = {{ $alacritty_enabled := promptBoolOnce $data "alacritty.enabled" "Setup alacritty" }}{{ $alacritty_enabled }}
+enabled = {{ $alacritty_enabled := promptBoolOnce . "alacritty.enabled" "Setup alacritty" }}{{ $alacritty_enabled }}
 
 {{- if $alacritty_enabled }}
 
 [data.alacritty.font]
-pragmata = {{ promptBoolOnce $data "alacritty.font.pragmata" "Use PragmataPro for Alacritty" }}
-size = {{ promptIntOnce $data "alacritty.font.size" "[alacritty] font size" 16 }}
+pragmata = {{ promptBoolOnce . "alacritty.font.pragmata" "Use PragmataPro for Alacritty" }}
+size = {{ promptIntOnce . "alacritty.font.size" "[alacritty] font size" 16 }}
 
 {{- end }}
 
 [data.bat]
-enabled = {{ promptBoolOnce $data "bat.enabled" "Setup bat" }}
+enabled = {{ promptBoolOnce . "bat.enabled" "Setup bat" }}
 
 [data.eza]
-enabled = {{ promptBoolOnce $data "eza.enabled" "Setup eza" }}
+enabled = {{ promptBoolOnce . "eza.enabled" "Setup eza" }}
 
 [data.ripgrep]
-enabled = {{ promptBoolOnce $data "ripgrep.enabled" "Setup ripgrep" }}
+enabled = {{ promptBoolOnce . "ripgrep.enabled" "Setup ripgrep" }}
 
 [data.fd]
-enabled = {{ promptBoolOnce $data "fd.enabled" "Setup fd" }}
+enabled = {{ promptBoolOnce . "fd.enabled" "Setup fd" }}
 
 [data.sd]
-enabled = {{ promptBoolOnce $data "sd.enabled" "Setup sd" }}
+enabled = {{ promptBoolOnce . "sd.enabled" "Setup sd" }}
 
 [data.duf]
-enabled = {{ promptBoolOnce $data "duf.enabled" "Setup duf" }}
+enabled = {{ promptBoolOnce . "duf.enabled" "Setup duf" }}
 
 [data.dust]
-enabled = {{ promptBoolOnce $data "dust.enabled" "Setup dust" }}
+enabled = {{ promptBoolOnce . "dust.enabled" "Setup dust" }}
 
 [data.procs]
-enabled = {{ promptBoolOnce $data "procs.enabled" "Setup procs" }}
+enabled = {{ promptBoolOnce . "procs.enabled" "Setup procs" }}
