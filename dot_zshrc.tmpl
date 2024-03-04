@@ -117,20 +117,6 @@ gprefix=':g'
 zstyle ':zim:git' aliases-prefix "${gprefix}"
 z4h load --compile zimfw/git
 
-# cocogitto (cg)
-alias :cgk='cog check --ignore-merge-commits'
-alias :cgc='cog commit --edit'
-alias :cgm='cog commit'
-alias :cgM='cog commit --breaking-change'
-alias :cgf='cog edit'
-alias :cgi='cog init'
-alias :cgl='cog log'
-alias :cgL='cog changelog'
-alias :cgb='cog bump --auto'
-alias :cgh='cog install-hook --all'
-alias :cghc='cog install-hook commit-msg'
-alias :cghp='cog install-hook pre-push'
-
 # difftastic
 alias ${gprefix}wdp="${aliases[${gprefix}wd]/ --no-ext-diff/} --no-ext-diff"
 alias ${gprefix}wd="${aliases[${gprefix}wd]/ --no-ext-diff/} --ext-diff"
