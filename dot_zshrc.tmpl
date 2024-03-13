@@ -139,10 +139,8 @@ unset gprefix
 {{- if .eza.enabled }}
 
 alias ls=eza
-alias :t='eza --tree --git-ignore'
-alias :ta='eza --tree --git-ignore --all'
-alias :T='eza --tree'
-alias :Ta='eza --tree --all'
+alias :t='eza --tree --all --git-ignore'
+alias :ta='eza --tree --all'
 
 {{- end }}
 
