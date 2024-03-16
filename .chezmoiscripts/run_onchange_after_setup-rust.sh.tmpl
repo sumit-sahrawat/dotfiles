@@ -4,6 +4,13 @@ set -euo pipefail
 
 {{- if .rust.enabled }}
 
-rustup-init -y --default-toolchain stable --component rust-analyzer --profile default --no-modify-path
+
+rustup-init \
+  -y \
+  --no-modify-path \
+  --profile default \
+  --default-toolchain stable \
+  --component rust-analyzer \
+  --component rust-src
 
 {{- end }}
