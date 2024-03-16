@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- if .rust.enabled }}
+
+rustup-init -y --default-toolchain stable --component rust-analyzer --profile default --no-modify-path
+
+{{- end }}

@@ -98,7 +98,7 @@ alias o='open'
 alias q='exit'
 
 # System upgrade
-alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade && z4h update'
+alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .rust.enabled }} && rustup update {{- end }} && z4h update'
 
 # chezmoi
 alias :ha='chezmoi add'
