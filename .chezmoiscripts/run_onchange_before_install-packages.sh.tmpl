@@ -84,6 +84,13 @@ fi
 ) }}
 {{- end }}
 
+{{- if .rust.enabled }}
+{{- $brews = concat $brews (list
+	"rust"
+	"rust-analyzer"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"

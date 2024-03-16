@@ -60,6 +60,9 @@ setopt no_auto_cd    # don't cd without cd
 # Extend PATH.
 path=(
 	~/.local/bin
+{{- if .rust.enabled }}
+	~/.cargo/bin
+{{- end }}
 	$path
 )
 
