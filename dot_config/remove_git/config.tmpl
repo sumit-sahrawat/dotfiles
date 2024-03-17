@@ -19,16 +19,16 @@
 [gpg "ssh"]
 	allowedSignersFile = ~/.config/git/allowed_signers
 {{- if .git.code.enabled }}
-[includeIf "gitdir:~/code/**"]
-	path = ~/code/.gitconfig
+[includeIf "gitdir:~/Code/**"]
+	path = ~/Code/.gitconfig
 {{- end }}
 {{- if .git.work.enabled }}
-[includeIf "gitdir:~/work/**"]
-	path = ~/work/.gitconfig
+[includeIf "gitdir:~/Work/**"]
+	path = ~/Work/.gitconfig
 {{- end }}
 {{- if .git.personal.enabled }}
-[includeIf "gitdir:~/personal/**"]
-	path = ~/personal/.gitconfig
+[includeIf "gitdir:~/Personal/**"]
+	path = ~/Personal/.gitconfig
 {{- end }}
 
 {{- end }}
