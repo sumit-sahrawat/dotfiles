@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- if .bat.enabled }}
+
+{{- if ne .ui.theme "auto" }}
+
+# {{ output "git" "-C" (joinPath .chezmoi.homeDir ".config/bat/themes/catppuccin") "rev-parse" "HEAD" }}
+bat cache --build
+
+{{- end }}
+
+{{- end }}
