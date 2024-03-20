@@ -34,7 +34,7 @@ enabled = {{ $git_enabled := promptBoolOnce . "git.enabled" "Setup git" }}{{ $gi
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
 [data.git.code]
-enabled = {{ $git_code_enabled := promptBoolOnce . "git.code.enabled" "Setup git code dir config (~/code/gitconfig)" }}{{ $git_code_enabled }}
+enabled = {{ $git_code_enabled := promptBoolOnce . "git.code.enabled" "Setup git code dir (~/Code)" }}{{ $git_code_enabled }}
 
 {{- if $git_code_enabled }}
 
@@ -47,7 +47,7 @@ key = {{ joinPath $ssh_dir $git_code_user_key_name | quote }}
 {{- end }}
 
 [data.git.work]
-enabled = {{ $git_work_enabled := promptBoolOnce . "git.work.enabled" "Setup git work dir config (~/work/gitconfig)" }}{{ $git_work_enabled }}
+enabled = {{ $git_work_enabled := promptBoolOnce . "git.work.enabled" "Setup git work dir (~/Work)" }}{{ $git_work_enabled }}
 
 {{- if $git_work_enabled }}
 
@@ -60,7 +60,7 @@ key = {{ joinPath $ssh_dir $git_work_user_key_name | quote }}
 {{- end }}
 
 [data.git.personal]
-enabled = {{ $git_personal_enabled := promptBoolOnce . "git.personal.enabled" "Setup git personal dir config (~/personal/gitconfig)" }}{{ $git_personal_enabled }}
+enabled = {{ $git_personal_enabled := promptBoolOnce . "git.personal.enabled" "Setup git personal dir (~/Personal)" }}{{ $git_personal_enabled }}
 
 {{- if $git_personal_enabled }}
 
