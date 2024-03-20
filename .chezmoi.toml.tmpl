@@ -23,6 +23,9 @@ enabled = {{ promptBoolOnce . "mouse.enabled" "Setup mouse" }}
 [data.ui]
 theme = {{ promptChoiceOnce . "ui.theme" "[ui] theme" (list "dark" "light" "auto") | quote }}
 
+[data.ui.amethyst]
+enabled = {{ promptBoolOnce . "ui.amethyst.enabled" "Setup amethyst" }}
+
 [data.git]
 enabled = {{ $git_enabled := promptBoolOnce . "git.enabled" "Setup git" }}{{ $git_enabled }}
 

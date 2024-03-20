@@ -30,6 +30,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .ui.amethyst.enabled }}
+{{- $casks = concat $casks (list
+	"amethyst"
+) }}
+{{- end }}
+
 {{- if .helix.enabled }}
 {{- $brews = concat $brews (list
 	"helix"
