@@ -17,6 +17,9 @@ interval = 15
 
 {{- end }}
 
+[data.mouse]
+enabled = {{ promptBoolOnce . "mouse.enabled" "Setup mouse" }}
+
 [data.ui]
 theme = {{ promptChoiceOnce . "ui.theme" "[ui] theme" (list "dark" "light" "auto") | quote }}
 

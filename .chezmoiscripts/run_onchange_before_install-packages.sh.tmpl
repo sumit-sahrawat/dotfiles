@@ -9,6 +9,12 @@ fi
 {{- $brews := list }}
 {{- $casks := list }}
 
+{{- if .mouse.enabled }}
+{{- $casks = concat $casks (list
+	"unnaturalscrollwheels"
+) }}
+{{- end }}
+
 {{- if .git.enabled }}
 {{- $brews = concat $brews (list
 	"git"
