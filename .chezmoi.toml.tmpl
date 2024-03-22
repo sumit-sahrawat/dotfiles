@@ -23,6 +23,60 @@ enabled = {{ promptBoolOnce . "mouse.enabled" "Setup mouse" }}
 [data.ui]
 theme = {{ promptChoiceOnce . "ui.theme" "[ui] theme" (list "dark" "light" "auto") | quote }}
 
+[data.ui.hot_corners]
+enabled = {{ $ui_hot_corners_enabled := promptBoolOnce . "ui.hot_corners.enabled" "Setup hot corners" }}{{ $ui_hot_corners_enabled }}
+
+{{- if $ui_hot_corners_enabled }}
+
+{{-
+	$ui_hot_corners_dict := dict
+		"no-op"                "0"
+		"mission-control"      "2"
+		"app-windows"          "3"
+		"desktop"              "4"
+		"screen-saver"         "5"
+		"disable-screen-saver" "6"
+		"dashboard"            "7"
+		"sleep"                "10"
+		"launchpad"            "11"
+		"notification-center"  "12"
+		"lock"                 "13"
+}}
+
+[data.ui.hot_corners.top_left]
+action = {{
+	$ui_hot_corners_top_left_action := "mission-control"
+}}{{
+	$ui_hot_corners_top_left_action | quote 
+}}
+id = {{ get $ui_hot_corners_dict $ui_hot_corners_top_left_action }}
+
+[data.ui.hot_corners.top_right]
+action = {{
+	$ui_hot_corners_top_right_action := "app-windows"
+}}{{
+	$ui_hot_corners_top_right_action | quote
+}}
+id = {{ get $ui_hot_corners_dict $ui_hot_corners_top_right_action }}
+
+[data.ui.hot_corners.bottom_left]
+action = {{
+	$ui_hot_corners_bottom_left_action := "no-op"
+}}{{
+	$ui_hot_corners_bottom_left_action | quote
+}}
+id = {{ get $ui_hot_corners_dict $ui_hot_corners_bottom_left_action }}
+
+[data.ui.hot_corners.bottom_right]
+action = {{
+	$ui_hot_corners_bottom_right_action := "no-op"
+}}{{
+	$ui_hot_corners_bottom_right_action | quote
+}}
+id = {{ get $ui_hot_corners_dict $ui_hot_corners_bottom_right_action }}
+
+{{- end }}
+
 [data.git]
 enabled = {{ $git_enabled := promptBoolOnce . "git.enabled" "Setup git" }}{{ $git_enabled }}
 
