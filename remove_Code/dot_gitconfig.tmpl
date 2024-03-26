@@ -5,6 +5,6 @@
 	email = {{ .git.code.user.email }}
 	signingkey = {{ .git.code.user.key }}
 [core]
-	sshCommand = "ssh -i {{ .git.code.user.key | squote }} -o IdentitiesOnly=yes -F /dev/null"
+	sshCommand = "ssh -i {{ .git.code.user.key | squote }} -o IdentitiesOnly=yes"
 
 {{- end }}
