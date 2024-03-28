@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#
+# A script to clone/fork/sync multiple git repos listed in a file in a sequence
+# using the `gh` command line tool. The input file should have the following
+# structure:
+#
+# (space)*(operation: [clone | fork])(space)+(url)(space)+(directory)(space)*
+#
+# Lines beginning with hash (#) are ignored.
+
+set -euo pipefail
+
+if [[ ${#} -ne 1 ]]; then
+  echo "Usage: ${0} [repos.txt]"
+  exit 0
+fi
+
+function failed_to {
+  #printf "\e[31m✗\e[m Failed to %s \e[36m%s\e[m to \e[34m%s\e[m\n" "${1}" "${2}" "${3}"
+  >&2 printf "\e[31m✗\e[m Failed to %s %s to %s\n" "${1}" "${2}" "${3}"
+}
+
+while read -r line; do
+  cmd="$(echo "${line}" | cut -f1)"
+  repo="$(echo "${line}" | cut -f2)"
+  target="$(echo "${line}" | cut -f3)"
+
+  if [[ -d "${target}" ]]; then
+    (cd "${target}"; gh repo sync || failed_to 'sync' "${repo}" "${target}")
+  else
+    case ${cmd} in
+      clone) gh repo clone "${repo}" "${target}" || failed_to 'clone' "${repo}" "${target}" ;;
+      fork)  gh repo fork --clone "${repo}" "${target}" || failed_to 'fork and clone' "${repo}" "${target}" ;;
+      *) failed_to "${cmd}" "${repo}" "${target}"
+    esac
+  fi
+done < <(sed -E -e '/^( |\t)*(#|$)/d' -e 's/  */\t/g' "${1}")
