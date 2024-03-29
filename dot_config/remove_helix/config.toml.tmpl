@@ -1,6 +1,6 @@
 {{- if .helix.enabled -}}
 
-theme = "catppuccin_{{ includeTemplate "catppuccin-flavor" . }}"
+theme = "catppuccin_{{ .ui.palette }}"
 
 [editor]
 cursorline = true

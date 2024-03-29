@@ -1,6 +1,6 @@
 {{- if .alacritty.enabled -}}
 
-import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "catppuccin-flavor" . }}.toml" ]
+import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ .ui.palette }}.toml" ]
 
 [font]
 size = {{ .terminal.font.size }}

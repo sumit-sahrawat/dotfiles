@@ -1,10 +1,5 @@
 {{- if .bat.enabled -}}
 
-{{- $theme := "ansi" -}}
-{{- if ne .ui.theme "auto" -}}
-{{-   $theme = printf "Catppuccin %s" (includeTemplate "catppuccin-flavor" . | title) }}
-{{- end -}}
-
---theme={{ $theme | quote }}
+--theme="Catppuccin {{ .ui.palette | title }}"
 
 {{- end }}

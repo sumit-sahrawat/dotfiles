@@ -23,12 +23,6 @@ fi
 ) }}
 {{- end }}
 
-{{- if eq .ui.theme "auto" }}
-{{- $brews = concat $brews (list
-	"dark-mode"
-) }}
-{{- end }}
-
 {{- if .helix.enabled }}
 {{- $brews = concat $brews (list
 	"helix"
