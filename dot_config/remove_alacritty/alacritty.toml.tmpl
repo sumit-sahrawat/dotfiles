@@ -3,9 +3,9 @@
 import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "catppuccin-flavor" . }}.toml" ]
 
 [font]
-size = {{ .alacritty.font.size }}
+size = {{ .terminal.font.size }}
 
-{{- if .alacritty.font.pragmata }}
+{{- if .terminal.font.pragmata }}
 
 [font.normal]
 family = "PragmataPro Mono"

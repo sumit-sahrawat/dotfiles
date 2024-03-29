@@ -178,11 +178,25 @@ enabled = {{
 	$alacritty_enabled
 }}
 
-{{- if $alacritty_enabled }}
+[data.kitty]
+enabled = {{
+	$kitty_enabled := promptBoolOnce . "kitty.enabled" "Setup kitty"
+}}{{
+	$kitty_enabled
+}}
 
-[data.alacritty.font]
-pragmata = {{ promptBoolOnce . "alacritty.font.pragmata" "Use PragmataPro for Alacritty" }}
-size = {{ promptIntOnce . "alacritty.font.size" "[alacritty] font size" 16 }}
+[data.terminal]
+enabled = {{
+	$terminal_enabled := or $alacritty_enabled $terminal_enabled
+}}{{
+	$terminal_enabled
+}}
+
+{{- if $terminal_enabled }}
+
+[data.terminal.font]
+pragmata = {{ promptBoolOnce . "terminal.font.pragmata" "Use PragmataPro for terminal" }}
+size = {{ promptIntOnce . "terminal.font.size" "[terminal] font size" 16 }}
 
 {{- end }}
 

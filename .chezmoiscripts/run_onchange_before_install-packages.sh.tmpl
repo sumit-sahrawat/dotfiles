@@ -41,6 +41,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .kitty.enabled }}
+{{- $casks = concat $casks (list
+	"kitty"
+) }}
+{{- end }}
+
 {{- if .bat.enabled }}
 {{- $brews = concat $brews (list
 	"bat"
