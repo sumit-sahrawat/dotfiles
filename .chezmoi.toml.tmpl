@@ -195,7 +195,13 @@ enabled = {{
 {{- if $terminal_enabled }}
 
 [data.terminal.font]
-pragmata = {{ promptBoolOnce . "terminal.font.pragmata" "Use PragmataPro for terminal" }}
+pragmata = {{
+	$terminal_font_pragmata := promptBoolOnce . "terminal.font.pragmata"
+		"Use PragmataPro for terminal" false
+}}{{
+	$terminal_font_pragmata
+}}
+family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $terminal_font_pragmata | quote }}
 size = {{ promptIntOnce . "terminal.font.size" "[terminal] font size" 16 }}
 
 {{- end }}

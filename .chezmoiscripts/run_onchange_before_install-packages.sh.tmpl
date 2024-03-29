@@ -47,6 +47,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if and .terminal.enabled (not .terminal.font.pragmata) }}
+{{- $casks = concat $casks (list
+	"homebrew/cask-fonts/font-iosevka-ss08"
+) }}
+{{- end }}
+
 {{- if .bat.enabled }}
 {{- $brews = concat $brews (list
 	"bat"

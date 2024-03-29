@@ -5,12 +5,8 @@ import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "catppu
 [font]
 size = {{ .terminal.font.size }}
 
-{{- if .terminal.font.pragmata }}
-
 [font.normal]
-family = "PragmataPro Mono"
-
-{{- end }}
+family = {{ .terminal.font.family | quote }}
 
 [window]
 option_as_alt = "Both"
