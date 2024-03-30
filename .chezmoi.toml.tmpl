@@ -167,7 +167,8 @@ pragmata = {{
 }}{{
 	$terminal_font_pragmata
 }}
-family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $terminal_font_pragmata | quote }}
+non_liga_family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $terminal_font_pragmata | quote }}
+liga_family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $terminal_font_pragmata | quote }}
 size = {{ promptIntOnce . "terminal.font.size" "[terminal] font size" 16 }}
 
 {{- end }}

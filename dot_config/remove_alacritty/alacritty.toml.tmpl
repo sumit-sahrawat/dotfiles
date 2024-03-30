@@ -6,7 +6,7 @@ import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ .ui.palette }}.toml" ]
 size = {{ .terminal.font.size }}
 
 [font.normal]
-family = {{ .terminal.font.family | quote }}
+family = {{ .terminal.font.non_liga_family | quote }}
 
 [window]
 option_as_alt = "Both"
