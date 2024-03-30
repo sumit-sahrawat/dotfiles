@@ -6,84 +6,50 @@
 [data]
 
 [data.keyboard]
-enabled = {{
-	$keyboard_enabled := promptBoolOnce . "keyboard.enabled" "Setup keyboard"
-}}{{
-	$keyboard_enabled
-}}
-
-{{- if $keyboard_enabled }}
 caps2ctrl = {{ promptBoolOnce . "keyboard.caps2ctrl" "Change CapsLock to Control" }}
 
 [data.keyboard.repeat]
 delay = 195
 interval = 15
 
-{{- end }}
-
 [data.mouse]
-enabled = {{ promptBoolOnce . "mouse.enabled" "Setup mouse" }}
+fix_scroll = {{ promptBoolOnce . "mouse.fix_scroll" "Fix scrolling for mouse wheels" }}
 
 [data.ui]
 palette = {{ promptChoiceOnce . "ui.palette" "Catppuccin palette" (list "mocha" "macchiato" "frappe" "latte") | quote }}
 
 [data.ui.hot_corners]
-enabled = {{
-	$ui_hot_corners_enabled := promptBoolOnce . "ui.hot_corners.enabled" "Setup hot corners"
-}}{{
-	$ui_hot_corners_enabled
-}}
 
-{{- if $ui_hot_corners_enabled }}
+{{- $name_map := dict
 
-{{-
-	$ui_hot_corners_dict := dict
-		"no-op"                "0"
-		"mission-control"      "2"
-		"app-windows"          "3"
-		"desktop"              "4"
-		"screen-saver"         "5"
-		"disable-screen-saver" "6"
-		"dashboard"            "7"
-		"sleep"                "10"
-		"launchpad"            "11"
-		"notification-center"  "12"
-		"lock"                 "13"
+	"no-op"                "0"
+	"mission-control"      "2"
+	"app-windows"          "3"
+	"desktop"              "4"
+	"screen-saver"         "5"
+	"disable-screen-saver" "6"
+	"dashboard"            "7"
+	"sleep"                "10"
+	"launchpad"            "11"
+	"notification-center"  "12"
+	"lock"                 "13"
 }}
 
 [data.ui.hot_corners.top_left]
-action = {{
-	$ui_hot_corners_top_left_action := "mission-control"
-}}{{
-	$ui_hot_corners_top_left_action | quote 
-}}
-id = {{ get $ui_hot_corners_dict $ui_hot_corners_top_left_action }}
+name = {{ $name := "mission-control" }}{{ $name | quote }}
+id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.top_right]
-action = {{
-	$ui_hot_corners_top_right_action := "app-windows"
-}}{{
-	$ui_hot_corners_top_right_action | quote
-}}
-id = {{ get $ui_hot_corners_dict $ui_hot_corners_top_right_action }}
+name = {{ $name := "app-windows" }}{{ $name | quote }}
+id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.bottom_left]
-action = {{
-	$ui_hot_corners_bottom_left_action := "no-op"
-}}{{
-	$ui_hot_corners_bottom_left_action | quote
-}}
-id = {{ get $ui_hot_corners_dict $ui_hot_corners_bottom_left_action }}
+name = {{ $name := "no-op" }}{{ $name | quote }}
+id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.bottom_right]
-action = {{
-	$ui_hot_corners_bottom_right_action := "no-op"
-}}{{
-	$ui_hot_corners_bottom_right_action | quote
-}}
-id = {{ get $ui_hot_corners_dict $ui_hot_corners_bottom_right_action }}
-
-{{- end }}
+name = {{ $name := "no-op" }}{{ $name | quote }}
+id = {{ get $name_map $name }}
 
 [data.git]
 enabled = {{

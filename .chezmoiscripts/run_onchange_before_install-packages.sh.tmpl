@@ -9,7 +9,7 @@ fi
 {{- $brews := list }}
 {{- $casks := list }}
 
-{{- if .mouse.enabled }}
+{{- if .mouse.fix_scroll }}
 {{- $casks = concat $casks (list
 	"unnaturalscrollwheels"
 ) }}

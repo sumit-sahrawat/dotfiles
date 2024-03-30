@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-{{- if .keyboard.enabled }}
-
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -15,5 +13,3 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain InitialKeyRepeat -int {{ div .keyboard.repeat.delay 15 }}
 defaults write NSGlobalDomain KeyRepeat -int {{ div .keyboard.repeat.interval 15 }}
-
-{{- end }}
