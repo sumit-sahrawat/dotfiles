@@ -187,8 +187,14 @@ enabled = {{ promptBoolOnce . "fd.enabled" "Setup fd" }}
 [data.sd]
 enabled = {{ promptBoolOnce . "sd.enabled" "Setup sd" }}
 
+[data.bottom]
+enabled = {{ promptBoolOnce . "bottom.enabled" "Setup bottom" }}
+
 [data.duf]
 enabled = {{ promptBoolOnce . "duf.enabled" "Setup duf" }}
+
+[data.bandwhich]
+enabled = {{ promptBoolOnce . "bandwhich.enabled" "Setup bandwhich" }}
 
 [data.dust]
 enabled = {{ promptBoolOnce . "dust.enabled" "Setup dust" }}
@@ -198,3 +204,12 @@ enabled = {{ promptBoolOnce . "procs.enabled" "Setup procs" }}
 
 [data.rust]
 enabled = {{ promptBoolOnce . "rust.enabled" "Setup rust" }}
+
+[data.tokei]
+enabled = {{ promptBoolOnce . "tokei.enabled" "Setup tokei" }}
+
+[data.hyperfine]
+enabled = {{ promptBoolOnce . "hyperfine.enabled" "Setup hyperfine" }}
+
+[data.tealdeer]
+enabled = {{ promptBoolOnce . "tealdeer.enabled" "Setup tealdeer" }}

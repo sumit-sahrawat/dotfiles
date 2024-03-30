@@ -77,9 +77,21 @@ fi
 ) }}
 {{- end }}
 
+{{- if .bottom.enabled }}
+{{- $brews = concat $brews (list
+	"bottom"
+) }}
+{{- end }}
+
 {{- if .duf.enabled }}
 {{- $brews = concat $brews (list
 	"duf"
+) }}
+{{- end }}
+
+{{- if .bandwhich.enabled }}
+{{- $brews = concat $brews (list
+	"bandwhich"
 ) }}
 {{- end }}
 
@@ -98,6 +110,24 @@ fi
 {{- if .rust.enabled }}
 {{- $brews = concat $brews (list
 	"rustup"
+) }}
+{{- end }}
+
+{{- if .tokei.enabled }}
+{{- $brews = concat $brews (list
+	"tokei"
+) }}
+{{- end }}
+
+{{- if .hyperfine.enabled }}
+{{- $brews = concat $brews (list
+	"hyperfine"
+) }}
+{{- end }}
+
+{{- if .tealdeer.enabled }}
+{{- $brews = concat $brews (list
+	"tealdeer"
 ) }}
 {{- end }}
 
