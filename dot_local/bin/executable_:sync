@@ -6,13 +6,13 @@
 #
 # (space)*(operation: [clone | fork])(space)+(url)(space)+(directory)(space)*
 #
-# Lines beginning with hash (#) are ignored.
+# Empty lines and those beginning with hash (#) are ignored.
 
 set -euo pipefail
 
 if [[ ${#} -ne 1 ]]; then
   echo "Usage: ${0} [repos.txt]"
-  exit 0
+  exit 1
 fi
 
 function failed_to {
