@@ -28,8 +28,8 @@ map ctrl+shift+k        scroll_line_up
 map cmd+k               scroll_line_up
 map ctrl+shift+j        scroll_line_down
 map cmd+j               scroll_line_down
-map ctrl+shift+s        show_scrollback
-map cmd+s               show_scrollback
+map ctrl+shift+p        show_scrollback
+map cmd+p               show_scrollback
 
 # window management
 map ctrl+shift+enter    new_window_with_cwd
@@ -38,12 +38,12 @@ map ctrl+shift+n        new_os_window_with_cwd
 map cmd+n               new_os_window_with_cwd
 map ctrl+shift+w        close_window
 map cmd+w               close_window
-map ctrl+shift+f        next_layout
-map cmd+f               next_layout
-map ctrl+shift+h        previous_window
-map cmd+h               previous_window
-map ctrl+shift+l        next_window
-map cmd+l               next_window
+map ctrl+shift+l        next_layout
+map cmd+l               next_layout
+map ctrl+shift+[        previous_window
+map cmd+[               previous_window
+map ctrl+shift+]        next_window
+map cmd+]               next_window
 map ctrl+shift+1        first_window
 map cmd+1               first_window
 map ctrl+shift+2        second_window
@@ -112,12 +112,13 @@ map ctrl+shift+o>u      kitten hints --type url
 # miscellaneous
 map ctrl+shift+r        load_config_file
 map cmd+r               load_config_file
-map ctrl+shift+esc      debug_config
-map cmd+esc             debug_config
-map ctrl+shift+;        kitty_shell window
-map cmd+;               kitty_shell window
-map ctrl+shift+x        toggle_maximize
-map cmd+x               toggle_maximize
+map ctrl+shift+;        debug_config
+map cmd+;               debug_config
+map cmd+ctrl+f          toggle_fullscreen
+map ctrl+shift+f        toggle_maximized
+map cmd+f               toggle_maximized
+map ctrl+shift+h        hide_macos_app
+map cmd+h               hide_macos_app
 map ctrl+shift+m        minimize_macos_window
 map cmd+m               minimize_macos_window
 map ctrl+shift+q        quit
