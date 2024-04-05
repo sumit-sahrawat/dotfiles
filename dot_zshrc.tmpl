@@ -35,6 +35,8 @@ zstyle ':z4h:'                term-shell-integration 'yes'
 zstyle ':z4h:autosuggestions' forward-char 'partial-accept'
 zstyle ':z4h:autosuggestions' end-of-line 'partial-accept'
 
+# Instruct zsh4humans to use fzf from PATH.
+zstyle ':z4h:*'               fzf-command fzf
 zstyle ':z4h:fzf-complete'    recurse-dirs 'yes'
 zstyle ':z4h:*'               fzf-flags "${FZF_DEFAULT_OPTS}"
 

@@ -9,6 +9,12 @@ fi
 {{- $brews := list }}
 {{- $casks := list }}
 
+{{- if .zsh.enabled }}
+{{- $brews = concat $brews (list
+	"fzf"
+) }}
+{{- end }}
+
 {{- if .mouse.fix_scroll }}
 {{- $casks = concat $casks (list
 	"unnaturalscrollwheels"
