@@ -165,7 +165,7 @@ function :mpv {
 }
 
 function :yt {
-	yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
+	yt-dlp --downloader aria2c "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
 }
 
 {{- end }}
