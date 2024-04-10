@@ -15,6 +15,12 @@ export VISUAL=hx
 
 {{- end }}
 
+{{- if .bat.enabled }}
+
+export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
+
+{{- end }}
+
 ###############################################################################
 # zsh4humans (https://github.com/romkatv/zsh4humans/blob/v5/README.md)
 
