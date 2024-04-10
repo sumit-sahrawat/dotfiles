@@ -152,4 +152,16 @@ alias :ta='eza --tree --all --ignore-glob .git'
 
 {{- end }}
 
+{{- if .mpv.enabled }}
+
+function :mpv {
+	mpv "${@}" </dev/null &>/dev/null & disown
+}
+
+function :yt {
+	yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
+}
+
+{{- end }}
+
 {{- end }}
