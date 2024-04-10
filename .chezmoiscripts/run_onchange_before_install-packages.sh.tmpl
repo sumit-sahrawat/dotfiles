@@ -53,6 +53,13 @@ fi
 ) }}
 {{- end }}
 
+{{- if .mpv.enabled }}
+{{- $brews = concat $brews (list
+	"mpv"
+	"yt-dlp"
+) }}
+{{- end }}
+
 {{- if .bat.enabled }}
 {{- $brews = concat $brews (list
 	"bat"

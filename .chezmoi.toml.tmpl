@@ -173,6 +173,9 @@ size = {{ promptIntOnce . "terminal.font.size" "[terminal] font size" 16 }}
 
 {{- end }}
 
+[data.mpv]
+enabled = {{ promptBoolOnce . "mpv.enabled" "Setup mpv" }}
+
 [data.bat]
 enabled = {{ promptBoolOnce . "bat.enabled" "Setup bat" }}
 
