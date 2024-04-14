@@ -12,31 +12,31 @@ set -euo pipefail
 
 DEFAULT_LIST_FILE=repos.txt
 if [[ ${#} -eq 0 ]]; then
-  >&2 echo "Using default repo list file: ${DEFAULT_LIST_FILE}"
+	>&2 echo "Using default repo list file: ${DEFAULT_LIST_FILE}"
 fi
 LIST_FILE=${1:-${DEFAULT_LIST_FILE}}
 
 function failed_to {
-  #printf "\e[31m✗\e[m Failed to %s \e[36m%s\e[m to \e[34m%s\e[m\n" "${1}" "${2}" "${3}"
-  >&2 printf "\e[31m✗\e[m Failed to %s %s to %s\n" "${1}" "${2}" "${3}"
+	#printf "\e[31m✗\e[m Failed to %s \e[36m%s\e[m to \e[34m%s\e[m\n" "${1}" "${2}" "${3}"
+	>&2 printf "\e[31m✗\e[m Failed to %s %s to %s\n" "${1}" "${2}" "${3}"
 }
 
 function read_list_from {
-  sed -E -e '/^( |\t)*(#|$)/d' -e 's/  */\t/g' "${1}"
+	sed -E -e '/^( |\t)*(#|$)/d' -e 's/  */\t/g' "${1}"
 }
 
 while read -r line; do
-  cmd="$(echo "${line}" | cut -f1)"
-  repo="$(echo "${line}" | cut -f2)"
-  target="$(echo "${line}" | cut -f3)"
+	cmd="$(echo "${line}" | cut -f1)"
+	repo="$(echo "${line}" | cut -f2)"
+	target="$(echo "${line}" | cut -f3)"
 
-  if [[ -d "${target}" ]]; then
-    (cd "${target}"; gh repo sync || failed_to 'sync' "${repo}" "${target}")
-  else
-    case ${cmd} in
-      clone) gh repo clone "${repo}" "${target}" || failed_to 'clone' "${repo}" "${target}" ;;
-      fork)  gh repo fork --clone "${repo}" "${target}" || failed_to 'fork and clone' "${repo}" "${target}" ;;
-      *) failed_to "${cmd}" "${repo}" "${target}"
-    esac
-  fi
+	if [[ -d "${target}" ]]; then
+		(cd "${target}"; gh repo sync || failed_to 'sync' "${repo}" "${target}")
+	else
+		case ${cmd} in
+			clone) gh repo clone "${repo}" "${target}" || failed_to 'clone' "${repo}" "${target}" ;;
+			fork)  gh repo fork --clone "${repo}" "${target}" || failed_to 'fork and clone' "${repo}" "${target}" ;;
+			*) failed_to "${cmd}" "${repo}" "${target}"
+		esac
+	fi
 done < <(read_list_from "${LIST_FILE}")
