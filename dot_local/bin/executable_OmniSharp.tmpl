@@ -1,0 +1,7 @@
+{{- if .dotnet.enabled -}}
+
+#!/bin/sh
+
+exec dotnet ~/.local/share/omnisharp/OmniSharp.dll "${@}"
+
+{{- end -}}
