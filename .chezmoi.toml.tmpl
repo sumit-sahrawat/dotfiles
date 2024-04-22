@@ -34,21 +34,38 @@ palette = {{ promptChoiceOnce . "ui.palette" "Catppuccin palette" (list "mocha" 
 	"notification-center"  "12"
 	"lock"                 "13"
 }}
+{{- $name_list := keys $name_map }}
 
 [data.ui.hot_corners.top_left]
-name = {{ $name := "mission-control" }}{{ $name | quote }}
+name = {{
+	$name := promptChoiceOnce . "ui.hot_corners.top_left.name" "Hot-Corner top-left" $name_list "mission-control"
+}}{{
+	$name | quote
+}}
 id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.top_right]
-name = {{ $name := "app-windows" }}{{ $name | quote }}
+name = {{
+	$name := promptChoiceOnce . "ui.hot_corners.top_right.name" "Hot-Corner top-right" $name_list "app-windows"
+}}{{
+	$name | quote
+}}
 id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.bottom_left]
-name = {{ $name := "no-op" }}{{ $name | quote }}
+name = {{
+	$name := promptChoiceOnce . "ui.hot_corners.bottom_left.name" "Hot-Corner bottom-left" $name_list "no-op"
+}}{{
+	$name | quote
+}}
 id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.bottom_right]
-name = {{ $name := "no-op" }}{{ $name | quote }}
+name = {{
+	$name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "Hot-Corner bottom-right" $name_list "no-op"
+}}{{
+	$name | quote
+}}
 id = {{ get $name_map $name }}
 
 [data.git]
