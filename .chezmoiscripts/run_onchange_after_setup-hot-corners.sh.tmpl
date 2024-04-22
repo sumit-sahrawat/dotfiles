@@ -3,15 +3,15 @@
 set -euo pipefail
 
 defaults write com.apple.dock wvous-tl-corner -int {{ .ui.hot_corners.top_left.id }}
-defaults write com.apple.dock wvous-tl-modifier -int 0
+defaults write com.apple.dock wvous-tl-modifier -int 1048576
 
 defaults write com.apple.dock wvous-tr-corner -int {{ .ui.hot_corners.top_right.id }}
-defaults write com.apple.dock wvous-tr-modifier -int 0
+defaults write com.apple.dock wvous-tr-modifier -int 1048576
 
 defaults write com.apple.dock wvous-bl-corner -int {{ .ui.hot_corners.bottom_left.id }}
-defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-bl-modifier -int 1048576
 
 defaults write com.apple.dock wvous-br-corner -int {{ .ui.hot_corners.bottom_right.id }}
-defaults write com.apple.dock wvous-br-modifier -int 0
+defaults write com.apple.dock wvous-br-modifier -int 1048576
 
 killall Dock &>/dev/null
