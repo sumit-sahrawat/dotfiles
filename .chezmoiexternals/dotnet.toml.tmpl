@@ -1,8 +1,0 @@
-{{- if .dotnet.enabled -}}
-
-[".local/share/omnisharp"]
-type = "archive"
-url = "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/{{ (gitHubLatestRelease "OmniSharp/omnisharp-roslyn").TagName }}/omnisharp-osx-{{ .chezmoi.arch }}-net6.0.zip"
-exact = true
-
-{{- end }}
