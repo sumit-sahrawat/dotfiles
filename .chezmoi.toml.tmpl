@@ -124,27 +124,6 @@ key = {{ joinPath $ssh_dir $git_work_user_key_name | quote }}
 
 {{- end }}
 
-[data.git.personal]
-enabled = {{
-	$git_personal_enabled := promptBoolOnce . "git.personal.enabled" "Setup git personal dir (~/Personal)"
-}}{{
-	$git_personal_enabled
-}}
-
-{{- if $git_personal_enabled }}
-
-[data.git.personal.user]
-name = {{ promptStringOnce . "git.personal.user.name" "[git] personal.user.name" $default_git_user_name | quote }}
-email = {{ promptStringOnce . "git.personal.user.email" "[git] personal.user.email" $default_git_user_email | quote }}
-key_name = {{
-	$git_personal_user_key_name := promptStringOnce . "git.personal.user.key_name" "[git] personal.user.key_name" $default_git_user_key
-}}{{
-	$git_personal_user_key_name | quote
-}}
-key = {{ joinPath $ssh_dir $git_personal_user_key_name | quote }}
-
-{{- end }}
-
 {{- end }}
 
 [data.zsh]

@@ -26,9 +26,5 @@
 [includeIf "gitdir:~/Work/**"]
 	path = ~/Work/.gitconfig
 {{- end }}
-{{- if .git.personal.enabled }}
-[includeIf "gitdir:~/Personal/**"]
-	path = ~/Personal/.gitconfig
-{{- end }}
 
 {{- end }}

@@ -4,6 +4,3 @@
 {{ if .git.work.enabled -}}
 {{ .git.work.user.email }} {{ output "cat" (printf "%s.pub" .git.work.user.key) | trim }}
 {{ end -}}
-{{ if .git.personal.enabled -}}
-{{ .git.personal.user.email }} {{ output "cat" (printf "%s.pub" .git.personal.user.key) | trim }}
-{{ end -}}
