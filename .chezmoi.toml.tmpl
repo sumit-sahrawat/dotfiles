@@ -80,6 +80,7 @@ enabled = {{
 {{- $default_git_user_name := "Sumit Sahrawat" }}
 {{- $default_git_user_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
 {{- $default_git_user_key := "id_ed25519" }}
+{{- $default_git_user_github := "sumit-sahrawat" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
 [data.git.code]
@@ -101,6 +102,9 @@ key_name = {{
 }}
 key = {{ joinPath $ssh_dir $git_code_user_key_name | quote }}
 
+[data.git.code.github]
+username = {{ promptStringOnce . "git.code.github.username" "[git] code.github.username" $default_git_user_github | quote }}
+
 {{- end }}
 
 [data.git.work]
@@ -121,6 +125,21 @@ key_name = {{
 	$git_work_user_key_name | quote
 }}
 key = {{ joinPath $ssh_dir $git_work_user_key_name | quote }}
+
+[data.git.work.github]
+username = {{ promptStringOnce . "git.work.github.username" "[git] work.github.username" $default_git_user_github | quote }}
+
+[data.git.work.ghe]
+enabled = {{
+	$work_ghe_enabled := promptBoolOnce . "git.work.ghe.enabled" "Enable GHE support for ~/Work"
+}}{{
+	$work_ghe_enabled
+}}
+
+{{- if $work_ghe_enabled }}
+hostname = {{ promptStringOnce . "git.work.ghe.hostname" "[git] work.ghe.hostname" | quote }}
+username = {{ promptStringOnce . "git.work.ghe.username" "[git] work.ghe.username" $default_git_user_github | quote }}
+{{- end }}
 
 {{- end }}
 

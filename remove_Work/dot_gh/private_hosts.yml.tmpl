@@ -1,0 +1,19 @@
+{{- if and .git.enabled .git.code.enabled -}}
+
+github.com:
+    git_protocol: ssh
+    users:
+        {{ .git.work.github.username }}:
+    user: {{ .git.work.github.username }}
+
+{{- if .git.work.ghe.enabled }}
+
+{{ .git.work.ghe.hostname }}:
+    git_protocol: ssh
+    users:
+        {{ .git.work.ghe.username }}:
+    user: {{ .git.work.ghe.username }}
+
+{{- end }}
+
+{{- end }}

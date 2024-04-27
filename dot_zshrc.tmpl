@@ -48,6 +48,12 @@ zstyle ':z4h:*'               fzf-flags "${FZF_DEFAULT_OPTS}"
 
 zstyle ':z4h:ssh:*'           enable 'no'
 
+{{- if .git.enabled }}
+
+zstyle ':z4h:direnv'          enable 'yes'
+
+{{- end }}
+
 ###############################################################################
 # Clone git repositories using `z4h install`
 
