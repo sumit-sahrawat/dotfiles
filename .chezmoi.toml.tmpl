@@ -6,17 +6,17 @@
 [data]
 
 [data.keyboard]
-caps2ctrl = {{ promptBoolOnce . "keyboard.caps2ctrl" "Change CapsLock to Control" }}
+caps2ctrl = {{ promptBoolOnce . "keyboard.caps2ctrl" "(keyboard) caps2ctrl" }}
 
 [data.keyboard.repeat]
 delay = 195
 interval = 15
 
 [data.mouse]
-fix_scroll = {{ promptBoolOnce . "mouse.fix_scroll" "Fix scrolling for mouse wheels" }}
+fix_scroll = {{ promptBoolOnce . "mouse.fix_scroll" "(mouse) fix_scroll" }}
 
 [data.ui]
-palette = {{ promptChoiceOnce . "ui.palette" "Catppuccin palette" (list "mocha" "macchiato" "frappe" "latte") | quote }}
+palette = {{ promptChoiceOnce . "ui.palette" "(catppuccin) palette" (list "mocha" "macchiato" "frappe" "latte") | quote }}
 
 [data.ui.hot_corners]
 
@@ -37,108 +37,68 @@ palette = {{ promptChoiceOnce . "ui.palette" "Catppuccin palette" (list "mocha" 
 {{- $name_list := keys $name_map }}
 
 [data.ui.hot_corners.top_left]
-name = {{
-	$name := promptChoiceOnce . "ui.hot_corners.top_left.name" "Hot-Corner top-left" $name_list "mission-control"
-}}{{
-	$name | quote
-}}
+name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_left.name" "(hot-corner) top-left" $name_list "mission-control" }}{{ $name | quote }}
 id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.top_right]
-name = {{
-	$name := promptChoiceOnce . "ui.hot_corners.top_right.name" "Hot-Corner top-right" $name_list "app-windows"
-}}{{
-	$name | quote
-}}
+name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_right.name" "(hot-corner) top-right" $name_list "app-windows" }}{{ $name | quote }}
 id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.bottom_left]
-name = {{
-	$name := promptChoiceOnce . "ui.hot_corners.bottom_left.name" "Hot-Corner bottom-left" $name_list "no-op"
-}}{{
-	$name | quote
-}}
+name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_left.name" "(hot-corner) bottom-left" $name_list "no-op" }}{{ $name | quote }}
 id = {{ get $name_map $name }}
 
 [data.ui.hot_corners.bottom_right]
-name = {{
-	$name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "Hot-Corner bottom-right" $name_list "no-op"
-}}{{
-	$name | quote
-}}
+name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "(hot-corner) bottom-right" $name_list "no-op" }}{{ $name | quote }}
 id = {{ get $name_map $name }}
 
 [data.git]
-enabled = {{
-	$git_enabled := promptBoolOnce . "git.enabled" "Setup git"
-}}{{
-	$git_enabled
-}}
+enabled = {{ $git := promptBoolOnce . "git.enabled" "(git) enable" }}{{ $git }}
 
-{{- if $git_enabled }}
+{{- if $git }}
 
-{{- $default_git_user_name := "Sumit Sahrawat" }}
-{{- $default_git_user_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
-{{- $default_git_user_key := "id_ed25519" }}
-{{- $default_git_user_github := "sumit-sahrawat" }}
+{{- $default_name := "Sumit Sahrawat" }}
+{{- $default_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
+{{- $default_key := "id_ed25519" }}
+{{- $default_username := "sumit-sahrawat" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
 [data.git.code]
-enabled = {{
-	$git_code_enabled := promptBoolOnce . "git.code.enabled" "Setup git code dir (~/Code)"
-}}{{
-	$git_code_enabled
-}}
+enabled = {{ $git_code := promptBoolOnce . "git.code.enabled" "(~/Code) enable" }}{{ $git_code }}
 
-{{- if $git_code_enabled }}
+{{- if $git_code }}
 
 [data.git.code.user]
-name = {{ promptStringOnce . "git.code.user.name" "[git] code.user.name" $default_git_user_name | quote }}
-email = {{ promptStringOnce . "git.code.user.email" "[git] code.user.email" $default_git_user_email | quote }}
-key_name = {{
-	$git_code_user_key_name := promptStringOnce . "git.code.user.key_name" "[git] code.user.key_name" $default_git_user_key
-}}{{
-	$git_code_user_key_name | quote
-}}
-key = {{ joinPath $ssh_dir $git_code_user_key_name | quote }}
+name = {{ promptStringOnce . "git.code.user.name" "(~/Code) user.name" $default_name | quote }}
+email = {{ promptStringOnce . "git.code.user.email" "(~/Code) user.email" $default_email | quote }}
+key_name = {{ $code_key := promptStringOnce . "git.code.user.key_name" "(~/Code) user.key" $default_key }}{{ $code_key | quote }}
+key = {{ joinPath $ssh_dir $code_key | quote }}
 
 [data.git.code.github]
-username = {{ promptStringOnce . "git.code.github.username" "[git] code.github.username" $default_git_user_github | quote }}
+username = {{ promptStringOnce . "git.code.github.username" "(~/Code) github.username" $default_username | quote }}
 
 {{- end }}
 
 [data.git.work]
-enabled = {{
-	$git_work_enabled := promptBoolOnce . "git.work.enabled" "Setup git work dir (~/Work)"
-}}{{
-	$git_work_enabled
-}}
+enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "(~/Work) enable" }}{{ $git_work }}
 
-{{- if $git_work_enabled }}
+{{- if $git_work }}
 
 [data.git.work.user]
-name = {{ promptStringOnce . "git.work.user.name" "[git] work.user.name" $default_git_user_name | quote }}
-email = {{ promptStringOnce . "git.work.user.email" "[git] work.user.email" $default_git_user_email | quote }}
-key_name = {{
-	$git_work_user_key_name := promptStringOnce . "git.work.user.key_name" "[git] work.user.key_name" $default_git_user_key
-}}{{
-	$git_work_user_key_name | quote
-}}
-key = {{ joinPath $ssh_dir $git_work_user_key_name | quote }}
+name = {{ promptStringOnce . "git.work.user.name" "(~/Work) user.name" $default_name | quote }}
+email = {{ promptStringOnce . "git.work.user.email" "(~/Work) user.email" $default_email | quote }}
+key_name = {{ $work_key := promptStringOnce . "git.work.user.key_name" "(~/Work) user.key" $default_key }}{{ $work_key | quote }}
+key = {{ joinPath $ssh_dir $work_key | quote }}
 
 [data.git.work.github]
-username = {{ promptStringOnce . "git.work.github.username" "[git] work.github.username" $default_git_user_github | quote }}
+username = {{ promptStringOnce . "git.work.github.username" "(~/Work) github.username" $default_username | quote }}
 
 [data.git.work.ghe]
-enabled = {{
-	$work_ghe_enabled := promptBoolOnce . "git.work.ghe.enabled" "Enable GHE support for ~/Work"
-}}{{
-	$work_ghe_enabled
-}}
+enabled = {{ $work_ghe := promptBoolOnce . "git.work.ghe.enabled" "(~/Work) ghe.enabled" }}{{ $work_ghe }}
 
-{{- if $work_ghe_enabled }}
-hostname = {{ promptStringOnce . "git.work.ghe.hostname" "[git] work.ghe.hostname" | quote }}
-username = {{ promptStringOnce . "git.work.ghe.username" "[git] work.ghe.username" $default_git_user_github | quote }}
+{{- if $work_ghe }}
+hostname = {{ promptStringOnce . "git.work.ghe.hostname" "(~/Work) ghe.hostname" | quote }}
+username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username" $default_username | quote }}
 {{- end }}
 
 {{- end }}
@@ -146,89 +106,72 @@ username = {{ promptStringOnce . "git.work.ghe.username" "[git] work.ghe.usernam
 {{- end }}
 
 [data.zsh]
-enabled = {{ promptBoolOnce . "zsh.enabled" "Setup zsh" }}
+enabled = {{ promptBoolOnce . "zsh.enabled" "(zsh) enable" }}
 
 [data.helix]
-enabled = {{ promptBoolOnce . "helix.enabled" "Setup helix" }}
+enabled = {{ promptBoolOnce . "helix.enabled" "(helix) enable" }}
 executable = "hx"
 
 [data.alacritty]
-enabled = {{
-	$alacritty_enabled := promptBoolOnce . "alacritty.enabled" "Setup alacritty"
-}}{{
-	$alacritty_enabled
-}}
+enabled = {{ $alacritty := promptBoolOnce . "alacritty.enabled" "(alacritty) enable" }}{{ $alacritty }}
 
 [data.kitty]
-enabled = {{
-	$kitty_enabled := promptBoolOnce . "kitty.enabled" "Setup kitty"
-}}{{
-	$kitty_enabled
-}}
+enabled = {{ $kitty := promptBoolOnce . "kitty.enabled" "(kitty) enable" }}{{ $kitty }}
 
 [data.terminal]
-enabled = {{
-	$terminal_enabled := or $alacritty_enabled $terminal_enabled
-}}{{
-	$terminal_enabled
-}}
+enabled = {{ $terminal := or $alacritty $terminal }}{{ $terminal }}
 
-{{- if $terminal_enabled }}
+{{- if $terminal }}
 
 [data.terminal.font]
-pragmata = {{
-	$terminal_font_pragmata := promptBoolOnce . "terminal.font.pragmata"
-		"Use PragmataPro for terminal" false
-}}{{
-	$terminal_font_pragmata
-}}
-non_liga_family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $terminal_font_pragmata | quote }}
-liga_family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $terminal_font_pragmata | quote }}
-size = {{ promptIntOnce . "terminal.font.size" "[terminal] font size" 16 }}
+pragmata = {{ $pragmata := promptBoolOnce . "terminal.font.pragmata" "(terminal) font.pragmata" true }}{{ $pragmata }}
+non_liga_family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $pragmata | quote }}
+liga_family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
+size = {{ promptIntOnce . "terminal.font.size" "(terminal) font.size" 16 }}
 
 {{- end }}
 
 [data.mpv]
-enabled = {{ promptBoolOnce . "mpv.enabled" "Setup mpv" }}
+enabled = {{ promptBoolOnce . "mpv.enabled" "(mpv) enable" }}
 
 [data.bat]
-enabled = {{ promptBoolOnce . "bat.enabled" "Setup bat" }}
+enabled = {{ promptBoolOnce . "bat.enabled" "(bat) enable" }}
 
 [data.eza]
-enabled = {{ promptBoolOnce . "eza.enabled" "Setup eza" }}
+enabled = {{ promptBoolOnce . "eza.enabled" "(eza) enable" }}
 
 [data.ripgrep]
-enabled = {{ promptBoolOnce . "ripgrep.enabled" "Setup ripgrep" }}
+enabled = {{ promptBoolOnce . "ripgrep.enabled" "(ripgrep) enable" }}
 
 [data.fd]
-enabled = {{ promptBoolOnce . "fd.enabled" "Setup fd" }}
+enabled = {{ promptBoolOnce . "fd.enabled" "(fd) enable" }}
 
 [data.sd]
-enabled = {{ promptBoolOnce . "sd.enabled" "Setup sd" }}
+enabled = {{ promptBoolOnce . "sd.enabled" "(sd) enable" }}
 
 [data.bottom]
-enabled = {{ promptBoolOnce . "bottom.enabled" "Setup bottom" }}
+enabled = {{ promptBoolOnce . "bottom.enabled" "(bottom) enable" }}
 
 [data.duf]
-enabled = {{ promptBoolOnce . "duf.enabled" "Setup duf" }}
+enabled = {{ promptBoolOnce . "duf.enabled" "(duf) enable" }}
 
 [data.bandwhich]
-enabled = {{ promptBoolOnce . "bandwhich.enabled" "Setup bandwhich" }}
+enabled = {{ promptBoolOnce . "bandwhich.enabled" "(bandwhich) enable" }}
 
 [data.dust]
-enabled = {{ promptBoolOnce . "dust.enabled" "Setup dust" }}
+enabled = {{ promptBoolOnce . "dust.enabled" "(dust) enable" }}
 
 [data.procs]
-enabled = {{ promptBoolOnce . "procs.enabled" "Setup procs" }}
+enabled = {{ promptBoolOnce . "procs.enabled" "(procs) enable" }}
 
 [data.rust]
-enabled = {{ promptBoolOnce . "rust.enabled" "Setup rust" }}
+enabled = {{ promptBoolOnce . "rust.enabled" "(rust) enable" }}
 
 [data.tokei]
-enabled = {{ promptBoolOnce . "tokei.enabled" "Setup tokei" }}
+enabled = {{ promptBoolOnce . "tokei.enabled" "(tokei) enable" }}
 
 [data.hyperfine]
-enabled = {{ promptBoolOnce . "hyperfine.enabled" "Setup hyperfine" }}
+enabled = {{ promptBoolOnce . "hyperfine.enabled" "(hyperfine) enable" }}
 
 [data.tealdeer]
-enabled = {{ promptBoolOnce . "tealdeer.enabled" "Setup tealdeer" }}
+enabled = {{ promptBoolOnce . "tealdeer.enabled" "(tealdeer) enable" }}
