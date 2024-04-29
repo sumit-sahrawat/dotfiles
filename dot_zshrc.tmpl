@@ -80,6 +80,9 @@ path=(
 {{- if .rust.enabled }}
 	~/.cargo/bin
 {{- end }}
+{{- if .cpp.enabled }}
+	${HOMEBREW_PREFIX}/opt/llvm/bin
+{{- end }}
 	$path
 )
 
