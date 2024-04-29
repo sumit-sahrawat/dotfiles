@@ -7,7 +7,6 @@ github.com:
     user: {{ .git.work.github.username }}
 
 {{- if .git.work.ghe.enabled }}
-
 {{ .git.work.ghe.hostname }}:
     git_protocol: ssh
     users:
