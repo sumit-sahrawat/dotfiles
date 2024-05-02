@@ -140,6 +140,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .qalc.enabled }}
+{{- $brews = concat $brews (list
+	"libqalculate"
+) }}
+{{- end }}
+
 {{- if .hyperfine.enabled }}
 {{- $brews = concat $brews (list
 	"hyperfine"

@@ -116,6 +116,9 @@ alias c='cat'
 alias e='${EDITOR}'
 alias o='open'
 alias q='exit'
+{{- if .qalc.enabled }}
+alias :calc=qalc
+{{- end }}
 
 # System upgrade
 alias :sup='softwareupdate -ia && chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .rust.enabled }} && rustup update {{- end }} && z4h update'
