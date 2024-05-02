@@ -165,8 +165,18 @@ unset gprefix
 {{- if .eza.enabled }}
 
 alias ls=eza
-alias :t='eza --tree --all --git-ignore'
-alias :ta='eza --tree --all --ignore-glob .git'
+
+# tree excluding gitignored paths
+alias :t='eza --tree --git-ignore'
+alias :ta='eza --tree --git-ignore --all'
+
+# tree including gitignored paths but excluding .git
+alias :tg='eza --tree --ignore-glob .git'
+alias :tga='eza --tree --all --ignore-glob .git'
+
+# tree including gitignored paths and .git
+alias :tG='eza --tree'
+alias :tGa='eza --tree --all'
 
 {{- end }}
 
