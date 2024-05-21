@@ -26,9 +26,9 @@ function read_list_from {
 }
 
 while read -r line; do
-	cmd="$(echo "${line}" | cut -f1)"
-	repo="$(echo "${line}" | cut -f2)"
-	target="$(echo "${line}" | cut -f3)"
+	target="$(echo "${line}" | cut -f1)"
+	cmd="$(echo "${line}" | cut -f2)"
+	repo="$(echo "${line}" | cut -f3)"
 
 	if [[ -d "${target}" ]]; then
 		(cd "${target}"; gh repo sync || failed_to 'sync' "${repo}" "${target}")
