@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- if .bat.enabled }}
+
+# {{ output "git" "-C" (joinPath .chezmoi.homeDir ".config/bat/themes/catppuccin") "rev-parse" "HEAD" }}
+
+# Load themes/styles/etc.
+bat cache --build
+
+{{- end }}
