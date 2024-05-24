@@ -63,21 +63,14 @@ enabled = {{ $git := promptBoolOnce . "git.enabled" "(git) enable" }}{{ $git }}
 {{- $default_username := "sumit-sahrawat" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
-[data.git.code]
-enabled = {{ $git_code := promptBoolOnce . "git.code.enabled" "(~/Code) enable" }}{{ $git_code }}
-
-{{- if $git_code }}
-
-[data.git.code.user]
-name = {{ promptStringOnce . "git.code.user.name" "(~/Code) user.name" $default_name | quote }}
-email = {{ promptStringOnce . "git.code.user.email" "(~/Code) user.email" $default_email | quote }}
-key_name = {{ $code_key := promptStringOnce . "git.code.user.key_name" "(~/Code) user.key" $default_key }}{{ $code_key | quote }}
+[data.git.global.user]
+name = {{ promptStringOnce . "git.global.user.name" "(~/.config/git/config) user.name" $default_name | quote }}
+email = {{ promptStringOnce . "git.global.user.email" "(~/.config/git/config) user.email" $default_email | quote }}
+key_name = {{ $code_key := promptStringOnce . "git.global.user.key_name" "(~/.config/git/config) user.signingkey (file name only)" $default_key }}{{ $code_key | quote }}
 key = {{ joinPath $ssh_dir $code_key | quote }}
 
-[data.git.code.github]
-username = {{ promptStringOnce . "git.code.github.username" "(~/Code) github.username" $default_username | quote }}
-
-{{- end }}
+[data.git.global.github]
+username = {{ promptStringOnce . "git.global.github.username" "(~/.gh/hosts.yml) github.com username" $default_username | quote }}
 
 [data.git.work]
 enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "(~/Work) enable" }}{{ $git_work }}

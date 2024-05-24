@@ -6,9 +6,6 @@ hide_env_diff = true
 
 [whitelist]
 exact = [
-{{- if .git.code.enabled }}
-	"~/Code/.envrc",
-{{- end }}
 {{- if .git.work.enabled }}
 	"~/Work/.envrc",
 {{- end }}

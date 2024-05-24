@@ -1,6 +1,7 @@
-{{ if .git.code.enabled -}}
-{{ .git.code.user.email }} {{ output "cat" (printf "%s.pub" .git.code.user.key) | trim }}
-{{ end -}}
-{{ if .git.work.enabled -}}
+{{ .git.global.user.email }} {{ output "cat" (printf "%s.pub" .git.global.user.key) | trim }}
+
+{{- if .git.work.enabled }}
+
 {{ .git.work.user.email }} {{ output "cat" (printf "%s.pub" .git.work.user.key) | trim }}
-{{ end -}}
+
+{{- end }}

@@ -1,9 +1,0 @@
-{{- if and .git.enabled .git.code.enabled -}}
-
-github.com:
-    git_protocol: ssh
-    users:
-        {{ .git.code.github.username }}:
-    user: {{ .git.code.github.username }}
-
-{{- end }}

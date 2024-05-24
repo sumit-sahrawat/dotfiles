@@ -1,5 +1,11 @@
 {{- if .git.enabled -}}
 
+[user]
+	name = {{ .git.global.user.name }}
+	email = {{ .git.global.user.email }}
+	signingkey = {{ .git.global.user.key }}
+[core]
+	sshCommand = "ssh -i {{ .git.global.user.key | squote }} -o IdentitiesOnly=yes"
 [column]
 	ui = auto
 [branch]
@@ -18,10 +24,6 @@
 	format = ssh
 [gpg "ssh"]
 	allowedSignersFile = ~/.config/git/allowed_signers
-{{- if .git.code.enabled }}
-[includeIf "gitdir:~/Code/**"]
-	path = ~/Code/.gitconfig
-{{- end }}
 {{- if .git.work.enabled }}
 [includeIf "gitdir:~/Work/**"]
 	path = ~/Work/.gitconfig
