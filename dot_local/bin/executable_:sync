@@ -10,6 +10,12 @@
 
 set -euo pipefail
 
+FAST=false
+if [[ ${#} -gt 0 && ${1} == "-f" ]]; then
+	FAST=true
+	shift
+fi
+
 DEFAULT_LIST_FILE=repos.txt
 if [[ ${#} -eq 0 ]]; then
 	>&2 echo "Using default repo list file: ${DEFAULT_LIST_FILE}"
@@ -31,7 +37,9 @@ while read -r line; do
 	repo="$(echo "${line}" | cut -f3)"
 
 	if [[ -d "${target}" ]]; then
-		(cd "${target}"; gh repo sync || failed_to 'sync' "${repo}" "${target}")
+		if ! ${FAST}; then
+			(cd "${target}"; gh repo sync || failed_to 'sync' "${repo}" "${target}")
+		fi
 	else
 		case ${cmd} in
 			clone) gh repo clone "${repo}" "${target}" || failed_to 'clone' "${repo}" "${target}" ;;
