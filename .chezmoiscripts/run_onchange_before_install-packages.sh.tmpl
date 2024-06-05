@@ -134,6 +134,13 @@ fi
 ) }}
 {{- end }}
 
+{{- if .bash.enabled }}
+{{- $brews = concat $brews (list
+	"bash-language-server"
+	"shellcheck"
+) }}
+{{- end }}
+
 {{- if .tokei.enabled }}
 {{- $brews = concat $brews (list
 	"tokei"
