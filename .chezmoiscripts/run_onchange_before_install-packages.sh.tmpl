@@ -141,6 +141,14 @@ fi
 ) }}
 {{- end }}
 
+{{- if .python.enabled }}
+{{- $brews = concat $brews (list
+	"pyright"
+	"ruff-lsp"
+	"black"
+) }}
+{{- end }}
+
 {{- if .tokei.enabled }}
 {{- $brews = concat $brews (list
 	"tokei"
