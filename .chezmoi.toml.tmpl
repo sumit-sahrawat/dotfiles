@@ -5,15 +5,15 @@
 
 [data]
 
-[data.keyboard]
-caps2ctrl = {{ promptBoolOnce . "keyboard.caps2ctrl" "(keyboard) caps2ctrl" }}
+[data.input.keyboard]
+caps2ctrl = {{ promptBoolOnce . "input.keyboard.caps2ctrl" "(keyboard) caps2ctrl" }}
 
-[data.keyboard.repeat]
+[data.input.keyboard.repeat]
 delay = 195
 interval = 15
 
-[data.mouse]
-fix_scroll = {{ promptBoolOnce . "mouse.fix_scroll" "(mouse) fix_scroll" }}
+[data.input.mouse]
+fix_scroll = {{ promptBoolOnce . "input.mouse.fix_scroll" "(mouse) fix_scroll" }}
 
 [data.ui]
 palette = {{ promptChoiceOnce . "ui.palette" "(catppuccin) palette" (list "mocha" "macchiato" "frappe" "latte") | quote }}

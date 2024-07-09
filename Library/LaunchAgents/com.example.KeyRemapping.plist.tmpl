@@ -10,7 +10,7 @@
 			<string>/usr/bin/hidutil</string>
 			<string>property</string>
 			<string>--set</string>
-			{{- if .keyboard.caps2ctrl }}
+			{{- if .input.keyboard.caps2ctrl }}
 			<string>{"UserKeyMapping": [{"HIDKeyboardModifierMappingSrc": 0x700000039, "HIDKeyboardModifierMappingDst": 0x7000000E0}]}</string>
 			{{- else }}
 			<string>{"UserKeyMapping": []}</string>
