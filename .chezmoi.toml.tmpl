@@ -157,18 +157,6 @@ enabled = {{ promptBoolOnce . "dust.enabled" "(dust) enable" }}
 [data.procs]
 enabled = {{ promptBoolOnce . "procs.enabled" "(procs) enable" }}
 
-[data.rust]
-enabled = {{ promptBoolOnce . "rust.enabled" "(rust) enable" }}
-
-[data.python]
-enabled = {{ promptBoolOnce . "python.enabled" "(python) enable" }}
-
-[data.cpp]
-enabled = {{ promptBoolOnce . "cpp.enabled" "(cpp) enable" }}
-
-[data.bash]
-enabled = {{ promptBoolOnce . "bash.enabled" "(bash) enable" }}
-
 [data.tokei]
 enabled = {{ promptBoolOnce . "tokei.enabled" "(tokei) enable" }}
 
@@ -180,3 +168,15 @@ enabled = {{ promptBoolOnce . "tealdeer.enabled" "(tealdeer) enable" }}
 
 [data.qalc]
 enabled = {{ promptBoolOnce . "qalc.enabled" "(qalc) enable" }}
+
+[data.lang.bash]
+enabled = {{ promptBoolOnce . "lang.bash.enabled" "(bash) enable" }}
+
+[data.lang.cpp]
+enabled = {{ promptBoolOnce . "lang.cpp.enabled" "(cpp) enable" }}
+
+[data.lang.python]
+enabled = {{ promptBoolOnce . "lang.python.enabled" "(python) enable" }}
+
+[data.lang.rust]
+enabled = {{ promptBoolOnce . "lang.rust.enabled" "(rust) enable" }}

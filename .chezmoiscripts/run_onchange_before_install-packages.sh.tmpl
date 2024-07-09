@@ -122,30 +122,30 @@ fi
 ) }}
 {{- end }}
 
-{{- if .rust.enabled }}
-{{- $brews = concat $brews (list
-	"rustup"
-) }}
-{{- end }}
-
-{{- if .cpp.enabled }}
-{{- $brews = concat $brews (list
-	"llvm"
-) }}
-{{- end }}
-
-{{- if .bash.enabled }}
+{{- if .lang.bash.enabled }}
 {{- $brews = concat $brews (list
 	"bash-language-server"
 	"shellcheck"
 ) }}
 {{- end }}
 
-{{- if .python.enabled }}
+{{- if .lang.cpp.enabled }}
+{{- $brews = concat $brews (list
+	"llvm"
+) }}
+{{- end }}
+
+{{- if .lang.python.enabled }}
 {{- $brews = concat $brews (list
 	"pyright"
 	"ruff-lsp"
 	"black"
+) }}
+{{- end }}
+
+{{- if .lang.rust.enabled }}
+{{- $brews = concat $brews (list
+	"rustup"
 ) }}
 {{- end }}
 
