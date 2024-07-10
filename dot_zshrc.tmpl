@@ -77,10 +77,10 @@ setopt no_auto_cd    # don't cd without cd
 # Extend PATH.
 path=(
 	~/.local/bin
-{{- if .lang.cpp.enabled }}
+{{- if .lang.cpp }}
 	${HOMEBREW_PREFIX}/opt/llvm/bin
 {{- end }}
-{{- if .lang.rust.enabled }}
+{{- if .lang.rust }}
 	~/.cargo/bin
 {{- end }}
 	$path
@@ -124,7 +124,7 @@ alias :calc=qalc
 {{- end }}
 
 # System upgrade
-alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .lang.rust.enabled }} && rustup update {{- end }} && z4h update'
+alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .lang.rust }} && rustup update {{- end }} && z4h update'
 
 # chezmoi
 alias :ha='chezmoi add'

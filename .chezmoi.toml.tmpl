@@ -169,14 +169,8 @@ enabled = {{ promptBoolOnce . "tealdeer.enabled" "(tealdeer) enable" }}
 [data.qalc]
 enabled = {{ promptBoolOnce . "qalc.enabled" "(qalc) enable" }}
 
-[data.lang.bash]
-enabled = {{ promptBoolOnce . "lang.bash.enabled" "(bash) enable" }}
-
-[data.lang.cpp]
-enabled = {{ promptBoolOnce . "lang.cpp.enabled" "(cpp) enable" }}
-
-[data.lang.python]
-enabled = {{ promptBoolOnce . "lang.python.enabled" "(python) enable" }}
-
-[data.lang.rust]
-enabled = {{ promptBoolOnce . "lang.rust.enabled" "(rust) enable" }}
+[data.lang]
+bash = {{ promptBoolOnce . "lang.bash" "(lang) bash" }}
+cpp = {{ promptBoolOnce . "lang.cpp" "(lang) cpp" }}
+python = {{ promptBoolOnce . "lang.python" "(lang) python" }}
+rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
