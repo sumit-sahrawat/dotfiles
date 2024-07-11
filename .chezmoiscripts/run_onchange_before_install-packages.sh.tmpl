@@ -136,6 +136,13 @@ fi
 ) }}
 {{- end }}
 
+{{- if .lang.haskell }}
+{{- $brews = concat $brews (list
+	"haskell-language-server"
+	"haskell-stack"
+) }}
+{{- end }}
+
 {{- if .lang.python }}
 {{- $brews = concat $brews (list
 	"pyright"
