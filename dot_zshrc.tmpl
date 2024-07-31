@@ -86,6 +86,15 @@ path=(
 	$path
 )
 
+{{- if .lang.cpp }}
+
+export CC=clang
+export CXX=clang++
+export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/llvm/lib/c++ -L${HOMEBREW_PREFIX}/opt/llvm/lib -lunwind"
+export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/llvm/include"
+
+{{- end }}
+
 # Source additional local files if they exist.
 z4h source --compile ~/.bashrc
 z4h source --compile ~/.private.zsh
