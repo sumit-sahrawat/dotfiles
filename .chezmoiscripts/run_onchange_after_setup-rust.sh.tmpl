@@ -4,12 +4,8 @@ set -euo pipefail
 
 {{- if .lang.rust }}
 
-rustup-init \
-	-y \
-	--no-modify-path \
+rustup toolchain install stable \
 	--profile default \
-	--default-toolchain stable \
-	--component rust-analyzer \
-	--component rust-src
+	--component rust-analyzer,rust-src
 
 {{- end }}
