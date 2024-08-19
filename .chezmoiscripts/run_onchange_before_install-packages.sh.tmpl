@@ -163,6 +163,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .lang.dotnet }}
+{{- $brews = concat $brews (list
+	"dotnet"
+) }}
+{{- end }}
+
 {{- if .tokei.enabled }}
 {{- $brews = concat $brews (list
 	"tokei"

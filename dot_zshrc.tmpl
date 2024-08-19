@@ -95,6 +95,12 @@ export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/llvm/include"
 
 {{- end }}
 
+{{- if .lang.dotnet }}
+
+export DOTNET_ROOT="${HOMEBREW_PREFIX}/opt/dotnet/libexec"
+
+{{- end }}
+
 # Source additional local files if they exist.
 z4h source --compile ~/.bashrc
 z4h source --compile ~/.private.zsh
