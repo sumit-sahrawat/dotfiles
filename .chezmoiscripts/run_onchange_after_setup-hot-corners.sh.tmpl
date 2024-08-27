@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
 defaults write com.apple.dock wvous-tl-corner -int {{ .ui.hot_corners.top_left.id }}
 defaults write com.apple.dock wvous-tl-modifier -int 1048576
 
