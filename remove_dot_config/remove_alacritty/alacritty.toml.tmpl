@@ -2,6 +2,38 @@
 
 import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "ui.catppuccin.palette" . }}.toml" ]
 
+{{- if .nushell.enabled }}
+
+{{- $brew_prefix := list "/opt/homebrew/bin" }}
+
+{{- $zellij := coalesce (lookPath "zellij") (findExecutable "zellij" $brew_prefix) }}
+
+{{- if not $zellij }}
+{{- fail "zellij not found" }}
+{{- end }}
+
+{{- $nushell := coalesce (lookPath "nu") (findExecutable "nu" $brew_prefix) }}
+
+{{- if not $nushell }}
+{{- fail "nu not found" }}
+{{- end }}
+
+[env]
+SHELL = {{ $nushell | quote }}
+XDG_CONFIG_HOME = "{{ .chezmoi.homeDir }}/.config"
+
+[shell]
+program = {{ $zellij | quote }}
+args = [
+	"options",
+	"--default-shell",
+	{{ $nushell | quote }},
+	"--theme",
+	"catppuccin-{{ .ui.palette }}",
+]
+
+{{- end }}
+
 [font]
 size = {{ .terminal.font.size }}
 

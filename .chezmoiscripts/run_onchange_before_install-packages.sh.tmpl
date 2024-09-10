@@ -9,6 +9,14 @@ fi
 {{- $brews := list }}
 {{- $casks := list }}
 
+{{- if .nushell.enabled }}
+{{- $brews = concat $brews (list
+	"nushell"
+	"starship"
+	"zellij"
+) }}
+{{- end }}
+
 {{- if .zsh.enabled }}
 {{- $brews = concat $brews (list
 	"fzf"
