@@ -54,6 +54,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .chatgpt.enabled }}
+{{- $casks = concat $casks (list
+	"chatgpt"
+) }}
+{{- end }}
+
 {{- if .mpv.enabled }}
 {{- $brews = concat $brews (list
 	"mpv"

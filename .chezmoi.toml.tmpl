@@ -124,6 +124,9 @@ size = {{ promptIntOnce . "terminal.font.size" "(terminal) font.size" 16 }}
 
 {{- end }}
 
+[data.chatgpt]
+enabled = {{ promptBoolOnce . "chatgpt.enabled" "(chatgpt) enable" }}
+
 [data.mpv]
 enabled = {{ promptBoolOnce . "mpv.enabled" "(mpv) enable" }}
 
