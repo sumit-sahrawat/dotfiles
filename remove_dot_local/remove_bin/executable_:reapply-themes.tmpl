@@ -2,6 +2,12 @@
 
 {{- if ne (len .ui.theme.dynamic.files) 0 }}
 
-exec {{ .chezmoi.executable | quote }} apply --init -- {{- range .ui.theme.dynamic.files }} {{ . | quote }}{{ end }}
+{{ .chezmoi.executable | quote }} apply --init -- {{- range .ui.theme.dynamic.files }} {{ . | quote }}{{ end }}
+
+{{- end }}
+
+{{- if ne (len .ui.theme.dynamic.commands) 0 }}
+
+{{ range .ui.theme.dynamic.commands }}{{ . }}{{ end }}
 
 {{- end }}

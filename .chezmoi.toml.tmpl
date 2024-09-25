@@ -200,3 +200,8 @@ files = [
 	"~/.config/kitty/kitty.conf",
 {{- end }}
 ]
+commands = [
+{{- if .helix.enabled }}
+	"pkill -USR1 hx || true",
+{{- end }}
+]
