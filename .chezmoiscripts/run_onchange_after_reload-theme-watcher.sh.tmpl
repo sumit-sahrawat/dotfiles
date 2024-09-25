@@ -3,12 +3,15 @@
 set -euo pipefail
 
 {{- $plist := joinPath .chezmoi.homeDir "Library/LaunchAgents/com.example.ThemeWatcher.plist" }}
+{{- $service := $plist | base | trimSuffix ".plist" }}
 {{- $exe := joinPath .chezmoi.homeDir ".local/bin/:theme-watcher" }}
 
 {{- if lstat $plist }}
 
 # {{ include $plist | sha256sum }}
-launchctl unload {{ $plist | quote }}
+if launchctl list | grep -qF {{ $service | quote }}; then
+	launchctl unload {{ $plist | quote }} || true
+fi
 
 {{- end }}
 
@@ -24,6 +27,8 @@ launchctl load {{ $plist | quote }}
 
 {{- else }}
 
-launchctl remove {{ $plist | base | trimSuffix ".plist" | quote }}
+if launchctl list | grep -qF {{ $service | quote }}; then
+	launchctl remove {{ $service | quote }}
+fi
 
 {{- end }}

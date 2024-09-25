@@ -17,7 +17,6 @@ fix_scroll = {{ promptBoolOnce . "input.mouse.fix_scroll" "(mouse) fix_scroll" }
 
 [data.ui.theme]
 choice = {{ $theme_choice := promptChoiceOnce . "ui.theme.choice" "(ui) theme" (list "auto" "light" "dark") }}{{ $theme_choice | quote }}
-
 is_auto = {{ eq $theme_choice "auto" }}
 
 [data.ui.hot_corners]
