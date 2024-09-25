@@ -6,7 +6,7 @@
 
 {{- else -}}
 
---theme="Catppuccin {{ .ui.catppuccin.palette | title }}"
+--theme="Catppuccin {{ includeTemplate "ui.catppuccin.palette" . | title }}"
 
 {{- end }}
 
