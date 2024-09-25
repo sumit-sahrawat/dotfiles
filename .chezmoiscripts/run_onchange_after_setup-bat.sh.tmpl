@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-{{- if .bat.enabled }}
+{{- if and .bat.enabled .ui.theme.is_auto }}
 
 # {{ output "git" "-C" (joinPath .chezmoi.homeDir ".config/bat/themes/catppuccin") "rev-parse" "HEAD" }}
 

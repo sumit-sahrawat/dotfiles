@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- $plist := joinPath .chezmoi.homeDir "Library/LaunchAgents/com.example.ThemeWatcher.plist" }}
+{{- $exe := joinPath .chezmoi.homeDir ".local/bin/:theme-watcher" }}
+
+{{- if lstat $plist }}
+
+# {{ include $plist | sha256sum }}
+launchctl unload {{ $plist | quote }}
+
+{{- end }}
+
+{{- if lstat $exe }}
+
+# {{ include $exe | sha256sum }}
+
+{{- end }}
+
+{{- if .ui.theme.is_auto }}
+
+launchctl load {{ $plist | quote }}
+
+{{- else }}
+
+launchctl remove {{ $plist | base | trimSuffix ".plist" | quote }}
+
+{{- end }}

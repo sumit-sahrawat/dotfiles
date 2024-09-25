@@ -1,5 +1,13 @@
 {{- if .bat.enabled -}}
 
---theme="Catppuccin {{ .ui.palette | title }}"
+{{- if .ui.theme.is_auto -}}
+
+--theme=ansi
+
+{{- else -}}
+
+--theme="Catppuccin {{ .ui.catppuccin.palette | title }}"
+
+{{- end }}
 
 {{- end }}

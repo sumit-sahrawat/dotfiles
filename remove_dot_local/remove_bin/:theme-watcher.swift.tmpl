@@ -1,0 +1,35 @@
+{{- if and .ui.theme.is_auto (ne (len .ui.theme.dynamic.files) 0) -}}
+
+import Cocoa
+
+func apply() {
+	let task = Process()
+	task.launchPath = "/usr/bin/env"
+	task.arguments = [
+		"bash",
+		{{ joinPath .chezmoi.homeDir ".local/bin/:reapply-themes" | quote }},
+	]
+	task.environment = ProcessInfo.processInfo.environment
+	task.launch()
+	task.waitUntilExit()
+}
+
+apply()
+
+DistributedNotificationCenter.default.addObserver(
+	forName: Notification.Name("AppleInterfaceThemeChangedNotification"),
+	object: nil,
+	queue: nil) { (notification) in
+		apply()
+}
+
+NSWorkspace.shared.notificationCenter.addObserver(
+	forName: NSWorkspace.didWakeNotification,
+	object: nil,
+	queue: nil) { (notification) in
+		apply()
+}
+
+NSApplication.shared.run()
+
+{{- end }}

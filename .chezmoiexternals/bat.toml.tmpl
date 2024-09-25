@@ -1,7 +1,11 @@
 {{- if .bat.enabled }}
 
+{{- if not .ui.theme.is_auto }}
+
 [".config/bat/themes/catppuccin"]
 type = "git-repo"
 url = "https://github.com/catppuccin/bat.git"
+
+{{- end }}
 
 {{- end }}

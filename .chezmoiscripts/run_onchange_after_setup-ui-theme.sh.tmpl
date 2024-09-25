@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+# .ui.theme.choice: {{ .ui.theme.choice }}
+
+{{- $dark_mode := "" }}
+{{- if eq .ui.theme.choice "auto" }}
+{{-     $dark_mode = "auto" }}
+{{- else if eq .ui.theme.choice "dark" }}
+{{-     $dark_mode = "true" }}
+{{- else if eq .ui.theme.choice "light" }}
+{{-     $dark_mode = "false" }}
+{{- end }}
+
+{{- if ne $dark_mode "" }}
+
+osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to {{ $dark_mode }}'
+
+killall Dock &>/dev/null
+
+{{- end }}
