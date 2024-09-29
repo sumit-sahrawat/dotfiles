@@ -10,8 +10,8 @@ export FZF_DEFAULT_OPTS='--color=16'
 
 {{- if .helix.enabled }}
 
-export EDITOR=hx
-export VISUAL=hx
+export EDITOR={{ .helix.executable | quote }}
+export VISUAL={{ .helix.executable | quote }}
 
 {{- end }}
 
