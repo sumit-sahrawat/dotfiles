@@ -1,0 +1,34 @@
+{{- if .nushell.enabled }}
+
+right_format = """$time"""
+
+[character]
+success_symbol = '[❯](green)'
+error_symbol = '[❯](red)'
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+
+[time]
+disabled = false
+
+[git_branch]
+symbol = ''
+
+[git_status]
+format = '$all_status$ahead_behind'
+stashed = '[*${count}](green) '
+ahead = '[⇡${count}](green) '
+behind = '[⇣${count}](green) '
+up_to_date = ''
+diverged = '[⇕${count}](yellow) '
+conflicted = '[=${count}](red) '
+deleted = '[✘${count}](red) '
+renamed = '[»${count}](green) '
+modified = '[!${count}](yellow) '
+staged = '[+${count}](yellow) '
+untracked = '[?${count}](blue) '
+typechanged = ''
+
+{{- end }}

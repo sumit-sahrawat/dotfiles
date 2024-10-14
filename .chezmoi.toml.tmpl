@@ -99,6 +99,9 @@ username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username"
 
 {{- end }}
 
+[data.nushell]
+enabled = {{ promptBoolOnce . "nushell.enabled" "(nushell) enable" }}
+
 [data.zsh]
 enabled = {{ promptBoolOnce . "zsh.enabled" "(zsh) enable" }}
 
