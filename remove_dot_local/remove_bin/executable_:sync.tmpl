@@ -13,10 +13,14 @@
 set -euo pipefail
 
 FAST=false
-if [[ ${#} -gt 0 && ${1} == "-f" ]]; then
-	FAST=true
-	shift
-fi
+while getopts "f" option; do
+	case ${option} in
+		f) FAST=true ;;
+		*) exit 1 ;;
+	esac
+done
+
+shift $((OPTIND - 1))
 
 DEFAULT_LIST_FILE=repos.txt
 if [[ ${#} -eq 0 ]]; then
