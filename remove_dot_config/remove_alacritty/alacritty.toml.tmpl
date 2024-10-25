@@ -1,5 +1,6 @@
 {{- if .alacritty.enabled -}}
 
+[general]
 import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "ui.catppuccin.palette" . }}.toml" ]
 
 [font]
