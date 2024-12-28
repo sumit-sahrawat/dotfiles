@@ -199,6 +199,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .obsidian.enabled }}
+{{- $casks = concat $casks (list
+	"obsidian"
+) }}
+{{- end }}
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- range ($brews | sortAlpha | uniq) }}
 brew "{{ . }}"
