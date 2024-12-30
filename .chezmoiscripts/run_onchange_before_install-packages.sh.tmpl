@@ -169,6 +169,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .lang.go }}
+{{- $brews = concat $brews (list
+	"go"
+) }}
+{{- end }}
+
 {{- if .lang.dotnet }}
 {{- $brews = concat $brews (list
 	"dotnet"
