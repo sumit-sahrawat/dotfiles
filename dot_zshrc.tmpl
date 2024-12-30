@@ -83,21 +83,11 @@ setopt no_auto_cd    # don't cd without cd
 # Extend PATH.
 path=(
 	~/.local/bin
-{{- if .lang.cpp }}
-	${HOMEBREW_PREFIX}/opt/llvm/bin
-{{- end }}
 {{- if .lang.rust }}
 	~/.cargo/bin
 {{- end }}
 	$path
 )
-
-{{- if .lang.cpp }}
-
-export CC=clang
-export CXX=clang++
-
-{{- end }}
 
 {{- if .lang.dotnet }}
 
