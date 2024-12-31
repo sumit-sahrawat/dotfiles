@@ -5,5 +5,5 @@
 {{-     $theme = .ui.theme.choice -}}
 {{- end -}}
 
-{{- $palettes := dict "light" "latte" "dark" "mocha" -}}
+{{- $palettes := dict "light" "latte" "dark" "macchiato" -}}
 {{- get $palettes $theme -}}
