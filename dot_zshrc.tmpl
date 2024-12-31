@@ -172,6 +172,15 @@ unset gprefix
 
 {{- end }}
 
+{{- if and .git.enabled .ripgrep.enabled }}
+
+function rg {
+	command rg --json "${@}" | delta
+}
+alias :rg='command rg'
+
+{{- end }}
+
 {{- if .eza.enabled }}
 
 alias ls=eza
