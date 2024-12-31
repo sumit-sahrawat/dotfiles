@@ -131,3 +131,14 @@ map ctrl+shift+c        copy_to_clipboard
 map cmd+c               copy_to_clipboard
 map ctrl+shift+v        paste_from_clipboard
 map cmd+v               paste_from_clipboard
+
+# create mouse bindings from scratch
+clear_all_mouse_actions yes
+#         input               mouse-type  mode      actions
+mouse_map left                click       ungrabbed mouse_handle_click selection prompt
+mouse_map ctrl+shift+left     click       ungrabbed mouse_handle_click link
+mouse_map cmd+left            click       ungrabbed mouse_handle_click link
+mouse_map left                press       ungrabbed mouse_selection normal
+mouse_map left                doublepress ungrabbed mouse_selection word
+mouse_map left                triplepress ungrabbed mouse_selection line
+mouse_map right               press       ungrabbed mouse_selection extend
