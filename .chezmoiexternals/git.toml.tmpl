@@ -1,0 +1,11 @@
+{{- if .bat.enabled }}
+
+{{- if not .ui.theme.is_auto }}
+
+[".config/delta/themes/catppuccin"]
+type = "git-repo"
+url = "https://github.com/catppuccin/delta.git"
+
+{{- end }}
+
+{{- end }}
