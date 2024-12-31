@@ -155,20 +155,6 @@ gprefix=':g'
 zstyle ':zim:git' aliases-prefix "${gprefix}"
 z4h load --compile zimfw/git
 
-# difftastic
-alias ${gprefix}wdp="${aliases[${gprefix}wd]/ --no-ext-diff/} --no-ext-diff"
-alias ${gprefix}wd="${aliases[${gprefix}wd]/ --no-ext-diff/} --ext-diff"
-alias ${gprefix}csp="${aliases[${gprefix}cs]/ --no-ext-diff/} --no-ext-diff"
-alias ${gprefix}cs="${aliases[${gprefix}cs]/ --no-ext-diff/} --ext-diff"
-alias ${gprefix}idp="${aliases[${gprefix}id]/ --no-ext-diff/} --no-ext-diff"
-alias ${gprefix}id="${aliases[${gprefix}id]/ --no-ext-diff/} --ext-diff"
-alias ${gprefix}ldp="${aliases[${gprefix}ld]/ --no-ext-diff/} --no-ext-diff"
-alias ${gprefix}ld="${aliases[${gprefix}ld]/ --no-ext-diff/} --ext-diff"
-alias ${gprefix}sdp="${aliases[${gprefix}sd]/ --no-ext-diff/} --no-ext-diff"
-alias ${gprefix}sd="${aliases[${gprefix}sd]/ --no-ext-diff/} --ext-diff"
-
-export DFT_DISPLAY=inline
-
 # https://www.youtube.com/watch?v=aolI_Rz0ZqY
 alias "${gprefix}??"="git blame -wCCC"
 

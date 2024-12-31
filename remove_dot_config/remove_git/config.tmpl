@@ -6,12 +6,17 @@
 	signingkey = {{ .git.global.user.key }}
 [core]
 	sshCommand = "ssh -i {{ .git.global.user.key | squote }} -o IdentitiesOnly=yes"
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true  # use n and N to move between diff sections
+[merge]
+	conflictStyle = zdiff3
 [column]
 	ui = auto
 [branch]
 	sort = -committerdate
-[diff]
-	external = difft
 [fetch]
 	prune = true
 [init]
