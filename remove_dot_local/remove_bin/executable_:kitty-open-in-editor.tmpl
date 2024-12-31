@@ -1,0 +1,20 @@
+{{- if .kitty.enabled -}}
+
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Strip trailing colon in case the link doesn't have a line number
+FILE_PATH="${1%:}"
+
+[[ -n "${FILE_PATH}" ]]
+
+# Convert to relative path for shorter tab titles
+TAB_TITLE="$(echo "${FILE_PATH}" | sed "s|^${PWD}/||")"
+
+# Set tab title, with an "e" prefix for editor alias
+printf "\e]2;%s\a" "e ${TAB_TITLE}"
+
+exec "${EDITOR}" "${FILE_PATH}"
+
+{{- end }}

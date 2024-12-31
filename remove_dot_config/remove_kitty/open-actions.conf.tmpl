@@ -1,0 +1,6 @@
+{{- if .kitty.enabled -}}
+
+protocol kitty-open-in-editor
+action launch --type=tab --cwd=current --env EDITOR=${EDITOR} :kitty-open-in-editor ${FILE_PATH}
+
+{{- end }}
