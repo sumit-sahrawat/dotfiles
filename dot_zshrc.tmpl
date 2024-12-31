@@ -19,16 +19,6 @@ export VISUAL={{ .helix.executable | quote }}
 
 export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 
-{{- if .ui.theme.is_auto -}}
-
-export BAT_THEME=ansi
-
-{{- else -}}
-
-export BAT_THEME="Catppuccin {{ includeTemplate "ui.catppuccin.palette" . | title }}"
-
-{{- end }}
-
 {{- end }}
 
 {{- if .lang.go }}
