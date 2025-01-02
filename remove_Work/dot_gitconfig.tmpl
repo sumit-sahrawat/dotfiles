@@ -1,4 +1,4 @@
-{{- if and .git.enabled .git.work.enabled -}}
+{{- if and .app.git .git.work.enabled -}}
 
 [user]
 	name = {{ .git.work.user.name }}

@@ -1,4 +1,4 @@
-{{- if .bat.enabled }}
+{{- if and .app.git .app.bat }}
 
 {{- if not .ui.theme.is_auto }}
 

@@ -1,4 +1,4 @@
-{{- if .git.enabled -}}
+{{- if .app.git -}}
 
 [user]
 	name = {{ .git.global.user.name }}
@@ -13,10 +13,10 @@
 	navigate = true  # use n and N to move between diff sections
 	line-numbers = true
 	hyperlinks = true
-{{- if .kitty.enabled }}
+{{- if .app.kitty }}
 	hyperlinks-file-link-format = "kitty-open-in-editor://{path}:{line}"
 {{- end }}
-{{- if not .ui.theme.is_auto }}
+{{- if and .app.bat (not .ui.theme.is_auto) }}
 [include]
 	path = ~/.config/delta/themes/catppuccin/catppuccin.gitconfig
 [delta]

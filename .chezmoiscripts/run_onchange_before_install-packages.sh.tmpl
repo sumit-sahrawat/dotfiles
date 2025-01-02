@@ -6,222 +6,146 @@ if ! hash brew >/dev/null; then
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-{{- $brews := list }}
-{{- $casks := list }}
+{ sort -u | brew bundle --no-lock --file=/dev/stdin; } <<-EOF
+	{{- if .input.mouse.fix_scroll }}
+		cask "homebrew/cask/unnaturalscrollwheels"
+	{{- end }}
 
-{{- if .zsh.enabled }}
-{{- $brews = concat $brews (list
-	"fzf"
-) }}
-{{- end }}
+	{{- if .app.zsh }}
+		brew "fzf"
+	{{- end }}
 
-{{- if .input.mouse.fix_scroll }}
-{{- $casks = concat $casks (list
-	"unnaturalscrollwheels"
-) }}
-{{- end }}
+	{{- if .app.git }}
+		brew "git"
+		brew "gh"
+		brew "direnv"
+		brew "git-delta"
+	{{- end }}
 
-{{- if .git.enabled }}
-{{- $brews = concat $brews (list
-	"git"
-	"gh"
-	"direnv"
-	"git-delta"
-) }}
-{{- end }}
+	{{- if .app.alacritty }}
+		cask "homebrew/cask/alacritty"
+	{{- end }}
 
-{{- if .helix.enabled }}
-{{- $brews = concat $brews (list
-	"helix"
-) }}
-{{- end }}
+	{{- if .app.kitty }}
+		cask "homebrew/cask/kitty"
+	{{- end }}
 
-{{- if .alacritty.enabled }}
-{{- $casks = concat $casks (list
-	"alacritty"
-) }}
-{{- end }}
+	{{- if and .app.terminal (not .terminal.font.pragmata) }}
+		cask "homebrew/cask-fonts/font-iosevka-ss08"
+	{{- end }}
 
-{{- if .kitty.enabled }}
-{{- $casks = concat $casks (list
-	"kitty"
-) }}
-{{- end }}
+	{{- if .app.bandwhich }}
+		brew "bandwhich"
+	{{- end }}
 
-{{- if and .terminal.enabled (not .terminal.font.pragmata) }}
-{{- $casks = concat $casks (list
-	"homebrew/cask-fonts/font-iosevka-ss08"
-) }}
-{{- end }}
+	{{- if .app.bat }}
+		brew "bat"
+	{{- end }}
 
-{{- if .chatgpt.enabled }}
-{{- $casks = concat $casks (list
-	"chatgpt"
-) }}
-{{- end }}
+	{{- if .app.bottom }}
+		brew "bottom"
+	{{- end }}
 
-{{- if .mpv.enabled }}
-{{- $brews = concat $brews (list
-	"mpv"
-	"yt-dlp"
-	"aria2"
-) }}
-{{- end }}
+	{{- if .app.chatgpt }}
+		cask "homebrew/cask/chatgpt"
+	{{- end }}
 
-{{- if .bat.enabled }}
-{{- $brews = concat $brews (list
-	"bat"
-) }}
-{{- end }}
+	{{- if .app.duf }}
+		brew "duf"
+	{{- end }}
 
-{{- if .eza.enabled }}
-{{- $brews = concat $brews (list
-	"eza"
-) }}
-{{- end }}
+	{{- if .app.dust }}
+		brew "dust"
+	{{- end }}
 
-{{- if .ripgrep.enabled }}
-{{- $brews = concat $brews (list
-	"ripgrep"
-) }}
-{{- end }}
+	{{- if .app.eza }}
+		brew "eza"
+	{{- end }}
 
-{{- if .fd.enabled }}
-{{- $brews = concat $brews (list
-	"fd"
-) }}
-{{- end }}
+	{{- if .app.fd }}
+		brew "fd"
+	{{- end }}
 
-{{- if .sd.enabled }}
-{{- $brews = concat $brews (list
-	"sd"
-) }}
-{{- end }}
+	{{- if .app.helix }}
+		brew "helix"
+	{{- end }}
 
-{{- if .bottom.enabled }}
-{{- $brews = concat $brews (list
-	"bottom"
-) }}
-{{- end }}
+	{{- if .app.hyperfine }}
+		brew "hyperfine"
+	{{- end }}
 
-{{- if .duf.enabled }}
-{{- $brews = concat $brews (list
-	"duf"
-) }}
-{{- end }}
+	{{- if .app.mpv }}
+		brew "mpv"
+		brew "yt-dlp"
+		brew "aria2"
+	{{- end }}
 
-{{- if .bandwhich.enabled }}
-{{- $brews = concat $brews (list
-	"bandwhich"
-) }}
-{{- end }}
+	{{- if .app.obsidian }}
+		cask "homebrew/cask/obsidian"
+	{{- end }}
 
-{{- if .dust.enabled }}
-{{- $brews = concat $brews (list
-	"dust"
-) }}
-{{- end }}
+	{{- if .app.procs }}
+		brew "procs"
+	{{- end }}
 
-{{- if .procs.enabled }}
-{{- $brews = concat $brews (list
-	"procs"
-) }}
-{{- end }}
+	{{- if .app.qalc }}
+		brew "libqalculate"
+	{{- end }}
 
-{{- if .lang.bash }}
-{{- $brews = concat $brews (list
-	"bash-language-server"
-	"shellcheck"
-	"shfmt"
-) }}
-{{- end }}
+	{{- if .app.ripgrep }}
+		brew "ripgrep"
+	{{- end }}
 
-{{- if .lang.cpp }}
-{{- $brews = concat $brews (list
-	"clang-format"
-) }}
-{{- end }}
+	{{- if .app.sd }}
+		brew "sd"
+	{{- end }}
 
-{{- if .lang.haskell }}
-{{- $brews = concat $brews (list
-	"haskell-language-server"
-	"haskell-stack"
-) }}
-{{- end }}
+	{{- if .app.tealdeer }}
+		brew "tealdeer"
+	{{- end }}
 
-{{- if .lang.markdown }}
-{{- $brews = concat $brews (list
-	"marksman"
-) }}
-{{- end }}
+	{{- if .app.tokei }}
+		brew "tokei"
+	{{- end }}
 
-{{- if .lang.python }}
-{{- $brews = concat $brews (list
-	"pyright"
-	"ruff-lsp"
-	"black"
-) }}
-{{- end }}
+	{{- if .lang.bash }}
+		brew "bash-language-server"
+		brew "shellcheck"
+		brew "shfmt"
+	{{- end }}
 
-{{- if .lang.rust }}
-{{- $brews = concat $brews (list
-	"rustup"
-) }}
-{{- end }}
+	{{- if .lang.cpp }}
+		brew "clang-format"
+	{{- end }}
 
-{{- if .lang.go }}
-{{- $brews = concat $brews (list
-	"go"
-) }}
-{{- end }}
+	{{- if .lang.dotnet }}
+		cask "homebrew/cask/dotnet"
+	{{- end }}
 
-{{- if .lang.dotnet }}
-{{- $brews = concat $brews (list
-	"dotnet"
-) }}
-{{- end }}
+	{{- if .lang.go }}
+		brew "go"
+	{{- end }}
 
-{{- if .lang.ruby }}
-{{- $brews = concat $brews (list
-	"solargraph"
-) }}
-{{- end }}
+	{{- if .lang.haskell }}
+		brew "haskell-language-server"
+		brew "haskell-stack"
+	{{- end }}
 
-{{- if .tokei.enabled }}
-{{- $brews = concat $brews (list
-	"tokei"
-) }}
-{{- end }}
+	{{- if .lang.markdown }}
+		brew "marksman"
+	{{- end }}
 
-{{- if .qalc.enabled }}
-{{- $brews = concat $brews (list
-	"libqalculate"
-) }}
-{{- end }}
+	{{- if .lang.python }}
+		brew "pyright"
+		brew "ruff-lsp"
+		brew "black"
+	{{- end }}
 
-{{- if .hyperfine.enabled }}
-{{- $brews = concat $brews (list
-	"hyperfine"
-) }}
-{{- end }}
+	{{- if .lang.ruby }}
+		brew "solargraph"
+	{{- end }}
 
-{{- if .tealdeer.enabled }}
-{{- $brews = concat $brews (list
-	"tealdeer"
-) }}
-{{- end }}
-
-{{- if .obsidian.enabled }}
-{{- $casks = concat $casks (list
-	"obsidian"
-) }}
-{{- end }}
-
-brew bundle --no-lock --file=/dev/stdin <<EOF
-{{- range ($brews | sortAlpha | uniq) }}
-brew "{{ . }}"
-{{- end }}
-{{- range ($casks | sortAlpha | uniq) }}
-cask "{{ . }}"
-{{- end }}
+	{{- if .lang.rust }}
+		brew "rustup"
+	{{- end }}
 EOF

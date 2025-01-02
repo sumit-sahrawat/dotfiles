@@ -1,4 +1,4 @@
-{{- if .alacritty.enabled -}}
+{{- if .app.alacritty -}}
 
 [general]
 import = [ "~/.config/alacritty/catppuccin/catppuccin-{{ includeTemplate "ui.catppuccin.palette" . }}.toml" ]

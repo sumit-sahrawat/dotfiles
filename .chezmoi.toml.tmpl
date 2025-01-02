@@ -53,8 +53,30 @@ id = {{ get $name_map $name }}
 name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "(hot-corner) bottom-right" $name_list "no-op" }}{{ $name | quote }}
 id = {{ get $name_map $name }}
 
-[data.git]
-enabled = {{ $git := promptBoolOnce . "git.enabled" "(git) enable" }}{{ $git }}
+[data.app]
+zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
+git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
+alacritty = {{ $alacritty := promptBoolOnce . "app.alacritty" "(app) alacritty" }}{{ $alacritty }}
+kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
+terminal = {{ $terminal := or $alacritty $kitty }}{{ $terminal }}
+bandwhich = {{ promptBoolOnce . "app.bandwhich" "(app) bandwhich" }}
+bat = {{ $bat := promptBoolOnce . "app.bat" "(app) bat" }}{{ $bat }}
+bottom = {{ promptBoolOnce . "app.bottom" "(app) bottom" }}
+chatgpt = {{ promptBoolOnce . "app.chatgpt" "(app) chatgpt" }}
+duf = {{ promptBoolOnce . "app.duf" "(app) duf" }}
+dust = {{ promptBoolOnce . "app.dust" "(app) dust" }}
+eza = {{ promptBoolOnce . "app.eza" "(app) eza" }}
+fd = {{ promptBoolOnce . "app.fd" "(app) fd" }}
+helix = {{ $helix := promptBoolOnce . "app.helix" "(app) helix" }}{{ $helix }}
+hyperfine = {{ promptBoolOnce . "app.hyperfine" "(app) hyperfine" }}
+mpv = {{ promptBoolOnce . "app.mpv" "(app) mpv" }}
+obsidian = {{ promptBoolOnce . "app.obsidian" "(app) obsidian" }}
+procs = {{ promptBoolOnce . "app.procs" "(app) procs" }}
+qalc = {{ promptBoolOnce . "app.qalc" "(app) qalc" }}
+ripgrep = {{ promptBoolOnce . "app.ripgrep" "(app) ripgrep" }}
+sd = {{ promptBoolOnce . "app.sd" "(app) sd" }}
+tealdeer = {{ promptBoolOnce . "app.tealdeer" "(app) tealdeer" }}
+tokei = {{ promptBoolOnce . "app.tokei" "(app) tokei" }}
 
 {{- if $git }}
 
@@ -99,22 +121,6 @@ username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username"
 
 {{- end }}
 
-[data.zsh]
-enabled = {{ promptBoolOnce . "zsh.enabled" "(zsh) enable" }}
-
-[data.helix]
-enabled = {{ promptBoolOnce . "helix.enabled" "(helix) enable" }}
-executable = "hx"
-
-[data.alacritty]
-enabled = {{ $alacritty := promptBoolOnce . "alacritty.enabled" "(alacritty) enable" }}{{ $alacritty }}
-
-[data.kitty]
-enabled = {{ $kitty := promptBoolOnce . "kitty.enabled" "(kitty) enable" }}{{ $kitty }}
-
-[data.terminal]
-enabled = {{ $terminal := or $alacritty $terminal }}{{ $terminal }}
-
 {{- if $terminal }}
 
 [data.terminal.font]
@@ -125,88 +131,41 @@ size = {{ promptIntOnce . "terminal.font.size" "(terminal) font.size" 16 }}
 
 {{- end }}
 
-[data.chatgpt]
-enabled = {{ promptBoolOnce . "chatgpt.enabled" "(chatgpt) enable" }}
-
-[data.mpv]
-enabled = {{ promptBoolOnce . "mpv.enabled" "(mpv) enable" }}
-
-[data.bat]
-enabled = {{ promptBoolOnce . "bat.enabled" "(bat) enable" }}
-
-[data.eza]
-enabled = {{ promptBoolOnce . "eza.enabled" "(eza) enable" }}
-
-[data.ripgrep]
-enabled = {{ promptBoolOnce . "ripgrep.enabled" "(ripgrep) enable" }}
-
-[data.fd]
-enabled = {{ promptBoolOnce . "fd.enabled" "(fd) enable" }}
-
-[data.sd]
-enabled = {{ promptBoolOnce . "sd.enabled" "(sd) enable" }}
-
-[data.bottom]
-enabled = {{ promptBoolOnce . "bottom.enabled" "(bottom) enable" }}
-
-[data.duf]
-enabled = {{ promptBoolOnce . "duf.enabled" "(duf) enable" }}
-
-[data.bandwhich]
-enabled = {{ promptBoolOnce . "bandwhich.enabled" "(bandwhich) enable" }}
-
-[data.dust]
-enabled = {{ promptBoolOnce . "dust.enabled" "(dust) enable" }}
-
-[data.procs]
-enabled = {{ promptBoolOnce . "procs.enabled" "(procs) enable" }}
-
-[data.tokei]
-enabled = {{ promptBoolOnce . "tokei.enabled" "(tokei) enable" }}
-
-[data.hyperfine]
-enabled = {{ promptBoolOnce . "hyperfine.enabled" "(hyperfine) enable" }}
-
-[data.tealdeer]
-enabled = {{ promptBoolOnce . "tealdeer.enabled" "(tealdeer) enable" }}
-
-[data.qalc]
-enabled = {{ promptBoolOnce . "qalc.enabled" "(qalc) enable" }}
-
-[data.obsidian]
-enabled = {{ promptBoolOnce . "obsidian.enabled" "(obsidian) enable" }}
-
 [data.lang]
 bash = {{ promptBoolOnce . "lang.bash" "(lang) bash" }}
 cpp = {{ promptBoolOnce . "lang.cpp" "(lang) cpp" }}
+dotnet = {{ promptBoolOnce . "lang.dotnet" "(lang) dotnet" }}
+go = {{ promptBoolOnce . "lang.go" "(lang) go" }}
 haskell = {{ promptBoolOnce . "lang.haskell" "(lang) haskell" }}
 markdown = {{ promptBoolOnce . "lang.markdown" "(lang) markdown" }}
 python = {{ promptBoolOnce . "lang.python" "(lang) python" }}
-rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
-go = {{ promptBoolOnce . "lang.go" "(lang) go" }}
-dotnet = {{ promptBoolOnce . "lang.dotnet" "(lang) dotnet" }}
 ruby = {{ promptBoolOnce . "lang.ruby" "(lang) ruby" }}
+rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
 
 [data.ui.theme.dynamic]
 files = [
-{{- if .alacritty.enabled }}
+{{- if $git }}
+	"~/.config/git/config",
+{{- end }}
+
+{{- if $alacritty }}
 	"~/.config/alacritty/alacritty.toml",
 {{- end }}
 
-{{- if .bat.enabled }}
+{{- if $kitty }}
+	"~/.config/kitty/kitty.conf",
+{{- end }}
+
+{{- if $bat }}
 	"~/.config/bat/config",
 {{- end }}
 
-{{- if .helix.enabled }}
+{{- if $helix }}
 	"~/.config/helix/config.toml",
-{{- end }}
-
-{{- if .kitty.enabled }}
-	"~/.config/kitty/kitty.conf",
 {{- end }}
 ]
 commands = [
-{{- if .helix.enabled }}
-	"pkill -USR1 {{ .helix.executable }} || true",
+{{- if $helix }}
+	"pkill -USR1 hx || true",
 {{- end }}
 ]

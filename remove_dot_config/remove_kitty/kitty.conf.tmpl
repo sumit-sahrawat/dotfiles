@@ -1,3 +1,5 @@
+{{- if .app.kitty }}
+
 update_check_interval 0
 
 font_family {{ .terminal.font.liga_family }}
@@ -142,3 +144,5 @@ mouse_map left                press       ungrabbed mouse_selection normal
 mouse_map left                doublepress ungrabbed mouse_selection word
 mouse_map left                triplepress ungrabbed mouse_selection line
 mouse_map right               press       ungrabbed mouse_selection extend
+
+{{- end }}
