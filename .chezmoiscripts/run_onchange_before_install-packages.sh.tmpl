@@ -181,6 +181,12 @@ fi
 ) }}
 {{- end }}
 
+{{- if .lang.ruby }}
+{{- $brews = concat $brews (list
+	"solargraph"
+) }}
+{{- end }}
+
 {{- if .tokei.enabled }}
 {{- $brews = concat $brews (list
 	"tokei"
