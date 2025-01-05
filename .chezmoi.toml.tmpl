@@ -5,21 +5,14 @@
 
 [data]
 
-[data.input.keyboard]
-caps2ctrl = {{ promptBoolOnce . "input.keyboard.caps2ctrl" "(keyboard) caps2ctrl" }}
+input.keyboard.caps2ctrl = {{ promptBoolOnce . "input.keyboard.caps2ctrl" "(keyboard) caps2ctrl" }}
+input.keyboard.repeat.delay = 195
+input.keyboard.repeat.interval = 15
 
-[data.input.keyboard.repeat]
-delay = 195
-interval = 15
+input.mouse.fix_scroll = {{ promptBoolOnce . "input.mouse.fix_scroll" "(mouse) fix_scroll" }}
 
-[data.input.mouse]
-fix_scroll = {{ promptBoolOnce . "input.mouse.fix_scroll" "(mouse) fix_scroll" }}
-
-[data.ui.theme]
-choice = {{ $theme_choice := promptChoiceOnce . "ui.theme.choice" "(ui) theme" (list "auto" "light" "dark") }}{{ $theme_choice | quote }}
-is_auto = {{ eq $theme_choice "auto" }}
-
-[data.ui.hot_corners]
+ui.theme.choice = {{ $theme_choice := promptChoiceOnce . "ui.theme.choice" "(ui) theme" (list "auto" "light" "dark") }}{{ $theme_choice | quote }}
+ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
 {{- $name_map := dict
 
@@ -37,46 +30,38 @@ is_auto = {{ eq $theme_choice "auto" }}
 }}
 {{- $name_list := keys $name_map }}
 
-[data.ui.hot_corners.top_left]
-name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_left.name" "(hot-corner) top-left" $name_list "mission-control" }}{{ $name | quote }}
-id = {{ get $name_map $name }}
+ui.hot_corners.top_left.name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_left.name" "(hot-corner) top-left" $name_list "mission-control" }}{{ $name | quote }}
+ui.hot_corners.top_left.id = {{ get $name_map $name }}
+ui.hot_corners.top_right.name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_right.name" "(hot-corner) top-right" $name_list "app-windows" }}{{ $name | quote }}
+ui.hot_corners.top_right.id = {{ get $name_map $name }}
+ui.hot_corners.bottom_left.name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_left.name" "(hot-corner) bottom-left" $name_list "no-op" }}{{ $name | quote }}
+ui.hot_corners.bottom_left.id = {{ get $name_map $name }}
+ui.hot_corners.bottom_right.name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "(hot-corner) bottom-right" $name_list "no-op" }}{{ $name | quote }}
+ui.hot_corners.bottom_right.id = {{ get $name_map $name }}
 
-[data.ui.hot_corners.top_right]
-name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_right.name" "(hot-corner) top-right" $name_list "app-windows" }}{{ $name | quote }}
-id = {{ get $name_map $name }}
-
-[data.ui.hot_corners.bottom_left]
-name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_left.name" "(hot-corner) bottom-left" $name_list "no-op" }}{{ $name | quote }}
-id = {{ get $name_map $name }}
-
-[data.ui.hot_corners.bottom_right]
-name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "(hot-corner) bottom-right" $name_list "no-op" }}{{ $name | quote }}
-id = {{ get $name_map $name }}
-
-[data.app]
-zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
-git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
-alacritty = {{ $alacritty := promptBoolOnce . "app.alacritty" "(app) alacritty" }}{{ $alacritty }}
-kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
-terminal = {{ $terminal := or $alacritty $kitty }}{{ $terminal }}
-bandwhich = {{ promptBoolOnce . "app.bandwhich" "(app) bandwhich" }}
-bat = {{ $bat := promptBoolOnce . "app.bat" "(app) bat" }}{{ $bat }}
-bottom = {{ promptBoolOnce . "app.bottom" "(app) bottom" }}
-chatgpt = {{ promptBoolOnce . "app.chatgpt" "(app) chatgpt" }}
-duf = {{ promptBoolOnce . "app.duf" "(app) duf" }}
-dust = {{ promptBoolOnce . "app.dust" "(app) dust" }}
-eza = {{ promptBoolOnce . "app.eza" "(app) eza" }}
-fd = {{ promptBoolOnce . "app.fd" "(app) fd" }}
-helix = {{ $helix := promptBoolOnce . "app.helix" "(app) helix" }}{{ $helix }}
-hyperfine = {{ promptBoolOnce . "app.hyperfine" "(app) hyperfine" }}
-mpv = {{ promptBoolOnce . "app.mpv" "(app) mpv" }}
-obsidian = {{ promptBoolOnce . "app.obsidian" "(app) obsidian" }}
-procs = {{ promptBoolOnce . "app.procs" "(app) procs" }}
-qalc = {{ promptBoolOnce . "app.qalc" "(app) qalc" }}
-ripgrep = {{ promptBoolOnce . "app.ripgrep" "(app) ripgrep" }}
-sd = {{ promptBoolOnce . "app.sd" "(app) sd" }}
-tealdeer = {{ promptBoolOnce . "app.tealdeer" "(app) tealdeer" }}
-tokei = {{ promptBoolOnce . "app.tokei" "(app) tokei" }}
+app.zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
+app.git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
+app.alacritty = {{ $alacritty := promptBoolOnce . "app.alacritty" "(app) alacritty" }}{{ $alacritty }}
+app.kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
+app.terminal = {{ $terminal := or $alacritty $kitty }}{{ $terminal }}
+app.bandwhich = {{ promptBoolOnce . "app.bandwhich" "(app) bandwhich" }}
+app.bat = {{ $bat := promptBoolOnce . "app.bat" "(app) bat" }}{{ $bat }}
+app.bottom = {{ promptBoolOnce . "app.bottom" "(app) bottom" }}
+app.chatgpt = {{ promptBoolOnce . "app.chatgpt" "(app) chatgpt" }}
+app.duf = {{ promptBoolOnce . "app.duf" "(app) duf" }}
+app.dust = {{ promptBoolOnce . "app.dust" "(app) dust" }}
+app.eza = {{ promptBoolOnce . "app.eza" "(app) eza" }}
+app.fd = {{ promptBoolOnce . "app.fd" "(app) fd" }}
+app.helix = {{ $helix := promptBoolOnce . "app.helix" "(app) helix" }}{{ $helix }}
+app.hyperfine = {{ promptBoolOnce . "app.hyperfine" "(app) hyperfine" }}
+app.mpv = {{ promptBoolOnce . "app.mpv" "(app) mpv" }}
+app.obsidian = {{ promptBoolOnce . "app.obsidian" "(app) obsidian" }}
+app.procs = {{ promptBoolOnce . "app.procs" "(app) procs" }}
+app.qalc = {{ promptBoolOnce . "app.qalc" "(app) qalc" }}
+app.ripgrep = {{ promptBoolOnce . "app.ripgrep" "(app) ripgrep" }}
+app.sd = {{ promptBoolOnce . "app.sd" "(app) sd" }}
+app.tealdeer = {{ promptBoolOnce . "app.tealdeer" "(app) tealdeer" }}
+app.tokei = {{ promptBoolOnce . "app.tokei" "(app) tokei" }}
 
 {{- if $git }}
 
@@ -86,35 +71,27 @@ tokei = {{ promptBoolOnce . "app.tokei" "(app) tokei" }}
 {{- $default_username := "sumit-sahrawat" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
-[data.git.global.user]
-name = {{ promptStringOnce . "git.global.user.name" "(~/.config/git/config) user.name" $default_name | quote }}
-email = {{ promptStringOnce . "git.global.user.email" "(~/.config/git/config) user.email" $default_email | quote }}
-key_name = {{ $code_key := promptStringOnce . "git.global.user.key_name" "(~/.config/git/config) user.signingkey (file name only)" $default_key }}{{ $code_key | quote }}
-key = {{ joinPath $ssh_dir $code_key | quote }}
+git.global.user.name = {{ promptStringOnce . "git.global.user.name" "(~/.config/git/config) user.name" $default_name | quote }}
+git.global.user.email = {{ promptStringOnce . "git.global.user.email" "(~/.config/git/config) user.email" $default_email | quote }}
+git.global.user.key_name = {{ $code_key := promptStringOnce . "git.global.user.key_name" "(~/.config/git/config) user.signingkey (file name only)" $default_key }}{{ $code_key | quote }}
+git.global.user.key = {{ joinPath $ssh_dir $code_key | quote }}
+git.global.github.username = {{ promptStringOnce . "git.global.github.username" "(~/.gh/hosts.yml) github.com username" $default_username | quote }}
 
-[data.git.global.github]
-username = {{ promptStringOnce . "git.global.github.username" "(~/.gh/hosts.yml) github.com username" $default_username | quote }}
-
-[data.git.work]
-enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "(~/Work) enable" }}{{ $git_work }}
+git.work.enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "(~/Work) enable" }}{{ $git_work }}
 
 {{- if $git_work }}
 
-[data.git.work.user]
-name = {{ promptStringOnce . "git.work.user.name" "(~/Work) user.name" $default_name | quote }}
-email = {{ promptStringOnce . "git.work.user.email" "(~/Work) user.email" $default_email | quote }}
-key_name = {{ $work_key := promptStringOnce . "git.work.user.key_name" "(~/Work) user.key" $default_key }}{{ $work_key | quote }}
-key = {{ joinPath $ssh_dir $work_key | quote }}
+git.work.user.name = {{ promptStringOnce . "git.work.user.name" "(~/Work) user.name" $default_name | quote }}
+git.work.user.email = {{ promptStringOnce . "git.work.user.email" "(~/Work) user.email" $default_email | quote }}
+git.work.user.key_name = {{ $work_key := promptStringOnce . "git.work.user.key_name" "(~/Work) user.key" $default_key }}{{ $work_key | quote }}
+git.work.user.key = {{ joinPath $ssh_dir $work_key | quote }}
+git.work.github.username = {{ promptStringOnce . "git.work.github.username" "(~/Work) github.username" $default_username | quote }}
 
-[data.git.work.github]
-username = {{ promptStringOnce . "git.work.github.username" "(~/Work) github.username" $default_username | quote }}
-
-[data.git.work.ghe]
-enabled = {{ $work_ghe := promptBoolOnce . "git.work.ghe.enabled" "(~/Work) ghe.enabled" }}{{ $work_ghe }}
+git.work.ghe.enabled = {{ $work_ghe := promptBoolOnce . "git.work.ghe.enabled" "(~/Work) ghe.enabled" }}{{ $work_ghe }}
 
 {{- if $work_ghe }}
-hostname = {{ promptStringOnce . "git.work.ghe.hostname" "(~/Work) ghe.hostname" | quote }}
-username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username" $default_username | quote }}
+git.work.ghe.hostname = {{ promptStringOnce . "git.work.ghe.hostname" "(~/Work) ghe.hostname" | quote }}
+git.work.ghe.username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username" $default_username | quote }}
 {{- end }}
 
 {{- end }}
@@ -123,27 +100,24 @@ username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username"
 
 {{- if $terminal }}
 
-[data.terminal.font]
-pragmata = {{ $pragmata := promptBoolOnce . "terminal.font.pragmata" "(terminal) font.pragmata" true }}{{ $pragmata }}
-non_liga_family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $pragmata | quote }}
-liga_family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
-size = {{ promptIntOnce . "terminal.font.size" "(terminal) font.size" 16 }}
+terminal.font.pragmata = {{ $pragmata := promptBoolOnce . "terminal.font.pragmata" "(terminal) font.pragmata" true }}{{ $pragmata }}
+terminal.font.non_liga_family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $pragmata | quote }}
+terminal.font.liga_family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
+terminal.font.size = {{ promptIntOnce . "terminal.font.size" "(terminal) font.size" 16 }}
 
 {{- end }}
 
-[data.lang]
-bash = {{ promptBoolOnce . "lang.bash" "(lang) bash" }}
-cpp = {{ promptBoolOnce . "lang.cpp" "(lang) cpp" }}
-dotnet = {{ promptBoolOnce . "lang.dotnet" "(lang) dotnet" }}
-go = {{ promptBoolOnce . "lang.go" "(lang) go" }}
-haskell = {{ promptBoolOnce . "lang.haskell" "(lang) haskell" }}
-markdown = {{ promptBoolOnce . "lang.markdown" "(lang) markdown" }}
-python = {{ promptBoolOnce . "lang.python" "(lang) python" }}
-ruby = {{ promptBoolOnce . "lang.ruby" "(lang) ruby" }}
-rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
+lang.bash = {{ promptBoolOnce . "lang.bash" "(lang) bash" }}
+lang.cpp = {{ promptBoolOnce . "lang.cpp" "(lang) cpp" }}
+lang.dotnet = {{ promptBoolOnce . "lang.dotnet" "(lang) dotnet" }}
+lang.go = {{ promptBoolOnce . "lang.go" "(lang) go" }}
+lang.haskell = {{ promptBoolOnce . "lang.haskell" "(lang) haskell" }}
+lang.markdown = {{ promptBoolOnce . "lang.markdown" "(lang) markdown" }}
+lang.python = {{ promptBoolOnce . "lang.python" "(lang) python" }}
+lang.ruby = {{ promptBoolOnce . "lang.ruby" "(lang) ruby" }}
+lang.rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
 
-[data.ui.theme.dynamic]
-files = [
+ui.theme.dynamic.files = [
 {{- if $git }}
 	"~/.config/git/config",
 {{- end }}
@@ -164,7 +138,7 @@ files = [
 	"~/.config/helix/config.toml",
 {{- end }}
 ]
-commands = [
+ui.theme.dynamic.commands = [
 {{- if $helix }}
 	"pkill -USR1 hx || true",
 {{- end }}
