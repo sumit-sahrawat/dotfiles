@@ -68,14 +68,12 @@ app.tokei = {{ promptBoolOnce . "app.tokei" "(app) tokei" }}
 {{- $default_name := "Sumit Sahrawat" }}
 {{- $default_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
 {{- $default_key := "id_ed25519" }}
-{{- $default_username := "sumit-sahrawat" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
 git.global.user.name = {{ promptStringOnce . "git.global.user.name" "(~/.config/git/config) user.name" $default_name | quote }}
 git.global.user.email = {{ promptStringOnce . "git.global.user.email" "(~/.config/git/config) user.email" $default_email | quote }}
-git.global.user.key_name = {{ $code_key := promptStringOnce . "git.global.user.key_name" "(~/.config/git/config) user.signingkey (file name only)" $default_key }}{{ $code_key | quote }}
-git.global.user.key = {{ joinPath $ssh_dir $code_key | quote }}
-git.global.github.username = {{ promptStringOnce . "git.global.github.username" "(~/.gh/hosts.yml) github.com username" $default_username | quote }}
+git.global.user.key_name = {{ $user_key_name := promptStringOnce . "git.global.user.key_name" "(~/.config/git/config) user.signingkey (file name only)" $default_key }}{{ $user_key_name | quote }}
+git.global.user.key = {{ joinPath $ssh_dir $user_key_name | quote }}
 
 git.work.enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "(~/Work) enable" }}{{ $git_work }}
 
@@ -85,14 +83,6 @@ git.work.user.name = {{ promptStringOnce . "git.work.user.name" "(~/Work) user.n
 git.work.user.email = {{ promptStringOnce . "git.work.user.email" "(~/Work) user.email" $default_email | quote }}
 git.work.user.key_name = {{ $work_key := promptStringOnce . "git.work.user.key_name" "(~/Work) user.key" $default_key }}{{ $work_key | quote }}
 git.work.user.key = {{ joinPath $ssh_dir $work_key | quote }}
-git.work.github.username = {{ promptStringOnce . "git.work.github.username" "(~/Work) github.username" $default_username | quote }}
-
-git.work.ghe.enabled = {{ $work_ghe := promptBoolOnce . "git.work.ghe.enabled" "(~/Work) ghe.enabled" }}{{ $work_ghe }}
-
-{{- if $work_ghe }}
-git.work.ghe.hostname = {{ promptStringOnce . "git.work.ghe.hostname" "(~/Work) ghe.hostname" | quote }}
-git.work.ghe.username = {{ promptStringOnce . "git.work.ghe.username" "(~/Work) ghe.username" $default_username | quote }}
-{{- end }}
 
 {{- end }}
 
