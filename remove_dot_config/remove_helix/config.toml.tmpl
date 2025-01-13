@@ -4,9 +4,11 @@ theme = "catppuccin_{{ includeTemplate "ui.catppuccin.palette" . }}"
 
 [editor]
 cursorline = true
-auto-save = true
 bufferline = "multiple"
 color-modes = true
+
+[editor.auto-save]
+focus-lost = true
 
 [editor.statusline]
 mode.normal = "NORMAL"
