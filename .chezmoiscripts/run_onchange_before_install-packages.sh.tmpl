@@ -134,6 +134,7 @@ fi
 	{{- end }}
 
 	{{- if .lang.python }}
+		brew "uv"
 		brew "pyright"
 		brew "ruff-lsp"
 		brew "black"
