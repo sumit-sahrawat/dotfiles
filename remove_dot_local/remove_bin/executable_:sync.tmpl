@@ -56,11 +56,11 @@ while read -r line; do
 	if [[ -d "${target}" ]]; then
 		if ! ${FAST}; then
 			trying_to 'Fetching'  "${remote}" 'at' "${target}"
-			git -C "${target}" fetch || failed_to 'fetch' "${remote}" 'at' "${target}"
+			git -C "${target}" fetch --quiet || failed_to 'fetch' "${remote}" 'at' "${target}"
 		fi
 	else
 		trying_to 'Cloning'  "${remote}" 'to' "${target}"
-		git clone "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
+		git clone --quiet "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
 	fi
 done < <(read_list_from "${LIST_FILE}")
 
