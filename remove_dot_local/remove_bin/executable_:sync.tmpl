@@ -12,6 +12,7 @@
 
 set -euo pipefail
 
+ERROR_COLOR='\033[0;31m'     # red
 DIRECTORY_COLOR='\033[0;34m' # blue
 URL_COLOR='\033[0;36m'       # cyan
 RESET_COLOR='\033[0m'
@@ -42,7 +43,7 @@ function trying_to {
 }
 
 function failed_to {
-	>&2 printf "${RED}%s${RESET_COLOR} Failed to %s ${URL_COLOR}%s${RESET_COLOR} %s ${DIRECTORY_COLOR}%s${RESET_COLOR}\n" "✗" "${1}" "${2}" "${3}" "${4}"
+	>&2 printf "${ERROR_COLOR}%s${RESET_COLOR} Failed to %s ${URL_COLOR}%s${RESET_COLOR} %s ${DIRECTORY_COLOR}%s${RESET_COLOR}\n" "✗" "${1}" "${2}" "${3}" "${4}"
 }
 
 function read_list_from {
