@@ -124,7 +124,20 @@ alias o='open'
 alias q='exit'
 
 # System upgrade
-alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .lang.rust }} && rustup update {{- end }} {{- if .app.tealdeer }} && tldr --update {{- end }} && z4h update'
+function :sup {
+	chezmoi update --init --apply --refresh-externals
+	brew upgrade
+
+{{- if .lang.rust }}
+	rustup update
+{{- end }}
+
+{{- if .app.tealdeer }}
+	tldr --update
+{{- end }}
+
+	z4h update
+}
 
 # chezmoi
 alias :ha='chezmoi add'
