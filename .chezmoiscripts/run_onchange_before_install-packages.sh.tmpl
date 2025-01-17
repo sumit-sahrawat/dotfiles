@@ -110,6 +110,7 @@ fi
 	{{- end }}
 
 	{{- if .lang.cpp }}
+		brew "llvm"
 		brew "clang-format"
 	{{- end }}
 
