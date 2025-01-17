@@ -21,15 +21,11 @@ fi
 		brew "git-ignore"
 	{{- end }}
 
-	{{- if .app.alacritty }}
-		cask "homebrew/cask/alacritty"
-	{{- end }}
-
 	{{- if .app.kitty }}
 		cask "homebrew/cask/kitty"
 	{{- end }}
 
-	{{- if and .app.terminal (not .terminal.font.pragmata) }}
+	{{- if and .app.kitty (not .kitty.font.pragmata) }}
 		cask "homebrew/cask-fonts/font-iosevka-ss08"
 	{{- end }}
 

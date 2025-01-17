@@ -41,9 +41,7 @@ ui.hot_corners.bottom_right.id = {{ get $name_map $name }}
 
 app.zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
 app.git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
-app.alacritty = {{ $alacritty := promptBoolOnce . "app.alacritty" "(app) alacritty" }}{{ $alacritty }}
 app.kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
-app.terminal = {{ $terminal := or $alacritty $kitty }}{{ $terminal }}
 app.bandwhich = {{ promptBoolOnce . "app.bandwhich" "(app) bandwhich" }}
 app.bat = {{ $bat := promptBoolOnce . "app.bat" "(app) bat" }}{{ $bat }}
 app.bottom = {{ promptBoolOnce . "app.bottom" "(app) bottom" }}
@@ -88,12 +86,11 @@ git.work.user.key = {{ joinPath $ssh_dir $work_key | quote }}
 
 {{- end }}
 
-{{- if $terminal }}
+{{- if $kitty }}
 
-terminal.font.pragmata = {{ $pragmata := promptBoolOnce . "terminal.font.pragmata" "(terminal) font.pragmata" true }}{{ $pragmata }}
-terminal.font.non_liga_family = {{ ternary "PragmataPro Mono" "Iosevka Term SS08" $pragmata | quote }}
-terminal.font.liga_family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
-terminal.font.size = {{ promptIntOnce . "terminal.font.size" "(terminal) font.size" 16 }}
+kitty.font.pragmata = {{ $pragmata := promptBoolOnce . "kitty.font.pragmata" "(kitty) font.pragmata" true }}{{ $pragmata }}
+kitty.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
+kitty.font.size = {{ promptIntOnce . "kitty.font.size" "(kitty) font.size" 16 }}
 
 {{- end }}
 
@@ -110,10 +107,6 @@ lang.rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
 ui.theme.dynamic.files = [
 {{- if $git }}
 	"~/.config/git/config",
-{{- end }}
-
-{{- if $alacritty }}
-	"~/.config/alacritty/alacritty.toml",
 {{- end }}
 
 {{- if $kitty }}
