@@ -127,7 +127,7 @@ alias :calc=qalc
 {{- end }}
 
 # System upgrade
-alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .lang.rust }} && rustup update {{- end }} && z4h update'
+alias :sup='chezmoi update --init --apply --refresh-externals && brew upgrade {{- if .lang.rust }} && rustup update {{- end }} {{- if .app.tealdeer }} && tldr --update {{- end }} && z4h update'
 
 # chezmoi
 alias :ha='chezmoi add'
