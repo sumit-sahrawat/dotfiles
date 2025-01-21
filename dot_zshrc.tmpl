@@ -67,6 +67,13 @@ z4h install zimfw/git
 # Initialize zsh4humans. Console/Network I/O is unavailable after this.
 z4h init || return
 
+if test -n "${KITTY_INSTALLATION_DIR}"; then
+    export KITTY_SHELL_INTEGRATION="enabled"
+    autoload -Uz -- "${KITTY_INSTALLATION_DIR}"/shell-integration/zsh/kitty-integration
+    kitty-integration
+    unfunction kitty-integration
+fi
+
 ###############################################################################
 # Customizations
 
