@@ -45,6 +45,10 @@ fi
 		cask "homebrew/cask/chatgpt"
 	{{- end }}
 
+	{{- if .app.docker }}
+		cask "homebrew/cask/docker"
+	{{- end }}
+
 	{{- if .app.duf }}
 		brew "duf"
 	{{- end }}
