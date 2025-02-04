@@ -151,4 +151,11 @@ fi
 	{{- if .lang.rust }}
 		brew "rustup"
 	{{- end }}
+
+	{{- if .lang.zig }}
+		brew "zig"
+		brew "zigmod"
+		brew "zigup"
+		brew "zls"
+	{{- end }}
 EOF
