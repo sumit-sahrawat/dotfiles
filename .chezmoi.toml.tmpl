@@ -95,16 +95,16 @@ kitty.font.size = {{ promptIntOnce . "kitty.font.size" "(kitty) font.size" 16 }}
 
 {{- end }}
 
-lang.bash = {{ promptBoolOnce . "lang.bash" "(lang) bash" }}
-lang.cpp = {{ promptBoolOnce . "lang.cpp" "(lang) cpp" }}
-lang.dotnet = {{ promptBoolOnce . "lang.dotnet" "(lang) dotnet" }}
-lang.go = {{ promptBoolOnce . "lang.go" "(lang) go" }}
-lang.haskell = {{ promptBoolOnce . "lang.haskell" "(lang) haskell" }}
-lang.markdown = {{ promptBoolOnce . "lang.markdown" "(lang) markdown" }}
-lang.python = {{ promptBoolOnce . "lang.python" "(lang) python" }}
-lang.ruby = {{ promptBoolOnce . "lang.ruby" "(lang) ruby" }}
-lang.rust = {{ promptBoolOnce . "lang.rust" "(lang) rust" }}
-lang.zig = {{ promptBoolOnce . "lang.zig" "(lang) zig" }}
+lang.bash     = {{ promptBoolOnce . "lang.bash"     "(lang) bash"     false }}
+lang.cpp      = {{ promptBoolOnce . "lang.cpp"      "(lang) cpp"      false }}
+lang.dotnet   = {{ promptBoolOnce . "lang.dotnet"   "(lang) dotnet"   false }}
+lang.go       = {{ promptBoolOnce . "lang.go"       "(lang) go"       false }}
+lang.haskell  = {{ promptBoolOnce . "lang.haskell"  "(lang) haskell"  false }}
+lang.markdown = {{ promptBoolOnce . "lang.markdown" "(lang) markdown" false }}
+lang.python   = {{ promptBoolOnce . "lang.python"   "(lang) python"   false }}
+lang.ruby     = {{ promptBoolOnce . "lang.ruby"     "(lang) ruby"     false }}
+lang.rust     = {{ promptBoolOnce . "lang.rust"     "(lang) rust"     false }}
+lang.zig      = {{ promptBoolOnce . "lang.zig"      "(lang) zig"      false }}
 
 ui.theme.dynamic.files = [
 {{- if $git }}
