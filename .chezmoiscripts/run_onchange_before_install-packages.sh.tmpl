@@ -8,7 +8,7 @@ fi
 
 { sort -u | brew bundle --no-lock --file=/dev/stdin; } <<-EOF
 	{{- if .input.mouse.fix_scroll }}
-		cask "homebrew/cask/unnaturalscrollwheels"
+		cask "homebrew/cask/mos"
 	{{- end }}
 
 	{{- if .app.zsh }}
