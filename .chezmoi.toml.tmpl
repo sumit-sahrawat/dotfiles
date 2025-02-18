@@ -11,6 +11,9 @@ input.keyboard.repeat.interval = 15
 
 input.mouse.fix_scroll = {{ promptBoolOnce . "input.mouse.fix_scroll" "(mouse) fix_scroll" }}
 
+ui.theme.catppuccin.light = "latte"
+ui.theme.catppuccin.dark = "macchiato"
+
 ui.theme.choice = {{ $theme_choice := promptChoiceOnce . "ui.theme.choice" "(ui) theme" (list "auto" "light" "dark") }}{{ $theme_choice | quote }}
 ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
