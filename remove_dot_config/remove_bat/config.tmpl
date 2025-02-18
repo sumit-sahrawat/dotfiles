@@ -1,13 +1,6 @@
 {{- if .app.bat -}}
 
-{{- if .ui.theme.is_auto -}}
-
---theme=ansi
-
-{{- else -}}
-
---theme="Catppuccin {{ includeTemplate "ui.catppuccin.palette" . | title }}"
-
-{{- end }}
+--theme-light='Catppuccin {{ .ui.theme.catppuccin.light | title }}'
+--theme-dark='Catppuccin {{ .ui.theme.catppuccin.dark | title }}'
 
 {{- end }}
