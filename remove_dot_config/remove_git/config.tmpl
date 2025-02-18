@@ -16,7 +16,7 @@
 {{- if .app.kitty }}
 	hyperlinks-file-link-format = "kitty-open-in-editor://{path}:{line}"
 {{- end }}
-{{- if and .app.bat (not .ui.theme.is_auto) }}
+{{- if .app.bat }}
 [include]
 	path = ~/.config/delta/themes/catppuccin/catppuccin.gitconfig
 [delta]
