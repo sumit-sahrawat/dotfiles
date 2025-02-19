@@ -89,6 +89,10 @@ fi
 		brew "procs"
 	{{- end }}
 
+	{{- if .app.presenterm }}
+		brew "presenterm"
+	{{- end }}
+
 	{{- if .app.qalc }}
 		brew "libqalculate"
 	{{- end }}

@@ -59,6 +59,7 @@ app.hyperfine = {{ promptBoolOnce . "app.hyperfine" "(app) hyperfine" }}
 app.mpv = {{ promptBoolOnce . "app.mpv" "(app) mpv" }}
 app.obsidian = {{ promptBoolOnce . "app.obsidian" "(app) obsidian" }}
 app.procs = {{ promptBoolOnce . "app.procs" "(app) procs" }}
+app.presenterm = {{ $presenterm := promptBoolOnce . "app.presenterm" "(app) presenterm" }}{{ $presenterm }}
 app.qalc = {{ promptBoolOnce . "app.qalc" "(app) qalc" }}
 app.ripgrep = {{ promptBoolOnce . "app.ripgrep" "(app) ripgrep" }}
 app.sd = {{ promptBoolOnce . "app.sd" "(app) sd" }}
@@ -120,6 +121,10 @@ ui.theme.dynamic.files = [
 
 {{- if $helix }}
 	"~/.config/helix/config.toml",
+{{- end }}
+
+{{- if $presenterm }}
+	"~/.config/presenterm/config.yaml",
 {{- end }}
 ]
 ui.theme.dynamic.commands = [

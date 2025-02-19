@@ -1,0 +1,8 @@
+{{- if .app.presenterm -}}
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mfontanini/presenterm/master/config-file-schema.json
+
+defaults:
+  theme: 'catppuccin-{{ includeTemplate "ui.catppuccin.palette" . }}'
+
+{{- end }}
