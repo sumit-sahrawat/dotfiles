@@ -109,30 +109,3 @@ lang.python   = {{ promptBoolOnce . "lang.python"   "(lang) python"   false }}
 lang.ruby     = {{ promptBoolOnce . "lang.ruby"     "(lang) ruby"     false }}
 lang.rust     = {{ promptBoolOnce . "lang.rust"     "(lang) rust"     false }}
 lang.zig      = {{ promptBoolOnce . "lang.zig"      "(lang) zig"      false }}
-
-ui.theme.dynamic.files = [
-{{- if $git }}
-	"~/.config/git/config",
-{{- end }}
-
-{{- if $kitty }}
-	"~/.config/kitty/kitty.conf",
-{{- end }}
-
-{{- if $helix }}
-	"~/.config/helix/config.toml",
-{{- end }}
-
-{{- if $presenterm }}
-	"~/.config/presenterm/config.yaml",
-{{- end }}
-]
-ui.theme.dynamic.commands = [
-{{- if $kitty }}
-	"kitten @ reload-config",
-{{- end }}
-
-{{- if $helix }}
-	"pkill -USR1 hx || true",
-{{- end }}
-]

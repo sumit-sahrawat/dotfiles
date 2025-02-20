@@ -1,14 +1,11 @@
-{{- if and .ui.theme.is_auto (ne (len .ui.theme.dynamic.files) 0) -}}
+{{- if and .ui.theme.is_auto -}}
 
 import Cocoa
 
 func apply() {
 	let task = Process()
-	task.launchPath = "/usr/bin/env"
-	task.arguments = [
-		"bash",
-		{{ joinPath .chezmoi.homeDir ".local/bin/:reapply-themes" | quote }},
-	]
+	task.launchPath = {{ .chezmoi.executable | quote }}
+	task.arguments = [ "apply" ]
 	task.environment = ProcessInfo.processInfo.environment
 	task.launch()
 	task.waitUntilExit()
