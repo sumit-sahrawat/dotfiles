@@ -23,11 +23,39 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 
 {{- end }}
 
+{{- if .lang.cpp }}
+
+export CC=clang
+export CXX=clang++
+
+{{- end }}
+
+{{- if .lang.dotnet }}
+
+export DOTNET_ROOT="${HOMEBREW_PREFIX}/opt/dotnet/libexec"
+
+{{- end }}
+
 {{- if .lang.go }}
 
 export GOPATH=~/.go
 
 {{- end }}
+
+# Extend PATH.
+path=(
+	~/.local/bin
+
+{{- if .lang.cpp }}
+	${HOMEBREW_PREFIX}/opt/llvm/bin
+{{- end }}
+
+{{- if .lang.rust }}
+	~/.cargo/bin
+{{- end }}
+
+	$path
+)
 
 ###############################################################################
 # zsh4humans (https://github.com/romkatv/zsh4humans/blob/v5/README.md)
@@ -84,31 +112,6 @@ z4h init || return
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 setopt no_auto_cd    # don't cd without cd
-
-# Extend PATH.
-path=(
-	~/.local/bin
-{{- if .lang.cpp }}
-	${HOMEBREW_PREFIX}/opt/llvm/bin
-{{- end }}
-{{- if .lang.rust }}
-	~/.cargo/bin
-{{- end }}
-	$path
-)
-
-{{- if .lang.cpp }}
-
-export CC=clang
-export CXX=clang++
-
-{{- end }}
-
-{{- if .lang.dotnet }}
-
-export DOTNET_ROOT="${HOMEBREW_PREFIX}/opt/dotnet/libexec"
-
-{{- end }}
 
 # Source additional local files if they exist.
 z4h source --compile ~/.bashrc
