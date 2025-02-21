@@ -54,6 +54,10 @@ path=(
 	~/.cargo/bin
 {{- end }}
 
+{{- if .lang.go }}
+	"${GOPATH}/bin"
+{{- end }}
+
 	$path
 )
 
