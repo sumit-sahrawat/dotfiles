@@ -6,6 +6,8 @@ set -euo pipefail
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
+defaults write com.apple.dock tilesize -int {{ .ui.dock.tilesize }}
+
 defaults write com.apple.dock wvous-tl-corner -int {{ .ui.hot_corners.top_left.id }}
 defaults write com.apple.dock wvous-tl-modifier -int 1048576
 

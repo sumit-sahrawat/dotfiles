@@ -17,6 +17,8 @@ ui.theme.catppuccin.dark = "macchiato"
 ui.theme.choice = {{ $theme_choice := promptChoiceOnce . "ui.theme.choice" "(ui) theme" (list "auto" "light" "dark") }}{{ $theme_choice | quote }}
 ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
+ui.dock.tilesize = {{ promptIntOnce . "ui.dock.tilesize" "(ui) dock.tilesize" 48 }}
+
 {{- $name_map := dict
 
 	"no-op"                "0"
