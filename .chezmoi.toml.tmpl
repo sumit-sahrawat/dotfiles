@@ -48,7 +48,7 @@ app.zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
 app.git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
 app.kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
 app.bandwhich = {{ promptBoolOnce . "app.bandwhich" "(app) bandwhich" }}
-app.bat = {{ $bat := promptBoolOnce . "app.bat" "(app) bat" }}{{ $bat }}
+app.bat = {{ promptBoolOnce . "app.bat" "(app) bat" }}
 app.bottom = {{ promptBoolOnce . "app.bottom" "(app) bottom" }}
 app.chatgpt = {{ promptBoolOnce . "app.chatgpt" "(app) chatgpt" }}
 app.docker = {{ promptBoolOnce . "app.docker" "(app) docker" }}
@@ -56,12 +56,12 @@ app.duf = {{ promptBoolOnce . "app.duf" "(app) duf" }}
 app.dust = {{ promptBoolOnce . "app.dust" "(app) dust" }}
 app.eza = {{ promptBoolOnce . "app.eza" "(app) eza" }}
 app.fd = {{ promptBoolOnce . "app.fd" "(app) fd" }}
-app.helix = {{ $helix := promptBoolOnce . "app.helix" "(app) helix" }}{{ $helix }}
+app.helix = {{ promptBoolOnce . "app.helix" "(app) helix" }}
 app.hyperfine = {{ promptBoolOnce . "app.hyperfine" "(app) hyperfine" }}
 app.mpv = {{ promptBoolOnce . "app.mpv" "(app) mpv" }}
 app.obsidian = {{ promptBoolOnce . "app.obsidian" "(app) obsidian" }}
 app.procs = {{ promptBoolOnce . "app.procs" "(app) procs" }}
-app.presenterm = {{ $presenterm := promptBoolOnce . "app.presenterm" "(app) presenterm" }}{{ $presenterm }}
+app.presenterm = {{ promptBoolOnce . "app.presenterm" "(app) presenterm" }}
 app.qalc = {{ promptBoolOnce . "app.qalc" "(app) qalc" }}
 app.ripgrep = {{ promptBoolOnce . "app.ripgrep" "(app) ripgrep" }}
 app.sd = {{ promptBoolOnce . "app.sd" "(app) sd" }}
