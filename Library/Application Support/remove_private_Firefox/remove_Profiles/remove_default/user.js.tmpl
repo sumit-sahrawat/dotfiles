@@ -1,0 +1,24 @@
+{{- if .app.firefox }}
+
+{{- include (joinPath .chezmoi.homeDir ".local/share/arkenfox/user.js") }}
+// ---------------------------------------------------------------------
+// USER OVERRIDES
+
+// 0102: set startup page [SETUP-CHROME]
+user_pref("browser.startup.page", 1);
+
+// 0403: enable SB checks for downloads (remote)
+user_pref("browser.safebrowsing.downloads.remote.enabled", true);
+
+// 5003: disable saving passwords
+user_pref("signon.rememberSignons", false);
+
+// 5009: disable "open with" in download dialog [FF50+]
+user_pref("browser.download.forbid_open_with", true);
+
+// 0815: disable tab-to-search [FF85+]
+user_pref("browser.urlbar.suggest.engines", false);
+
+user_pref("_user.js.parrot", "!! ULTIMATE SUCCESS !!");
+
+{{- end }}
