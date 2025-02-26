@@ -1,0 +1,37 @@
+{{- if .app.firefox -}}
+
+#!/usr/bin/env bash
+
+FIREFOX_PROFILE="${HOME}/Library/Application Support/Firefox/Profiles/default"
+
+declare -r MOZILLA_URL="https://addons.mozilla.org"
+echo "Downloading Addons: ${*}"
+
+# Create a temporary directory for downloading addons
+addon_tmp=$(mktemp -d)
+trap "rm -rf ${addon_tmp}" HUP INT QUIT TERM EXIT
+
+mkdir -p "${FIREFOX_PROFILE}/extensions"
+
+for addon in ${@}; do
+  echo "Installing $addon"
+
+  # Get the download URL for the addon
+  addon_url=$(curl --silent "${MOZILLA_URL}/en-US/firefox/addon/${addon}/" | grep -o "${MOZILLA_URL}/firefox/downloads/file/[^\"]*")
+  addon_file="${addon_url##*/}"
+
+  # Download the addon
+  curl -Ls "$addon_url" -o "${addon_tmp}/${addon_file}"
+
+  # Extract the addon ID from the manifest.json
+  addon_id=$(unzip -p "${addon_tmp}/${addon_file}" manifest.json | grep -o '"id": *"[^"]*' | sed 's/"id": *"//')
+
+  # Move the downloaded addon to the profile extensions directory
+  mv "${addon_tmp}/${addon_file}" "${FIREFOX_PROFILE}/extensions/${addon_id}.xpi"
+
+  echo "Installed ${addon_id}.xpi"
+done
+
+echo "Addons Installed"
+
+{{- end }}

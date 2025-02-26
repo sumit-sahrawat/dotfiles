@@ -1,0 +1,7 @@
+{{- if .app.firefox -}}
+
+#!/usr/bin/env sh
+
+{{ joinPath .chezmoi.homeDir ".local/bin/:install-firefox-extension" }} ublock-origin
+
+{{- end }}
