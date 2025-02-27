@@ -1,0 +1,18 @@
+{{- if .app.zsh -}}
+
+#!/usr/bin/env zsh
+
+# Wrapper around fzf which removes --color params from arguments
+# and uses hardcoded (templated) values instead
+
+FILTERED_ARGS=()
+
+for arg in "${@}"; do
+	[[ ${arg} == --color* ]] || FILTERED_ARGS+=("${arg}")
+done
+
+export FZF_DEFAULT_OPTS={{ includeTemplate "zsh.fzf.opts" . | quote }}
+
+exec "${HOMEBREW_PREFIX}/bin/fzf" "${FILTERED_ARGS[@]}"
+
+{{- end }}
