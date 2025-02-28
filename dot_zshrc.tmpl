@@ -59,6 +59,14 @@ path=(
 	$path
 )
 
+fpath=(
+{{- if .app.docker }}
+	~/.docker/completions
+{{- end }}
+
+	$fpath
+)
+
 ###############################################################################
 # zsh4humans (https://github.com/romkatv/zsh4humans/blob/v5/README.md)
 
