@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 echo "{%- set palette = flavor.colors %}
 	--color=bg+:#{{palette.surface0.hex}}
