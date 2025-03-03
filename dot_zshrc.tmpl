@@ -60,6 +60,8 @@ path=(
 )
 
 fpath=(
+	~/.local/share/zsh/site-functions
+
 {{- if .app.docker }}
 	~/.docker/completions
 {{- end }}
@@ -108,6 +110,8 @@ zstyle ':z4h:ssh:*'           enable 'no'
 {{- if .app.git }}
 
 z4h install zimfw/git
+
+autoload -Uz :repos
 
 {{- end }}
 
