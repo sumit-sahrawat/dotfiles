@@ -55,6 +55,7 @@ function :repos {
 		if [[ ! -d "${target}" ]]; then
 			trying_to 'Cloning'  "${remote}" 'to' "${target}"
 			git clone --quiet "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
+			continue
 		fi
 
 		case "${subcommand}" in
