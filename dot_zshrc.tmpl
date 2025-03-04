@@ -175,7 +175,7 @@ function :sup {
 # chezmoi
 alias :ha='chezmoi add'
 alias :hA='chezmoi add --template'
-alias :hc='cd "$(chezmoi source-path)"'
+alias :hc='cd {{ .chezmoi.sourceDir | quote }}'
 alias :hd='chezmoi diff --init'
 alias :he='chezmoi edit --init --apply'
 alias :hs='chezmoi edit-config'
