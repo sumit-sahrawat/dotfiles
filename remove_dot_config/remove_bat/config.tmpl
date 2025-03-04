@@ -1,6 +1,5 @@
 {{- if .app.bat -}}
 
---theme-light='Catppuccin {{ .ui.theme.catppuccin.light | title }}'
---theme-dark='Catppuccin {{ .ui.theme.catppuccin.dark | title }}'
+--theme='Catppuccin {{ includeTemplate "ui.catppuccin.palette" . | title }}'
 
 {{- end }}
