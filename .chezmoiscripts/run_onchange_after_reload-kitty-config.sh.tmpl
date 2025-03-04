@@ -7,6 +7,6 @@ set -euo pipefail
 {{- $config_path := joinPath .chezmoi.homeDir ".config/kitty/kitty.conf" }}
 
 # {{ include $config_path | sha256sum }}
-/opt/homebrew/bin/kitten @ load-config
+pkill -USR1 kitty || true
 
 {{- end }}
