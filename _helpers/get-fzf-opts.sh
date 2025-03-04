@@ -16,4 +16,6 @@ echo "{%- set palette = flavor.colors %}
 	--color=prompt:#{{palette.mauve.hex}}
 	--color=selected-bg:#{{palette.surface1.hex}}
 	--color=spinner:#{{palette.rosewater.hex}}
+	--color=border:#{{palette.surface0.hex}}
+	--color=label:#{{palette.text.hex}}
 " | /opt/homebrew/bin/whiskers - -f "${1}" | xargs echo
