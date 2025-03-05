@@ -6,7 +6,7 @@ if ! hash brew >/dev/null; then
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-{ sort -u | brew bundle --no-lock --file=/dev/stdin; } <<-EOF
+{ sort -u | brew bundle --file=/dev/stdin; } <<-EOF
 	{{- if .input.mouse.fix_scroll }}
 		cask "homebrew/cask/unnaturalscrollwheels"
 	{{- end }}
