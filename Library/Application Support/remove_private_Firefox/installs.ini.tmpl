@@ -1,0 +1,7 @@
+{{- if .app.firefox -}}
+
+[{{ .firefox.install.hash }}]
+Default=Profiles/default
+Locked=1
+
+{{- end }}

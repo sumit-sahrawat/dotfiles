@@ -26,6 +26,10 @@ fi
 		cask "homebrew/cask/kitty"
 	{{- end }}
 
+	{{- if .app.firefox }}
+		cask "homebrew/cask/firefox"
+	{{- end }}
+
 	{{- if and .app.kitty (not .kitty.font.pragmata) }}
 		cask "homebrew/cask-fonts/font-iosevka-ss08"
 	{{- end }}
