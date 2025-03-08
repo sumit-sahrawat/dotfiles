@@ -199,9 +199,14 @@ unset gprefix
 {{- if and .app.git .app.ripgrep }}
 
 function rg {
-	command rg --json "${@}" | delta
+	if [[ -t 1 ]]; then
+		# syntax highlight using delta for terminal output
+		command rg --json "${@}" | delta
+	else
+		# no json + delta when piping output
+		command rg "${@}"
+	fi
 }
-alias :rg='command rg'
 
 {{- end }}
 
