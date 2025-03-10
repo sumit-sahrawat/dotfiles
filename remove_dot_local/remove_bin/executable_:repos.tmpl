@@ -69,16 +69,15 @@ function :repos {
 				git -C "${target}" fetch --quiet || failed_to 'fetch' "${remote}" 'at' "${target}"
 				;;
 			sync)
-				trying_to 'Computing default branch for' "${remote}" 'at' "${target}"
 				local default_branch="$(git -C "${target}" remote show origin | awk '/HEAD branch/ {print $NF}')"
 
 				trying_to "Syncing default branch '${default_branch}' for" "${remote}" 'at' "${target}"
 				local current_branch="$(git -C "${target}" branch --show-current)"
 
 				if [[ ${current_branch} == ${default_branch} ]]; then
-					git -C "${target}" pull origin "${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
+					git -C "${target}" pull --quiet origin "${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
 				else
-					git -C "${target}" fetch origin "${default_branch}:${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
+					git -C "${target}" fetch --quiet origin "${default_branch}:${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
 				fi
 				;;
 			status)
