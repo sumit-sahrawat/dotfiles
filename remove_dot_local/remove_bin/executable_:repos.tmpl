@@ -88,4 +88,6 @@ function :repos {
 	done < <(read_list_from "${LIST_FILE}")
 }
 
+:repos "${@}"
+
 {{- end }}
