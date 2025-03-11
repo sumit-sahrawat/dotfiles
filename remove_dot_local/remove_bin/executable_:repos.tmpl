@@ -1,92 +1,88 @@
 {{- if .app.git -}}
 
-function :repos {
-	local file_opt
-	zparseopts -D -E f:=file_opt file:=file_opt
+#!/usr/bin/env zsh
 
-	local subcommand
-	case "${1:-}" in
-		clone)
-			subcommand="clone"
-			shift
-			;;
-		sync)
-			subcommand="sync"
-			shift
-			;;
-		fetch)
-			subcommand="fetch"
-			shift
-			;;
-		status)
-			subcommand="status"
-			shift
-			;;
-		*)
-			subcommand="sync"
-			;;
-	esac
+zparseopts -D -E f:=file_opt file:=file_opt
 
-	local ERROR_COLOR='\033[0;31m'     # red
-	local DIRECTORY_COLOR='\033[0;34m' # blue
-	local URL_COLOR='\033[0;36m'       # cyan
-	local RESET_COLOR='\033[0m'
+case "${1:-}" in
+	clone)
+		subcommand="clone"
+		shift
+		;;
+	sync)
+		subcommand="sync"
+		shift
+		;;
+	fetch)
+		subcommand="fetch"
+		shift
+		;;
+	status)
+		subcommand="status"
+		shift
+		;;
+	*)
+		subcommand="sync"
+		;;
+esac
 
-	local DEFAULT_LIST_FILE=repos.txt
-	if [[ -n "${file_opt}" ]]; then
-		local LIST_FILE="${file_opt[2]}"
-	else
-        >&2 echo "Using default repo list file: ${DEFAULT_LIST_FILE}"
-	fi
-	local LIST_FILE=${LIST_FILE:-${DEFAULT_LIST_FILE}}
+ERROR_COLOR='\033[0;31m'     # red
+DIRECTORY_COLOR='\033[0;34m' # blue
+URL_COLOR='\033[0;36m'       # cyan
+RESET_COLOR='\033[0m'
 
-	function trying_to {
-		>&2 printf ">> %s ${URL_COLOR}%s${RESET_COLOR} %s ${DIRECTORY_COLOR}%s${RESET_COLOR}\n" "${1}" "${2}" "${3}" "${4}"
-	}
+DEFAULT_LIST_FILE=repos.txt
+if [[ -n "${file_opt}" ]]; then
+	LIST_FILE="${file_opt[2]}"
+else
+    >&2 echo "Using default repo list file: ${DEFAULT_LIST_FILE}"
+fi
+LIST_FILE=${LIST_FILE:-${DEFAULT_LIST_FILE}}
 
-	function failed_to {
-		>&2 printf "${ERROR_COLOR}%s${RESET_COLOR} Failed to %s ${URL_COLOR}%s${RESET_COLOR} %s ${DIRECTORY_COLOR}%s${RESET_COLOR}\n" "✗" "${1}" "${2}" "${3}" "${4}"
-	}
-
-	function read_list_from {
-		sed -E -e '/^( |\t)*(#|$)/d' -e 's/  */\t/g' "${1}"
-	}
-
-	while read -r line; do
-		local target="$(echo "${line}" | cut -f1)"
-		local remote="$(echo "${line}" | cut -f2)"
-
-		if [[ ! -d "${target}" ]]; then
-			trying_to 'Cloning'  "${remote}" 'to' "${target}"
-			git clone --quiet "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
-			continue
-		fi
-
-		case "${subcommand}" in
-			clone) ;;
-			fetch)
-				trying_to 'Fetching'  "${remote}" 'at' "${target}"
-				git -C "${target}" fetch --quiet || failed_to 'fetch' "${remote}" 'at' "${target}"
-				;;
-			sync)
-				local default_branch="$(git -C "${target}" remote show origin | awk '/HEAD branch/ {print $NF}')"
-
-				trying_to "Syncing default branch '${default_branch}' for" "${remote}" 'at' "${target}"
-				local current_branch="$(git -C "${target}" branch --show-current)"
-
-				if [[ ${current_branch} == ${default_branch} ]]; then
-					git -C "${target}" pull --quiet origin "${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
-				else
-					git -C "${target}" fetch --quiet origin "${default_branch}:${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
-				fi
-				;;
-			status)
-				git -C "${target}" status -s || failed_to 'get status for' "${remote}" 'at' "${target}"
-				;;
-		esac
-	done < <(read_list_from "${LIST_FILE}")
+function trying_to {
+	>&2 printf ">> %s ${URL_COLOR}%s${RESET_COLOR} %s ${DIRECTORY_COLOR}%s${RESET_COLOR}\n" "${1}" "${2}" "${3}" "${4}"
 }
 
-:repos "${@}"
+function failed_to {
+	>&2 printf "${ERROR_COLOR}%s${RESET_COLOR} Failed to %s ${URL_COLOR}%s${RESET_COLOR} %s ${DIRECTORY_COLOR}%s${RESET_COLOR}\n" "✗" "${1}" "${2}" "${3}" "${4}"
+}
+
+function read_list_from {
+	sed -E -e '/^( |\t)*(#|$)/d' -e 's/  */\t/g' "${1}"
+}
+
+while read -r line; do
+	target="$(echo "${line}" | cut -f1)"
+	remote="$(echo "${line}" | cut -f2)"
+
+	if [[ ! -d "${target}" ]]; then
+		trying_to 'Cloning'  "${remote}" 'to' "${target}"
+		git clone --quiet "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
+		continue
+	fi
+
+	case "${subcommand}" in
+		clone) ;;
+		fetch)
+			trying_to 'Fetching'  "${remote}" 'at' "${target}"
+			git -C "${target}" fetch --quiet || failed_to 'fetch' "${remote}" 'at' "${target}"
+			;;
+		sync)
+			default_branch="$(git -C "${target}" remote show origin | awk '/HEAD branch/ {print $NF}')"
+
+			trying_to "Syncing default branch '${default_branch}' for" "${remote}" 'at' "${target}"
+			current_branch="$(git -C "${target}" branch --show-current)"
+
+			if [[ ${current_branch} == ${default_branch} ]]; then
+				git -C "${target}" pull --quiet origin "${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
+			else
+				git -C "${target}" fetch --quiet origin "${default_branch}:${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
+			fi
+			;;
+		status)
+			git -C "${target}" status -s || failed_to 'get status for' "${remote}" 'at' "${target}"
+			;;
+	esac
+done < <(read_list_from "${LIST_FILE}")
 
 {{- end }}
