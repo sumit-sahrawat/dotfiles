@@ -24,12 +24,6 @@ export CXX=clang++
 
 {{- end }}
 
-{{- if .lang.dotnet }}
-
-export DOTNET_ROOT="${HOMEBREW_PREFIX}/opt/dotnet/libexec"
-
-{{- end }}
-
 {{- if .lang.go }}
 
 export GOPATH=~/.go
