@@ -9,7 +9,13 @@ input.keyboard.caps2ctrl = {{ promptBoolOnce . "input.keyboard.caps2ctrl" "(keyb
 input.keyboard.repeat.delay = 195
 input.keyboard.repeat.interval = 15
 
+input.mouse.logitech = {{ $mouse_logitech := promptBoolOnce . "input.mouse.logitech" "(input.mouse) logitech" }}{{ $mouse_logitech }}
+
+{{- if not $mouse_logitech }}
+
 input.mouse.fix_scroll = {{ promptBoolOnce . "input.mouse.fix_scroll" "(mouse) fix_scroll" }}
+
+{{- end }}
 
 ui.theme.catppuccin.light = "latte"
 ui.theme.catppuccin.dark = "macchiato"
