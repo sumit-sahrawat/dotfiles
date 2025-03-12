@@ -34,8 +34,6 @@ RESET_COLOR='%f'
 DEFAULT_LIST_FILE=repos.txt
 if [[ -n "${file_opt}" ]]; then
 	LIST_FILE="${file_opt[2]}"
-else
-    >&2 echo "Using default repo list file: ${DEFAULT_LIST_FILE}"
 fi
 LIST_FILE=${LIST_FILE:-${DEFAULT_LIST_FILE}}
 
