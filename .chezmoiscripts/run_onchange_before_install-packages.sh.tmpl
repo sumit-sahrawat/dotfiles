@@ -9,8 +9,6 @@ fi
 { sort -u | brew bundle --file=/dev/stdin; } <<-EOF
 	{{- if .input.mouse.logitech }}
 		cask "homebrew/cask/logi-options+"
-	{{- else if .input.mouse.fix_scroll }}
-		cask "homebrew/cask/unnaturalscrollwheels"
 	{{- end }}
 
 	{{- if .app.zsh }}
