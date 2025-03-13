@@ -6,6 +6,9 @@ set -euo pipefail
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
+defaults write 'Apple Global Domain' com.apple.mouse.linear -int {{ ternary 0 1 .input.mouse.linear }}
+defaults write 'Apple Global Domain' com.apple.mouse.scaling -float 1.0
+
 defaults write com.apple.dock tilesize -int {{ .ui.dock.tilesize }}
 
 defaults write com.apple.dock wvous-tl-corner -int {{ .ui.hot_corners.top_left.id }}

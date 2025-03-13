@@ -10,6 +10,7 @@ input.keyboard.repeat.delay = 195
 input.keyboard.repeat.interval = 15
 
 input.mouse.logitech = {{ $mouse_logitech := promptBoolOnce . "input.mouse.logitech" "(input.mouse) logitech" }}{{ $mouse_logitech }}
+input.mouse.linear = {{ promptBoolOnce . "input.mouse.linear" "(mouse) linear" true }}
 
 ui.theme.catppuccin.light = "latte"
 ui.theme.catppuccin.dark = "macchiato"
