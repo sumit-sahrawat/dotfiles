@@ -30,6 +30,10 @@ fi
 		cask "homebrew/cask-fonts/font-iosevka-ss08"
 	{{- end }}
 
+	{{- if index .app "1password" }}
+		cask "homebrew/cask/1password"
+	{{- end }}
+
 	{{- if .app.bandwhich }}
 		brew "bandwhich"
 	{{- end }}
