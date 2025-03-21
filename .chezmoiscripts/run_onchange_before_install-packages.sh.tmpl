@@ -43,6 +43,10 @@ fi
 		brew "beancount-language-server"
 	{{- end }}
 
+	{{- if .app.brave }}
+		cask "homebrew/cask/brave-browser"
+	{{- end }}
+
 	{{- if .app.bat }}
 		brew "bat"
 	{{- end }}
