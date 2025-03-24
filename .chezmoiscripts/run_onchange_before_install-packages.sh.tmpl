@@ -100,6 +100,10 @@ fi
 		cask "homebrew/cask/font-overpass"
 	{{- end }}
 
+	{{- if .app.ollama }}
+		brew "ollama"
+	{{- end }}
+
 	{{- if .app.procs }}
 		brew "procs"
 	{{- end }}
