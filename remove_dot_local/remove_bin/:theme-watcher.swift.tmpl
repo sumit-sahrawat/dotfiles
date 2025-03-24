@@ -5,7 +5,7 @@ import Cocoa
 func apply() {
 	let task = Process()
 	task.launchPath = {{ .chezmoi.executable | quote }}
-	task.arguments = [ "apply" ]
+	task.arguments = [ "apply", "--force", "--no-tty" ]
 	task.environment = ProcessInfo.processInfo.environment
 	task.launch()
 	task.waitUntilExit()
