@@ -11,3 +11,16 @@
 /.cache/clangd/
 
 {{- end }}
+
+{{- if .lang.python }}
+
+# virtualenv
+.venv/
+.venv.bak/
+venv/
+venv.bak/
+
+# ruff stuff
+.ruff_cache/
+
+{{- end }}
