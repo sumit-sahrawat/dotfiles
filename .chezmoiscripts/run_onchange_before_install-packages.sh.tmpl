@@ -7,10 +7,6 @@ if ! hash brew >/dev/null; then
 fi
 
 { sort -u | brew bundle --file=/dev/stdin; } <<-EOF
-	{{- if .input.mouse.logitech }}
-		cask "homebrew/cask/logi-options+"
-	{{- end }}
-
 	{{- if .app.zsh }}
 		brew "fzf"
 		brew "catppuccin/tap/whiskers"
