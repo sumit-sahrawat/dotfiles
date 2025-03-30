@@ -6,7 +6,18 @@ set -euo pipefail
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
+# Enable full keyboard access for all controls
+# (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Set a blazingly fast keyboard repeat rate
+defaults write NSGlobalDomain InitialKeyRepeat -int {{ div .input.keyboard.repeat.delay 15 }}
+defaults write NSGlobalDomain KeyRepeat -int {{ div .input.keyboard.repeat.interval 15 }}
+
+# Linear mouse pinter
 defaults write 'Apple Global Domain' com.apple.mouse.linear -int {{ ternary 0 1 .input.mouse.linear }}
+
+# Mouse speed multiplication factor
 defaults write 'Apple Global Domain' com.apple.mouse.scaling -float 1.0
 
 defaults write com.apple.dock tilesize -int {{ .ui.dock.tilesize }}
