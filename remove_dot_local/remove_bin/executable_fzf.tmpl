@@ -11,6 +11,12 @@ for arg in "${@}"; do
 	[[ ${arg} == --color* ]] || FILTERED_ARGS+=("${arg}")
 done
 
+{{- if .app.fd }}
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
+{{- end }}
+
 export FZF_DEFAULT_OPTS={{ includeTemplate "zsh.fzf.opts" . | quote }}
 
 exec "${HOMEBREW_PREFIX}/bin/fzf" "${FILTERED_ARGS[@]}"
