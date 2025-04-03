@@ -95,6 +95,10 @@ fi
 		brew "aria2"
 	{{- end }}
 
+	{{- if .app.neovim }}
+		brew "neovim"
+	{{- end }}
+
 	{{- if .app.obsidian }}
 		cask "homebrew/cask/obsidian"
 		cask "homebrew/cask/font-overpass"
