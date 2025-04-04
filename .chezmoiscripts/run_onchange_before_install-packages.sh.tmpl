@@ -80,12 +80,6 @@ fi
 		brew "fd"
 	{{- end }}
 
-	{{- if .app.helix }}
-		brew "helix"
-		brew "vscode-langservers-extracted"
-		brew "yaml-language-server"
-	{{- end }}
-
 	{{- if .app.hyperfine }}
 		brew "hyperfine"
 	{{- end }}
