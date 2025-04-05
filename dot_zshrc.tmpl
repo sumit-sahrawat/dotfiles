@@ -184,6 +184,8 @@ gprefix=':g'
 zstyle ':zim:git' aliases-prefix "${gprefix}"
 z4h load --compile zimfw/git
 
+alias "${gprefix}"=lazygit
+
 unset gprefix
 
 {{- end }}
