@@ -1,43 +1,44 @@
 {{- if .input.mouse.linear }}
 {
-  "schemes" : [
+  "schemes": [
     {
-      "if" : {
-        "device" : {
-          "serialNumber" : "D3B7F029",
-          "vendorID" : "0x46d",
-          "productID" : "0xb034",
-          "productName" : "MX Master 3S",
-          "category" : "mouse"
+      "if": {
+        "device": {
+          "category": "mouse",
+          "serialNumber": "D3B7F029",
+          "vendorID": "0x46d",
+          "productID": "0xb034",
+          "productName": "MX Master 3S"
         }
       },
-      "scrolling" : {
-        "acceleration" : 0.5,
-        "speed" : 0,
-        "distance" : "auto",
-        "reverse" : {
-          "horizontal" : true
-        }
+      "scrolling": {
+        "reverse": {
+          "horizontal": true
+        },
+        "speed": 0,
+        "acceleration": 0.5,
+        "distance": "auto"
       },
-      "buttons" : {
-        "mappings" : [
+      "pointer": {
+        "speed": 0,
+        "disableAcceleration": true,
+        "acceleration": 1.2
+      },
+      "buttons": {
+        "mappings": [
           {
-            "shift" : false,
-            "button" : 5,
-            "command" : false,
-            "option" : false,
-            "action" : "missionControl",
-            "control" : false
+            "control": false,
+            "option": false,
+            "shift": false,
+            "button": 5,
+            "action": "missionControl",
+            "command": false
           }
-        ]
-      },
-      "pointer" : {
-        "acceleration" : 1.2,
-        "speed" : 0,
-        "disableAcceleration" : true
+        ],
+        "universalBackForward": true
       }
     }
   ],
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+  "$schema": "https://schema.linearmouse.app/0.10.0"
 }
 {{- end }}
