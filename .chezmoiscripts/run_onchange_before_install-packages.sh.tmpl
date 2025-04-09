@@ -144,10 +144,6 @@ fi
 		brew "haskell-stack"
 	{{- end }}
 
-	{{- if .lang.markdown }}
-		brew "marksman"
-	{{- end }}
-
 	{{- if .lang.python }}
 		brew "uv"
 		brew "basedpyright"
