@@ -17,13 +17,6 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 
 {{- end }}
 
-{{- if .lang.cpp }}
-
-export CC=clang
-export CXX=clang++
-
-{{- end }}
-
 {{- if .lang.go }}
 
 export GOPATH=~/.go
@@ -33,10 +26,6 @@ export GOPATH=~/.go
 # Extend PATH.
 path=(
 	~/.local/bin
-
-{{- if .lang.cpp }}
-	${HOMEBREW_PREFIX}/opt/llvm/bin
-{{- end }}
 
 {{- if .lang.rust }}
 	~/.cargo/bin
