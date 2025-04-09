@@ -127,12 +127,6 @@ fi
 		brew "tokei"
 	{{- end }}
 
-	{{- if .lang.bash }}
-		brew "bash-language-server"
-		brew "shellcheck"
-		brew "shfmt"
-	{{- end }}
-
 	{{- if .lang.cpp }}
 		brew "llvm"
 		brew "clang-format"
