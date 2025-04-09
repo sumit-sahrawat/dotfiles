@@ -36,20 +36,8 @@ fi
 		cask "homebrew/cask/1password"
 	{{- end }}
 
-	{{- if .app.bandwhich }}
-		brew "bandwhich"
-	{{- end }}
-
-	{{- if .app.brave }}
-		cask "homebrew/cask/brave-browser"
-	{{- end }}
-
 	{{- if .app.bat }}
 		brew "bat"
-	{{- end }}
-
-	{{- if .app.bottom }}
-		brew "bottom"
 	{{- end }}
 
 	{{- if .app.chatgpt }}
@@ -60,24 +48,12 @@ fi
 		cask "homebrew/cask/docker"
 	{{- end }}
 
-	{{- if .app.duf }}
-		brew "duf"
-	{{- end }}
-
-	{{- if .app.dust }}
-		brew "dust"
-	{{- end }}
-
 	{{- if .app.eza }}
 		brew "eza"
 	{{- end }}
 
 	{{- if .app.fd }}
 		brew "fd"
-	{{- end }}
-
-	{{- if .app.hyperfine }}
-		brew "hyperfine"
 	{{- end }}
 
 	{{- if .app.mpv }}
@@ -95,16 +71,8 @@ fi
 		cask "homebrew/cask/font-overpass"
 	{{- end }}
 
-	{{- if .app.ollama }}
-		brew "ollama"
-	{{- end }}
-
 	{{- if .app.procs }}
 		brew "procs"
-	{{- end }}
-
-	{{- if .app.presenterm }}
-		brew "presenterm"
 	{{- end }}
 
 	{{- if .app.qalc }}
@@ -117,13 +85,5 @@ fi
 
 	{{- if .app.sd }}
 		brew "sd"
-	{{- end }}
-
-	{{- if .app.tealdeer }}
-		brew "tealdeer"
-	{{- end }}
-
-	{{- if .app.tokei }}
-		brew "tokei"
 	{{- end }}
 EOF

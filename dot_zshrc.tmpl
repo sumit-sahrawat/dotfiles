@@ -127,11 +127,6 @@ alias q='exit'
 function :sup {
 	chezmoi update --init --apply --refresh-externals
 	brew upgrade
-
-{{- if .app.tealdeer }}
-	tldr --update
-{{- end }}
-
 	z4h update
 }
 
