@@ -6,7 +6,7 @@ if ! hash brew >/dev/null; then
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-{ sort -u | brew bundle --file=/dev/stdin; } <<-EOF
+{ sort -u | brew bundle --no-upgrade --file=/dev/stdin; } <<-EOF
 	{{- if .input.mouse.linear }}
 		cask "homebrew/cask/linearmouse"
 	{{- end }}
