@@ -21,10 +21,6 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 path=(
 	~/.local/bin
 
-{{- if .lang.rust }}
-	~/.cargo/bin
-{{- end }}
-
 	$path
 )
 
@@ -131,10 +127,6 @@ alias q='exit'
 function :sup {
 	chezmoi update --init --apply --refresh-externals
 	brew upgrade
-
-{{- if .lang.rust }}
-	rustup update
-{{- end }}
 
 {{- if .app.tealdeer }}
 	tldr --update
