@@ -1,11 +1,9 @@
-{{- if .lang.cpp }}
+### C++ ###
 
 # ClangD LSP for C++
 /.cache/clangd/
 
-{{- end }}
-
-{{- if .lang.python }}
+### Python ###
 
 # virtualenv
 .venv/
@@ -15,5 +13,3 @@ venv.bak/
 
 # ruff stuff
 .ruff_cache/
-
-{{- end }}
