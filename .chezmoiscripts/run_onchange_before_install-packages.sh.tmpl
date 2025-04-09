@@ -127,10 +127,6 @@ fi
 		brew "tokei"
 	{{- end }}
 
-	{{- if .lang.dotnet }}
-		cask "homebrew/cask/dotnet-sdk"
-	{{- end }}
-
 	{{- if .lang.python }}
 		brew "uv"
 	{{- end }}
