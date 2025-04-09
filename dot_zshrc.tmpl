@@ -17,22 +17,12 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 
 {{- end }}
 
-{{- if .lang.go }}
-
-export GOPATH=~/.go
-
-{{- end }}
-
 # Extend PATH.
 path=(
 	~/.local/bin
 
 {{- if .lang.rust }}
 	~/.cargo/bin
-{{- end }}
-
-{{- if .lang.go }}
-	"${GOPATH}/bin"
 {{- end }}
 
 	$path

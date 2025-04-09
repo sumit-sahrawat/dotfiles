@@ -131,10 +131,6 @@ fi
 		cask "homebrew/cask/dotnet-sdk"
 	{{- end }}
 
-	{{- if .lang.go }}
-		brew "go"
-	{{- end }}
-
 	{{- if .lang.haskell }}
 		brew "haskell-stack"
 	{{- end }}
