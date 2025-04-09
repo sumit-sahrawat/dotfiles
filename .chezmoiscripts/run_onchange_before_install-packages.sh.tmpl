@@ -40,11 +40,6 @@ fi
 		brew "bandwhich"
 	{{- end }}
 
-	{{- if .app.beancount }}
-		brew "beancount"
-		brew "beancount-language-server"
-	{{- end }}
-
 	{{- if .app.brave }}
 		cask "homebrew/cask/brave-browser"
 	{{- end }}
