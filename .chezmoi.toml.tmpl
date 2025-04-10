@@ -19,31 +19,6 @@ ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
 ui.dock.tilesize = {{ promptIntOnce . "ui.dock.tilesize" "(ui) dock.tilesize" 48 }}
 
-{{- $name_map := dict
-
-	"no-op"                "1"
-	"mission-control"      "2"
-	"app-windows"          "3"
-	"desktop"              "4"
-	"screen-saver"         "5"
-	"disable-screen-saver" "6"
-	"dashboard"            "7"
-	"sleep"                "10"
-	"launchpad"            "11"
-	"notification-center"  "12"
-	"lock"                 "13"
-}}
-{{- $name_list := keys $name_map }}
-
-ui.hot_corners.top_left.name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_left.name" "(hot-corner) top-left" $name_list "no-op" }}{{ $name | quote }}
-ui.hot_corners.top_left.id = {{ get $name_map $name }}
-ui.hot_corners.top_right.name = {{ $name := promptChoiceOnce . "ui.hot_corners.top_right.name" "(hot-corner) top-right" $name_list "no-op" }}{{ $name | quote }}
-ui.hot_corners.top_right.id = {{ get $name_map $name }}
-ui.hot_corners.bottom_left.name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_left.name" "(hot-corner) bottom-left" $name_list "no-op" }}{{ $name | quote }}
-ui.hot_corners.bottom_left.id = {{ get $name_map $name }}
-ui.hot_corners.bottom_right.name = {{ $name := promptChoiceOnce . "ui.hot_corners.bottom_right.name" "(hot-corner) bottom-right" $name_list "no-op" }}{{ $name | quote }}
-ui.hot_corners.bottom_right.id = {{ get $name_map $name }}
-
 app.zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
 app.git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
 app.kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
