@@ -5,57 +5,58 @@
 
 [data]
 
-input.keyboard.caps2ctrl = {{ promptBoolOnce . "input.keyboard.caps2ctrl" "(keyboard) caps2ctrl" }}
+input.keyboard.caps2ctrl = {{ default true (index . "input.keyboard.caps2ctrl") }}
 input.keyboard.repeat.delay = 195
 input.keyboard.repeat.interval = 15
 
-input.mouse.linear = {{ promptBoolOnce . "input.mouse.linear" "(mouse) linear" true }}
+input.mouse.linear = {{ default true (index . "input.mouse.linear") }}
 
 ui.theme.catppuccin.light = "latte"
 ui.theme.catppuccin.dark = "macchiato"
 
-ui.theme.choice = {{ $theme_choice := promptChoiceOnce . "ui.theme.choice" "(ui) theme" (list "auto" "light" "dark") }}{{ $theme_choice | quote }}
+# auto / light / dark
+ui.theme.choice = {{ $theme_choice := default "auto" (index . "ui.theme.choice") }}{{ $theme_choice | quote }}
 ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
-ui.dock.tilesize = {{ promptIntOnce . "ui.dock.tilesize" "(ui) dock.tilesize" 48 }}
+ui.dock.tilesize = {{ default 48 (index . "ui.dock.tilesize") }}
 
-app.zsh = {{ promptBoolOnce . "app.zsh" "(app) zsh" }}
-app.git = {{ $git := promptBoolOnce . "app.git" "(app) git" }}{{ $git }}
-app.kitty = {{ $kitty := promptBoolOnce . "app.kitty" "(app) kitty" }}{{ $kitty }}
-app.1password = {{ promptBoolOnce . "app.1password" "(app) 1password" }}
-app.bat = {{ promptBoolOnce . "app.bat" "(app) bat" }}
-app.chatgpt = {{ promptBoolOnce . "app.chatgpt" "(app) chatgpt" }}
-app.docker = {{ promptBoolOnce . "app.docker" "(app) docker" }}
-app.eza = {{ promptBoolOnce . "app.eza" "(app) eza" }}
-app.fd = {{ promptBoolOnce . "app.fd" "(app) fd" }}
-app.mpv = {{ promptBoolOnce . "app.mpv" "(app) mpv" }}
-app.neovim = {{ promptBoolOnce . "app.neovim" "(app) neovim" }}
-app.obsidian = {{ promptBoolOnce . "app.obsidian" "(app) obsidian" }}
-app.procs = {{ promptBoolOnce . "app.procs" "(app) procs" }}
-app.qalc = {{ promptBoolOnce . "app.qalc" "(app) qalc" }}
-app.ripgrep = {{ promptBoolOnce . "app.ripgrep" "(app) ripgrep" }}
-app.sd = {{ promptBoolOnce . "app.sd" "(app) sd" }}
+app.zsh = {{ default true (index . "app.zsh") }}
+app.git = {{ $git := default true (index . "app.git") }}{{ $git }}
+app.kitty = {{ $kitty := default true (index . "app.kitty") }}{{ $kitty }}
+app.1password = {{ default true (index . "app.1password") }}
+app.bat = {{ default true (index . "app.bat") }}
+app.chatgpt = {{ default true (index . "app.chatgpt") }}
+app.docker = {{ default true (index . "app.docker") }}
+app.eza = {{ default true (index . "app.eza") }}
+app.fd = {{ default true (index . "app.fd") }}
+app.mpv = {{ default true (index . "app.mpv") }}
+app.neovim = {{ default true (index . "app.neovim") }}
+app.obsidian = {{ default true (index . "app.obsidian") }}
+app.procs = {{ default true (index . "app.procs") }}
+app.qalc = {{ default true (index . "app.qalc") }}
+app.ripgrep = {{ default true (index . "app.ripgrep") }}
+app.sd = {{ default true (index . "app.sd") }}
 
 {{- if $git }}
 
 {{- $default_name := "Sumit Sahrawat" }}
 {{- $default_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
-{{- $default_key := "id_ed25519" }}
+{{- $default_key_name := "id_ed25519" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
-git.global.user.name = {{ promptStringOnce . "git.global.user.name" "(~/.config/git/config) user.name" $default_name | quote }}
-git.global.user.email = {{ promptStringOnce . "git.global.user.email" "(~/.config/git/config) user.email" $default_email | quote }}
-git.global.user.key_name = {{ $user_key_name := promptStringOnce . "git.global.user.key_name" "(~/.config/git/config) user.signingkey (file name only)" $default_key }}{{ $user_key_name | quote }}
-git.global.user.key = {{ joinPath $ssh_dir $user_key_name | quote }}
+git.global.user.name = {{ default $default_name (index . "git.global.user.name") | quote }}
+git.global.user.email = {{ default $default_email (index . "git.global.user.email") | quote }}
+git.global.user.key_name = {{ $global_key_name := default $default_key_name (index . "git.global.user.key_name") }}{{ $global_key_name | quote }}
+git.global.user.key = {{ joinPath $ssh_dir $global_key_name | quote }}
 
-git.work.enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "(~/Work) enable" }}{{ $git_work }}
+git.work.enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "Use a separate git directory for work" }}{{ $git_work }}
 
 {{- if $git_work }}
 
-git.work.user.name = {{ promptStringOnce . "git.work.user.name" "(~/Work) user.name" $default_name | quote }}
-git.work.user.email = {{ promptStringOnce . "git.work.user.email" "(~/Work) user.email" $default_email | quote }}
-git.work.user.key_name = {{ $work_key := promptStringOnce . "git.work.user.key_name" "(~/Work) user.key" $default_key }}{{ $work_key | quote }}
-git.work.user.key = {{ joinPath $ssh_dir $work_key | quote }}
+git.work.user.name = {{ default $default_name (index . "git.work.user.name") | quote }}
+git.work.user.email = {{ promptStringOnce . "git.work.user.email" "Committer email address for work" | quote }}
+git.work.user.key_name = {{ $work_key_name := promptStringOnce . "git.work.user.key_name" "SSH key name for work" }}{{ $work_key_name | quote }}
+git.work.user.key = {{ joinPath $ssh_dir $work_key_name | quote }}
 
 {{- end }}
 
@@ -63,8 +64,8 @@ git.work.user.key = {{ joinPath $ssh_dir $work_key | quote }}
 
 {{- if $kitty }}
 
-kitty.font.pragmata = {{ $pragmata := promptBoolOnce . "kitty.font.pragmata" "(kitty) font.pragmata" true }}{{ $pragmata }}
+kitty.font.pragmata = {{ $pragmata := default true (index . "kitty.font.pragmata") }}{{ $pragmata }}
 kitty.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
-kitty.font.size = {{ promptIntOnce . "kitty.font.size" "(kitty) font.size" 16 }}
+kitty.font.size = {{ default 16 (index . "kitty.font.size") }}
 
 {{- end }}
