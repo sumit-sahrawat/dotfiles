@@ -36,6 +36,10 @@ fi
 		cask "homebrew/cask/1password"
 	{{- end }}
 
+	{{- if index .app "anki" }}
+		cask "homebrew/cask/anki"
+	{{- end }}
+
 	{{- if .app.bat }}
 		brew "bat"
 	{{- end }}
