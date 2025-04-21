@@ -10,6 +10,9 @@ osascript -e 'tell application "System Preferences" to quit'
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
+# Disable the "hold key to select accent" feature which prevents key repeat in GUI apps
+defaults write -g ApplePressAndHoldEnabled -bool false
+
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain InitialKeyRepeat -int {{ div .input.keyboard.repeat.delay 15 }}
 defaults write NSGlobalDomain KeyRepeat -int {{ div .input.keyboard.repeat.interval 15 }}
