@@ -1,6 +1,12 @@
 {{- if .app.kitty -}}
 
-protocol kitty-open-in-editor
-action launch --type=tab --cwd=current --env EDITOR=${EDITOR} :kitty-open-in-editor ${FILE_PATH}
+# Edit files with line-number in fragments
+protocol file
+fragment_matches [0-9]+
+action launch --type=tab --cwd=current ${EDITOR} +${FRAGMENT} -- ${FILE_PATH}
+
+# Edit files without line-number in fragments
+protocol file
+action launch --type=tab --cwd=current ${EDITOR} -- ${FILE_PATH}
 
 {{- end }}

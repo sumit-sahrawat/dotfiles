@@ -15,7 +15,7 @@
 	line-numbers = true
 	hyperlinks = true
 {{- if .app.kitty }}
-	hyperlinks-file-link-format = "kitty-open-in-editor://{path}:{line}"
+	hyperlinks-file-link-format = "file://{path}#{line}"
 {{- end }}
 {{- if .app.bat }}
 [include]
