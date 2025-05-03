@@ -192,12 +192,8 @@ function :mpv {
 	mpv "${@}" </dev/null &>/dev/null & disown
 }
 
-function :ytdl {
-	yt-dlp --downloader aria2c "${@}"
-}
-
 function :yt {
-	:ytdl "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
+	yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
 }
 
 {{- end }}
