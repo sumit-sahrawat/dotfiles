@@ -70,11 +70,6 @@ fi
 		brew "neovim"
 	{{- end }}
 
-	{{- if .app.obsidian }}
-		cask "homebrew/cask/obsidian"
-		cask "homebrew/cask/font-overpass"
-	{{- end }}
-
 	{{- if .app.procs }}
 		brew "procs"
 	{{- end }}
