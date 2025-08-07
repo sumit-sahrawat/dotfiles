@@ -17,12 +17,45 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write -g InitialKeyRepeat -int {{ div .input.keyboard.repeat.delay 15 }}
 defaults write -g KeyRepeat -int {{ div .input.keyboard.repeat.interval 15 }}
 
-# Linear mouse pinter
+# Linear mouse pointer
 defaults write -g com.apple.mouse.linear -int {{ ternary 0 1 .input.mouse.linear }}
 
 # Mouse speed multiplication factor
 defaults write -g com.apple.mouse.scaling -float 1.0
 
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.1
+
+# Set a standard dock tile size
 defaults write com.apple.dock tilesize -int {{ .ui.dock.tilesize }}
 
-killall Dock &>/dev/null
+# Remove the auto-hiding Dock delay
+defaults write com.apple.dock autohide-delay -float 0
+
+# Remove the animation when hiding/showing the Dock
+defaults write com.apple.dock autohide-time-modifier -float 0
+
+# Remove margins around tiled windows
+defaults write com.apple.WindowManager EnableTiledWindowMargins -int 0
+
+# .ui.theme.choice: {{ .ui.theme.choice }}
+
+{{- $dark_mode := "" }}
+{{- if eq .ui.theme.choice "auto" }}
+{{-     $dark_mode = "auto" }}
+{{- else if eq .ui.theme.choice "dark" }}
+{{-     $dark_mode = "true" }}
+{{- else if eq .ui.theme.choice "light" }}
+{{-     $dark_mode = "false" }}
+{{- end }}
+
+{{- if ne $dark_mode "" }}
+
+osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to {{ $dark_mode }}'
+
+{{- end }}
+
+# Kill affected applications
+for app in "cfprefsd" "Dock" "Finder" "SystemUIServer" "WindowManager"; do
+  killall "${app}" &>/dev/null
+done
