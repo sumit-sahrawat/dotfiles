@@ -55,6 +55,11 @@ osascript -e 'tell app "System Events" to tell appearance preferences to set dar
 
 {{- end }}
 
+# disable hot corners, including the bottom-right corner for apple notes
+for corner in {t,b}{l,r}; do
+  defaults write com.apple.dock wvous-${corner}-corner -int 0
+done
+
 # Kill affected applications
 for app in "cfprefsd" "Dock" "Finder" "SystemUIServer" "WindowManager"; do
   killall "${app}" &>/dev/null
