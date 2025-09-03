@@ -1,4 +1,6 @@
 return {
+  { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.util.chezmoi" },
+
 {{- if .lang.rust }}
   { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.rust" },
 {{- end }}
