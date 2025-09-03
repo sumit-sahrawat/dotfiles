@@ -90,4 +90,8 @@ fi
 	{{- if .app.sd }}
 		brew "sd"
 	{{- end }}
+
+	{{- if .lang.rust }}
+		brew "rustup"
+	{{- end }}
 EOF
