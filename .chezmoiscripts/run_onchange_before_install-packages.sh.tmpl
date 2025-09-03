@@ -3,95 +3,97 @@
 set -euo pipefail
 
 if ! hash brew >/dev/null; then
-	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-{ sort -u | brew bundle --no-upgrade --file=/dev/stdin; } <<-EOF
-	{{- if .input.mouse.linear }}
-		cask "homebrew/cask/linearmouse"
-	{{- end }}
+{ sort -u | brew bundle --no-upgrade --file=/dev/stdin; } <<EOF
 
-	{{- if .app.zsh }}
-		brew "fzf"
-		brew "catppuccin/tap/whiskers"
-	{{- end }}
+{{- if .input.mouse.linear }}
+cask "homebrew/cask/linearmouse"
+{{- end }}
 
-	{{- if .app.git }}
-		brew "git"
-		brew "git-delta"
-		brew "git-ignore"
-		brew "gh"
-		brew "lazygit"
-	{{- end }}
+{{- if .app.zsh }}
+brew "fzf"
+brew "catppuccin/tap/whiskers"
+{{- end }}
 
-	{{- if .app.kitty }}
-		cask "homebrew/cask/kitty"
-	{{- end }}
+{{- if .app.git }}
+brew "git"
+brew "git-delta"
+brew "git-ignore"
+brew "gh"
+brew "lazygit"
+{{- end }}
 
-	{{- if and .app.kitty (not .kitty.font.pragmata) }}
-		cask "homebrew/cask-fonts/font-iosevka-ss08"
-	{{- end }}
+{{- if .app.kitty }}
+cask "homebrew/cask/kitty"
+{{- end }}
 
-	{{- if index .app "1password" }}
-		cask "homebrew/cask/1password"
-	{{- end }}
+{{- if and .app.kitty (not .kitty.font.pragmata) }}
+cask "homebrew/cask-fonts/font-iosevka-ss08"
+{{- end }}
 
-	{{- if index .app "anki" }}
-		cask "homebrew/cask/anki"
-	{{- end }}
+{{- if index .app "1password" }}
+cask "homebrew/cask/1password"
+{{- end }}
 
-	{{- if .app.bat }}
-		brew "bat"
-	{{- end }}
+{{- if index .app "anki" }}
+cask "homebrew/cask/anki"
+{{- end }}
 
-	{{- if .app.chatgpt }}
-		cask "homebrew/cask/chatgpt"
-	{{- end }}
+{{- if .app.bat }}
+brew "bat"
+{{- end }}
 
-	{{- if .app.docker }}
-		cask "homebrew/cask/docker"
-	{{- end }}
+{{- if .app.chatgpt }}
+cask "homebrew/cask/chatgpt"
+{{- end }}
 
-	{{- if .app.eza }}
-		brew "eza"
-	{{- end }}
+{{- if .app.docker }}
+cask "homebrew/cask/docker"
+{{- end }}
 
-	{{- if .app.fd }}
-		brew "fd"
-	{{- end }}
+{{- if .app.eza }}
+brew "eza"
+{{- end }}
 
-	{{- if .app.mpv }}
-		brew "mpv"
-		brew "yt-dlp"
-		brew "aria2"
-	{{- end }}
+{{- if .app.fd }}
+brew "fd"
+{{- end }}
 
-	{{- if .app.neovim }}
-		brew "neovim"
-	{{- end }}
+{{- if .app.mpv }}
+brew "mpv"
+brew "yt-dlp"
+brew "aria2"
+{{- end }}
 
-	{{- if .app.obsidian }}
-		cask "homebrew/cask/obsidian"
-		cask "homebrew/cask/font-overpass"
-	{{- end }}
+{{- if .app.neovim }}
+brew "neovim"
+{{- end }}
 
-	{{- if .app.procs }}
-		brew "procs"
-	{{- end }}
+{{- if .app.obsidian }}
+cask "homebrew/cask/obsidian"
+cask "homebrew/cask/font-overpass"
+{{- end }}
 
-	{{- if .app.qalc }}
-		brew "libqalculate"
-	{{- end }}
+{{- if .app.procs }}
+brew "procs"
+{{- end }}
 
-	{{- if .app.ripgrep }}
-		brew "ripgrep"
-	{{- end }}
+{{- if .app.qalc }}
+brew "libqalculate"
+{{- end }}
 
-	{{- if .app.sd }}
-		brew "sd"
-	{{- end }}
+{{- if .app.ripgrep }}
+brew "ripgrep"
+{{- end }}
 
-	{{- if .lang.rust }}
-		brew "rustup"
-	{{- end }}
+{{- if .app.sd }}
+brew "sd"
+{{- end }}
+
+{{- if .lang.rust }}
+brew "rustup"
+{{- end }}
+
 EOF

@@ -42,11 +42,11 @@ defaults write com.apple.WindowManager EnableTiledWindowMargins -int 0
 
 {{- $dark_mode := "" }}
 {{- if eq .ui.theme.choice "auto" }}
-{{-     $dark_mode = "auto" }}
+{{- $dark_mode = "auto" }}
 {{- else if eq .ui.theme.choice "dark" }}
-{{-     $dark_mode = "true" }}
+{{- $dark_mode = "true" }}
 {{- else if eq .ui.theme.choice "light" }}
-{{-     $dark_mode = "false" }}
+{{- $dark_mode = "false" }}
 {{- end }}
 
 {{- if ne $dark_mode "" }}

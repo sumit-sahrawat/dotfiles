@@ -10,7 +10,7 @@ set -euo pipefail
 
 # {{ include $plist | sha256sum }}
 if launchctl list | grep -qF {{ $service | quote }}; then
-	launchctl unload {{ $plist | quote }} || true
+  launchctl unload {{ $plist | quote }} || true
 fi
 
 {{- end }}
@@ -28,7 +28,7 @@ launchctl load {{ $plist | quote }}
 {{- else }}
 
 if launchctl list | grep -qF {{ $service | quote }}; then
-	launchctl remove {{ $service | quote }}
+  launchctl remove {{ $service | quote }}
 fi
 
 {{- end }}

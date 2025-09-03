@@ -3,28 +3,28 @@
 import Cocoa
 
 func apply() {
-	let task = Process()
-	task.launchPath = {{ .chezmoi.executable | quote }}
-	task.arguments = [ "apply", "--force", "--no-tty" ]
-	task.environment = ProcessInfo.processInfo.environment
-	task.launch()
-	task.waitUntilExit()
+  let task = Process()
+  task.launchPath = {{ .chezmoi.executable | quote }}
+  task.arguments = [ "apply", "--force", "--no-tty" ]
+  task.environment = ProcessInfo.processInfo.environment
+  task.launch()
+  task.waitUntilExit()
 }
 
 apply()
 
 DistributedNotificationCenter.default.addObserver(
-	forName: Notification.Name("AppleInterfaceThemeChangedNotification"),
-	object: nil,
-	queue: nil) { (notification) in
-		apply()
+  forName: Notification.Name("AppleInterfaceThemeChangedNotification"),
+  object: nil,
+  queue: nil) { (notification) in
+    apply()
 }
 
 NSWorkspace.shared.notificationCenter.addObserver(
-	forName: NSWorkspace.didWakeNotification,
-	object: nil,
-	queue: nil) { (notification) in
-		apply()
+  forName: NSWorkspace.didWakeNotification,
+  object: nil,
+  queue: nil) { (notification) in
+    apply()
 }
 
 NSApplication.shared.run()

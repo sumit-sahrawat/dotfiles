@@ -19,23 +19,23 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 
 # Extend PATH.
 path=(
-	~/.local/bin
+  ~/.local/bin
 
 {{- if .lang.rust }}
-	~/.cargo/bin
+  ~/.cargo/bin
 {{- end }}
 
-	$path
+  $path
 )
 
 fpath=(
-	~/.local/share/zsh/site-functions
+  ~/.local/share/zsh/site-functions
 
 {{- if .app.docker }}
-	~/.docker/completions
+  ~/.docker/completions
 {{- end }}
 
-	$fpath
+  $fpath
 )
 
 ###############################################################################
@@ -54,14 +54,14 @@ zstyle ':z4h:'                prompt-at-bottom 'no'
 zstyle ':z4h:'                propagate-cwd yes
 
 if test -n "${KITTY_INSTALLATION_DIR}"; then
-	export KITTY_SHELL_INTEGRATION="enabled"
-	autoload -Uz -- "${KITTY_INSTALLATION_DIR}"/shell-integration/zsh/kitty-integration
-	kitty-integration
-	unfunction kitty-integration
+  export KITTY_SHELL_INTEGRATION="enabled"
+  autoload -Uz -- "${KITTY_INSTALLATION_DIR}"/shell-integration/zsh/kitty-integration
+  kitty-integration
+  unfunction kitty-integration
 
-	zstyle ':z4h:'                term-shell-integration 'no'
+  zstyle ':z4h:'                term-shell-integration 'no'
 else
-	zstyle ':z4h:'                term-shell-integration 'yes'
+  zstyle ':z4h:'                term-shell-integration 'yes'
 fi
 
 zstyle ':z4h:autosuggestions' forward-char 'partial-accept'
@@ -129,14 +129,14 @@ alias q='exit'
 
 # System upgrade
 function :sup {
-	chezmoi update --init --apply --refresh-externals
-	brew upgrade
+  chezmoi update --init --apply --refresh-externals
+  brew upgrade
 
 {{- if .lang.rust }}
-	rustup update
+  rustup update
 {{- end }}
 
-	z4h update
+  z4h update
 }
 
 # chezmoi
@@ -177,11 +177,11 @@ unset gprefix
 {{- if and .app.kitty .app.ripgrep }}
 
 function rg {
-	if test -n "${KITTY_INSTALLATION_DIR}"; then
-		kitten hyperlinked-grep "${@}"
-	else
-		command rg "${@}"
-	fi
+  if test -n "${KITTY_INSTALLATION_DIR}"; then
+    kitten hyperlinked-grep "${@}"
+  else
+    command rg "${@}"
+  fi
 }
 
 {{- end }}
@@ -207,11 +207,11 @@ alias :tGA='eza --tree --ignore-glob .git'
 {{- if .app.mpv }}
 
 function :mpv {
-	mpv "${@}" </dev/null &>/dev/null & disown
+  mpv "${@}" </dev/null &>/dev/null & disown
 }
 
 function :yt {
-	yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
+  yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
 }
 
 {{- end }}

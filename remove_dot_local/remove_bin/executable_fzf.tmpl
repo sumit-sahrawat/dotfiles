@@ -8,7 +8,7 @@
 FILTERED_ARGS=()
 
 for arg in "${@}"; do
-	[[ ${arg} == --color* ]] || FILTERED_ARGS+=("${arg}")
+  [[ ${arg} == --color* ]] || FILTERED_ARGS+=("${arg}")
 done
 
 {{- if .app.fd }}
