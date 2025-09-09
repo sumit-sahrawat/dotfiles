@@ -3,10 +3,10 @@
 # Edit files with line-number in fragments
 protocol file
 fragment_matches [0-9]+
-action launch --type=tab --cwd=current ${EDITOR} +${FRAGMENT} -- ${FILE_PATH}
+action launch --cwd=current ${EDITOR} +${FRAGMENT} -- ${FILE_PATH}
 
 # Edit files without line-number in fragments
 protocol file
-action launch --type=tab --cwd=current ${EDITOR} -- ${FILE_PATH}
+action launch --cwd=current ${EDITOR} -- ${FILE_PATH}
 
 {{- end }}
