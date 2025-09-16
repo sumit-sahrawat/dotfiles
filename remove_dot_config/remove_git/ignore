@@ -1,3 +1,6 @@
+### Cursor ###
+.cursor/
+
 ### C++ ###
 
 # ClangD LSP for C++
