@@ -1,6 +1,9 @@
 ### Cursor ###
 .cursor/
 
+### Claude Code ###
+.claude/settings.local.json
+
 ### C++ ###
 
 # ClangD LSP for C++
