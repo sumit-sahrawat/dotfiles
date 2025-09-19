@@ -88,6 +88,10 @@ brew "ripgrep"
 brew "sd"
 {{- end }}
 
+{{- if .lang.python }}
+brew "uv"
+{{- end }}
+
 {{- if .lang.rust }}
 brew "rustup"
 {{- end }}
