@@ -2,6 +2,10 @@ return {
   { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.util.chezmoi" },
   { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.git" },
 
+{{- if .lang.python }}
+  { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.python" },
+{{- end }}
+
 {{- if .lang.rust }}
   { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.rust" },
 {{- end }}
