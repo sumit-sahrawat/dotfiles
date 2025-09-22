@@ -20,15 +20,30 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
     -- LazyVim Extras
-    { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.util.chezmoi" },
-    { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.git" },
+{{- $extras := list
+      "lazyvim.plugins.extras.coding.mini-surround"
+      "lazyvim.plugins.extras.coding.yanky"
+      "lazyvim.plugins.extras.editor.dial"
+      "lazyvim.plugins.extras.editor.inc-rename"
+      "lazyvim.plugins.extras.editor.mini-diff"
+      "lazyvim.plugins.extras.lang.git"
+      "lazyvim.plugins.extras.lang.json"
+      "lazyvim.plugins.extras.lang.markdown"
+      "lazyvim.plugins.extras.lang.yaml"
+      "lazyvim.plugins.extras.util.chezmoi"
+      "lazyvim.plugins.extras.util.dot"
+}}
 
 {{- if .lang.python }}
-    { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.python" },
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.python" }}
 {{- end }}
 
 {{- if .lang.rust }}
-    { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.lang.rust" },
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.rust" }}
+{{- end }}
+
+{{- range $extra := sortAlpha $extras }}
+    { "LazyVim/LazyVim", import = {{ $extra | quote }} },
 {{- end }}
 
     -- import/override with your plugins
