@@ -49,9 +49,14 @@ defaults write com.apple.WindowManager EnableTiledWindowMargins -int 0
 {{- $dark_mode = "false" }}
 {{- end }}
 
-{{- if ne $dark_mode "" }}
+{{- if ne $dark_mode "auto" }}
 
+defaults delete -g AppleInterfaceStyleSwitchesAutomatically &>/dev/null || true
 osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to {{ $dark_mode }}'
+
+{{- else }}
+
+defaults write -g AppleInterfaceStyleSwitchesAutomatically -bool true
 
 {{- end }}
 
