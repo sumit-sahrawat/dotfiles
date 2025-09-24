@@ -4,27 +4,7 @@
 
 zparseopts -D -E f:=file_opt file:=file_opt
 
-case "${1:-}" in
-  clone)
-    subcommand="clone"
-    shift
-    ;;
-  sync)
-    subcommand="sync"
-    shift
-    ;;
-  fetch)
-    subcommand="fetch"
-    shift
-    ;;
-  status)
-    subcommand="status"
-    shift
-    ;;
-  *)
-    subcommand="sync"
-    ;;
-esac
+subcommand="${1:-}"
 
 ERROR_COLOR='%F{red}'
 DIRECTORY_COLOR='%F{blue}'
@@ -65,7 +45,11 @@ while read -r line; do
       trying_to 'Fetching'  "${remote}" 'at' "${target}"
       git -C "${target}" fetch --quiet || failed_to 'fetch' "${remote}" 'at' "${target}"
       ;;
-    sync)
+    status)
+      trying_to 'Status for'  "${remote}" 'at' "${target}"
+      git -C "${target}" status -s || failed_to 'get status for' "${remote}" 'at' "${target}"
+      ;;
+    *)
       default_branch="$(git -C "${target}" remote show origin | awk '/HEAD branch/ {print $NF}')"
 
       trying_to "Syncing default branch '${default_branch}' for" "${remote}" 'at' "${target}"
@@ -76,9 +60,6 @@ while read -r line; do
       else
         git -C "${target}" fetch --quiet origin "${default_branch}:${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
       fi
-      ;;
-    status)
-      git -C "${target}" status -s || failed_to 'get status for' "${remote}" 'at' "${target}"
       ;;
   esac
 done < <(read_list_from "${LIST_FILE}")
