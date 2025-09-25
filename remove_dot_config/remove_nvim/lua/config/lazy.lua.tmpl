@@ -35,6 +35,10 @@ require("lazy").setup({
       "lazyvim.plugins.extras.util.dot"
 }}
 
+{{- if .app.docker }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.docker" }}
+{{- end }}
+
 {{- if .lang.python }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.python" }}
 {{- end }}
