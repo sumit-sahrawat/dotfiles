@@ -14,8 +14,8 @@ input.mouse.linear = {{ dig "input" "mouse" "linear" true . }}
 ui.theme.catppuccin.light = "latte"
 ui.theme.catppuccin.dark = "macchiato"
 
-# auto / light / dark
-ui.theme.choice = {{ $theme_choice := dig "ui" "theme" "choice" "auto" . }}{{ $theme_choice | quote }}
+# dark / light / auto
+ui.theme.choice = {{ $theme_choice := dig "ui" "theme" "choice" "dark" . }}{{ $theme_choice | quote }}
 ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
 ui.dock.tilesize = {{ dig "ui" "dock" "tilesize" 48 . }}
