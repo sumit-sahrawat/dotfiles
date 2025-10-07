@@ -11,8 +11,8 @@ input.keyboard.repeat.interval = 15
 
 input.mouse.linear = {{ dig "input" "mouse" "linear" true . }}
 
-ui.theme.catppuccin.light = "latte"
-ui.theme.catppuccin.dark = "macchiato"
+ui.theme.catppuccin.light = {{ dig "ui" "theme" "catppuccin" "light" "latte" . | quote }}
+ui.theme.catppuccin.dark = {{ dig "ui" "theme" "catppuccin" "dark" "macchiato" . | quote }}
 
 # dark / light / auto
 ui.theme.choice = {{ $theme_choice := dig "ui" "theme" "choice" "dark" . }}{{ $theme_choice | quote }}
