@@ -58,6 +58,10 @@ brew "eza"
 brew "fd"
 {{- end }}
 
+{{- if .app.jq }}
+brew "jaq"
+{{- end }}
+
 {{- if .app.mpv }}
 brew "mpv"
 brew "yt-dlp"

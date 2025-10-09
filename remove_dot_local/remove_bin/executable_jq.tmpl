@@ -1,0 +1,7 @@
+{{- if .app.jq -}}
+
+#!/usr/bin/env sh
+
+exec jaq "${@}"
+
+{{- end }}
