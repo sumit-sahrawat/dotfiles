@@ -6,95 +6,97 @@ if ! hash brew >/dev/null; then
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-{ sort -u | brew bundle --no-upgrade --file=/dev/stdin; } <<EOF
+PACKAGES=(
 
 {{- if .input.mouse.linear }}
-cask "homebrew/cask/linearmouse"
+  homebrew/cask/linearmouse
 {{- end }}
 
 {{- if .app.zsh }}
-brew "fzf"
-brew "catppuccin/tap/whiskers"
+  fzf
+  catppuccin/tap/whiskers
 {{- end }}
 
 {{- if .app.git }}
-brew "git"
-brew "git-delta"
-brew "git-ignore"
-brew "gh"
-brew "lazygit"
+  git
+  git-delta
+  git-ignore
+  gh
+  lazygit
 {{- end }}
 
 {{- if .app.kitty }}
-cask "homebrew/cask/kitty"
+  homebrew/cask/kitty
 {{- end }}
 
 {{- if and .app.kitty (not .kitty.font.pragmata) }}
-cask "homebrew/cask-fonts/font-iosevka-ss08"
+  homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
 {{- if index .app "1password" }}
-cask "homebrew/cask/1password"
+  homebrew/cask/1password
 {{- end }}
 
 {{- if index .app "anki" }}
-cask "homebrew/cask/anki"
+  homebrew/cask/anki
 {{- end }}
 
 {{- if .app.bat }}
-brew "bat"
+  bat
 {{- end }}
 
 {{- if .app.docker }}
-cask "homebrew/cask/docker-desktop"
-brew "lazydocker"
+  homebrew/cask/docker-desktop
+  lazydocker
 {{- end }}
 
 {{- if .app.eza }}
-brew "eza"
+  eza
 {{- end }}
 
 {{- if .app.fd }}
-brew "fd"
+  fd
 {{- end }}
 
 {{- if .app.jq }}
-brew "jaq"
+  jaq
 {{- end }}
 
 {{- if .app.mpv }}
-brew "mpv"
-brew "yt-dlp"
-brew "aria2"
+  mpv
+  yt-dlp
+  aria2
 {{- end }}
 
 {{- if .app.neovim }}
-brew "neovim"
+  neovim
 {{- end }}
 
 {{- if .app.obsidian }}
-cask "homebrew/cask/obsidian"
-cask "homebrew/cask/font-overpass"
+  homebrew/cask/obsidian
+  homebrew/cask/font-overpass
 {{- end }}
 
 {{- if .app.procs }}
-brew "procs"
+  procs
 {{- end }}
 
 {{- if .app.ripgrep }}
-brew "ripgrep"
+  ripgrep
 {{- end }}
 
 {{- if .app.sd }}
-brew "sd"
+  sd
 {{- end }}
 
 {{- if .lang.python }}
-brew "uv"
+  uv
 {{- end }}
 
 {{- if .lang.rust }}
-brew "rustup"
+  rustup
 {{- end }}
 
-EOF
+)
+
+echo "${PACKAGES[@]}" | xargs -r brew install --quiet
