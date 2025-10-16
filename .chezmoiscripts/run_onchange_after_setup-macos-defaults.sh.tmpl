@@ -68,6 +68,16 @@ for corner in {t,b}{l,r}; do
   defaults write com.apple.dock wvous-${corner}-corner -int 0
 done
 
+# Safari Tweaks (need Full Disk Access for Terminal Emulator)
+{
+  # Open new windows in private browsing mode
+  defaults write com.apple.Safari OpenPrivateWindowWhenNotRestoringSessionAtLaunch -bool true
+} || {
+  EXIT_CODE=$?
+  echo "Terminal Emulator needs 'Full Disk Access'"
+  exit $EXIT_CODE
+}
+
 # Kill affected applications
 for app in "cfprefsd" "Dock" "Finder" "SystemUIServer" "WindowManager"; do
   killall "${app}" &>/dev/null
