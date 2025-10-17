@@ -78,6 +78,10 @@ done
   exit $EXIT_CODE
 }
 
+# Night Shift - sunset to sunrise
+nightlight temp {{ .ui.night_shift.temperature }}
+nightlight schedule {{ ternary "start" "stop" .ui.night_shift.enabled }}
+
 # Kill affected applications
 for app in "cfprefsd" "Dock" "Finder" "SystemUIServer" "WindowManager"; do
   killall "${app}" &>/dev/null

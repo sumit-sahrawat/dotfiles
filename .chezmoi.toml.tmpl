@@ -18,6 +18,9 @@ ui.theme.catppuccin.dark = {{ dig "ui" "theme" "catppuccin" "dark" "macchiato" .
 ui.theme.choice = {{ $theme_choice := dig "ui" "theme" "choice" "dark" . }}{{ $theme_choice | quote }}
 ui.theme.is_auto = {{ eq $theme_choice "auto" }}
 
+ui.night_shift.enabled = {{ dig "ui" "night_shift" "enabled" true . }}
+ui.night_shift.temperature = {{ dig "ui" "night_shift" "temperature" 50 . }}
+
 ui.dock.tilesize = {{ dig "ui" "dock" "tilesize" 48 . }}
 
 app.zsh = {{ dig "app" "zsh" true . }}
