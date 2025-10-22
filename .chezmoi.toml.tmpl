@@ -40,8 +40,8 @@ app.procs = {{ dig "app" "procs" true . }}
 app.ripgrep = {{ dig "app" "ripgrep" true . }}
 app.sd = {{ dig "app" "sd" true . }}
 
-lang.python = {{ dig "lang" "python" true . }}
-lang.rust = {{ dig "lang" "rust" true . }}
+lang.python = {{ dig "lang" "python" false . }}
+lang.rust = {{ dig "lang" "rust" false . }}
 
 {{- if $git }}
 
