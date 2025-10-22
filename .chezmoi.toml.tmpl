@@ -73,7 +73,5 @@ git.work.user.key = {{ joinPath $ssh_dir $work_key_name | quote }}
 kitty.font.pragmata = {{ $pragmata := dig "kitty" "font" "pragmata" true . }}{{ $pragmata }}
 kitty.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
 kitty.font.size = {{ dig "kitty" "font" "size" 16 . }}
-kitty.bg.opacity = {{ dig "kitty" "bg" "opacity" 0.9 . }}
-kitty.bg.blur = {{ dig "kitty" "bg" "blur" 16 . }}
 
 {{- end }}
