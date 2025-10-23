@@ -7,10 +7,12 @@ if ! hash brew >/dev/null; then
 fi
 
 PACKAGES=(
-  smudge/smudge/nightlight
-
 {{- if .input.mouse.linear }}
   homebrew/cask/linearmouse
+{{- end }}
+
+{{- if .ui.night_shift.enabled }}
+  smudge/smudge/nightlight
 {{- end }}
 
 {{- if .app.zsh }}
