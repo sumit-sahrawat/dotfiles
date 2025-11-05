@@ -182,7 +182,7 @@ unset gprefix
 
 function rg {
   if test -n "${KITTY_INSTALLATION_DIR}"; then
-    kitten hyperlinked-grep "${@}"
+    command rg --hyperlink-format=kitty "${@}"
   else
     command rg "${@}"
   fi
