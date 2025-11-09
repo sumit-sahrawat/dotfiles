@@ -5,11 +5,19 @@
 
 [data]
 
+################################################################################
+# INPUT
+################################################################################
+
 input.keyboard.caps2ctrl = {{ dig "input" "keyboard" "caps2ctrl" true . }}
 input.keyboard.repeat.delay = 195
 input.keyboard.repeat.interval = 15
 
 input.mouse.linear = {{ dig "input" "mouse" "linear" true . }}
+
+################################################################################
+# UI
+################################################################################
 
 ui.theme.catppuccin.light = {{ dig "ui" "theme" "catppuccin" "light" "latte" . | quote }}
 ui.theme.catppuccin.dark = {{ dig "ui" "theme" "catppuccin" "dark" "macchiato" . | quote }}
@@ -23,25 +31,23 @@ ui.night_shift.temperature = {{ dig "ui" "night_shift" "temperature" 50 . }}
 
 ui.dock.tilesize = {{ dig "ui" "dock" "tilesize" 48 . }}
 
-app.zsh = {{ dig "app" "zsh" true . }}
-app.git = {{ $git := dig "app" "git" true . }}{{ $git }}
-app.kitty = {{ $kitty := dig "app" "kitty" true . }}{{ $kitty }}
-app.1password = {{ dig "app" "1password" true . }}
-app.anki = {{ dig "app" "anki" true . }}
-app.bat = {{ dig "app" "bat" true . }}
-app.docker = {{ dig "app" "docker" true . }}
-app.eza = {{ dig "app" "eza" true . }}
-app.fd = {{ dig "app" "fd" true . }}
-app.jq = {{ dig "app" "jq" true . }}
-app.mpv = {{ dig "app" "mpv" true . }}
-app.neovim = {{ dig "app" "neovim" true . }}
-app.obsidian = {{ dig "app" "obsidian" true . }}
-app.procs = {{ dig "app" "procs" true . }}
-app.ripgrep = {{ dig "app" "ripgrep" true . }}
-app.sd = {{ dig "app" "sd" true . }}
+################################################################################
+# Apps
+################################################################################
 
-lang.python = {{ dig "lang" "python" false . }}
-lang.rust = {{ dig "lang" "rust" false . }}
+app.1password = {{ dig "app" "1password" true . }}
+
+app.anki = {{ dig "app" "anki" true . }}
+
+app.bat = {{ dig "app" "bat" true . }}
+
+app.docker = {{ dig "app" "docker" true . }}
+
+app.eza = {{ dig "app" "eza" true . }}
+
+app.fd = {{ dig "app" "fd" true . }}
+
+app.git = {{ $git := dig "app" "git" true . }}{{ $git }}
 
 {{- if $git }}
 
@@ -68,6 +74,10 @@ git.work.user.key = {{ joinPath $ssh_dir $work_key_name | quote }}
 
 {{- end }}
 
+app.jq = {{ dig "app" "jq" true . }}
+
+app.kitty = {{ $kitty := dig "app" "kitty" true . }}{{ $kitty }}
+
 {{- if $kitty }}
 
 kitty.font.pragmata = {{ $pragmata := dig "kitty" "font" "pragmata" true . }}{{ $pragmata }}
@@ -75,3 +85,24 @@ kitty.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $prag
 kitty.font.size = {{ dig "kitty" "font" "size" 16 . }}
 
 {{- end }}
+
+app.mpv = {{ dig "app" "mpv" true . }}
+
+app.neovim = {{ dig "app" "neovim" true . }}
+
+app.obsidian = {{ dig "app" "obsidian" true . }}
+
+app.procs = {{ dig "app" "procs" true . }}
+
+app.ripgrep = {{ dig "app" "ripgrep" true . }}
+
+app.sd = {{ dig "app" "sd" true . }}
+
+app.zsh = {{ dig "app" "zsh" true . }}
+
+################################################################################
+# Programming Languages
+################################################################################
+
+lang.python = {{ dig "lang" "python" false . }}
+lang.rust = {{ dig "lang" "rust" false . }}

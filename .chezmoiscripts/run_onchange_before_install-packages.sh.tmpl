@@ -7,34 +7,26 @@ if ! hash brew >/dev/null; then
 fi
 
 PACKAGES=(
+
+################################################################################
+# INPUT
+################################################################################
+
 {{- if .input.mouse.linear }}
   homebrew/cask/linearmouse
 {{- end }}
+
+################################################################################
+# UI
+################################################################################
 
 {{- if .ui.night_shift.enabled }}
   smudge/smudge/nightlight
 {{- end }}
 
-{{- if .app.zsh }}
-  fzf
-  catppuccin/tap/whiskers
-{{- end }}
-
-{{- if .app.git }}
-  git
-  git-delta
-  git-ignore
-  gh
-  lazygit
-{{- end }}
-
-{{- if .app.kitty }}
-  homebrew/cask/kitty
-{{- end }}
-
-{{- if and .app.kitty (not .kitty.font.pragmata) }}
-  homebrew/cask-fonts/font-iosevka-ss08
-{{- end }}
+################################################################################
+# Apps
+################################################################################
 
 {{- if index .app "1password" }}
   homebrew/cask/1password
@@ -61,8 +53,24 @@ PACKAGES=(
   fd
 {{- end }}
 
+{{- if .app.git }}
+  git
+  git-delta
+  git-ignore
+  gh
+  lazygit
+{{- end }}
+
 {{- if .app.jq }}
   jaq
+{{- end }}
+
+{{- if .app.kitty }}
+  homebrew/cask/kitty
+{{- end }}
+
+{{- if and .app.kitty (not .kitty.font.pragmata) }}
+  homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
 {{- if .app.mpv }}
@@ -93,6 +101,15 @@ PACKAGES=(
 {{- if .app.sd }}
   sd
 {{- end }}
+
+{{- if .app.zsh }}
+  fzf
+  catppuccin/tap/whiskers
+{{- end }}
+
+################################################################################
+# Programming Languages
+################################################################################
 
 {{- if .lang.python }}
   uv
