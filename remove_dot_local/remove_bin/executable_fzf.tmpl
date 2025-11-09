@@ -3,7 +3,7 @@
 #!/usr/bin/env zsh
 
 # Wrapper around fzf which removes --color params from arguments
-# and uses hardcoded (templated) values instead
+# and uses catppuccin color palette instead
 
 FILTERED_ARGS=()
 
@@ -37,7 +37,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 {{- end }}
 
-export FZF_DEFAULT_OPTS={{ includeTemplate "zsh.fzf.opts" . | quote }}
+source ~/.config/fzf/catppuccin/themes/catppuccin-fzf-{{ includeTemplate "ui.catppuccin.palette" . }}.sh
 
 exec "${HOMEBREW_PREFIX}/bin/fzf" "${FILTERED_ARGS[@]}"
 
