@@ -7,8 +7,28 @@
 
 FILTERED_ARGS=()
 
+local prev_color=false
+
 for arg in "${@}"; do
-  [[ ${arg} == --color* ]] || FILTERED_ARGS+=("${arg}")
+  # filter out single args of the form `--color=*`
+  if [[ ${arg} == --color=* ]]; then
+    prev_color=false
+    continue
+  fi
+
+  # filter out --color and mark next arg (color value) to be filtered out
+  if [[ ${arg} == --color ]]; then
+    prev_color=true
+    continue
+  fi
+
+  # filter out the color value if previous arg was --color
+  if ${prev_color}; then
+    prev_color=false
+    continue
+  fi
+
+  FILTERED_ARGS+=("${arg}")
 done
 
 {{- if .app.fd }}
