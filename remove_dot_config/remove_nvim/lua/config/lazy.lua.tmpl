@@ -26,7 +26,6 @@ require("lazy").setup({
       "lazyvim.plugins.extras.editor.dial"
       "lazyvim.plugins.extras.editor.inc-rename"
       "lazyvim.plugins.extras.editor.mini-diff"
-      "lazyvim.plugins.extras.lang.git"
       "lazyvim.plugins.extras.lang.json"
       "lazyvim.plugins.extras.lang.markdown"
       "lazyvim.plugins.extras.lang.toml"
@@ -37,6 +36,11 @@ require("lazy").setup({
 
 {{- if .app.docker }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.docker" }}
+{{- end }}
+
+{{- if .app.git }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.git" }}
+{{- $extras = append $extras "lazyvim.plugins.extras.util.gh" }}
 {{- end }}
 
 {{- if .lang.python }}
