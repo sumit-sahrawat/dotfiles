@@ -1,12 +1,8 @@
 {{- if and .app.git .app.bat }}
 
-{{- if not .ui.theme.is_auto }}
-
 [".config/delta/themes/catppuccin"]
 type = "git-repo"
 url = "https://github.com/sumit-sahrawat/delta.git"
 clone.args = ["--branch=patched"]
-
-{{- end }}
 
 {{- end }}
