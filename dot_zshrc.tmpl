@@ -21,6 +21,10 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 path=(
   ~/.local/bin
 
+{{- if .lang.java }}
+  ${HOMEBREW_PREFIX}/opt/openjdk/bin
+{{- end }}
+
 {{- if .lang.rust }}
   ~/.cargo/bin
 {{- end }}

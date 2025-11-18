@@ -110,6 +110,11 @@ PACKAGES=(
 # Programming Languages
 ################################################################################
 
+{{- if .lang.java }}
+  maven
+  openjdk
+{{- end }}
+
 {{- if .lang.python }}
   uv
 {{- end }}
