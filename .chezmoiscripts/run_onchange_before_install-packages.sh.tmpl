@@ -61,6 +61,10 @@ PACKAGES=(
   lazygit
 {{- end }}
 
+{{- if .app.helium }}
+  homebrew/cask/helium-browser
+{{- end }}
+
 {{- if .app.jq }}
   jaq
 {{- end }}

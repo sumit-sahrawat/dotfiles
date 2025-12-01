@@ -74,6 +74,8 @@ git.work.user.key = {{ joinPath $ssh_dir $work_key_name | quote }}
 
 {{- end }}
 
+app.helium = {{ dig "app" "helium" true . }}
+
 app.jq = {{ dig "app" "jq" true . }}
 
 app.kitty = {{ $kitty := dig "app" "kitty" true . }}{{ $kitty }}
