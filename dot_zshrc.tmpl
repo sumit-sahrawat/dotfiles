@@ -59,13 +59,15 @@ zstyle ':z4h:'                start-tmux 'no'
 zstyle ':z4h:'                prompt-at-bottom 'no'
 zstyle ':z4h:'                propagate-cwd yes
 
+zstyle ':z4h:'                term-shell-integration 'no'
+
 if test -n "${KITTY_INSTALLATION_DIR}"; then
   export KITTY_SHELL_INTEGRATION="enabled"
   autoload -Uz -- "${KITTY_INSTALLATION_DIR}"/shell-integration/zsh/kitty-integration
   kitty-integration
   unfunction kitty-integration
-
-  zstyle ':z4h:'                term-shell-integration 'no'
+elif test -n "${GHOSTTY_RESOURCES_DIR}"; then
+  builtin source -- "${GHOSTTY_RESOURCES_DIR}"/shell-integration/zsh/ghostty-integration
 else
   zstyle ':z4h:'                term-shell-integration 'yes'
 fi

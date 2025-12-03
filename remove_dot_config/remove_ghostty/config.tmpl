@@ -1,0 +1,75 @@
+{{- if .app.ghostty -}}
+
+shell-integration = none
+
+font-family = {{ .terminal.font.family }}
+font-size = {{ .terminal.font.size }}
+font-synthetic-style = false
+font-thicken = false
+
+font-shaping-break = cursor
+
+macos-option-as-alt = true
+
+# TODO: use "dark:___,light:___" once title bar issue is fixed
+{{- $themes_dir := joinPath .chezmoi.homeDir ".config/ghostty/catppuccin/themes" }}
+theme = {{ $themes_dir }}/catppuccin-{{ .ui.theme.catppuccin.dark }}.conf
+
+macos-titlebar-style = tabs
+
+link-previews = osc8
+
+confirm-close-surface = false
+
+# remove default keybinds
+keybind = clear
+
+# scrolling
+keybind = super+k=scroll_page_lines:-1
+keybind = super+j=scroll_page_lines:+1
+keybind = super+u=jump_to_prompt:-1
+keybind = super+d=jump_to_prompt:+1
+keybind = super+p=write_scrollback_file:open
+
+# window management
+keybind = super+n=new_window
+
+# tab management
+keybind = super+t=new_tab
+keybind = super+shift+w=close_tab
+keybind = super+.=move_tab:+1
+keybind = super+,=move_tab:-1
+keybind = ctrl+tab=next_tab
+keybind = ctrl+shift+tab=previous_tab
+keybind = super+1=goto_tab:1
+keybind = super+2=goto_tab:2
+keybind = super+3=goto_tab:3
+keybind = super+4=goto_tab:4
+keybind = super+5=goto_tab:5
+keybind = super+6=goto_tab:6
+keybind = super+7=goto_tab:7
+keybind = super+8=goto_tab:8
+keybind = super+9=goto_tab:9
+keybind = super+0=last_tab
+
+# split management
+keybind = super+enter=new_split
+keybind = super+w=close_surface
+keybind = super+[=goto_split:previous
+keybind = super+]=goto_split:next
+
+# font sizes
+keybind = super+equal=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
+keybind = super+backspace=reset_font_size
+
+# miscellaneous
+keybind = super+q=quit
+keybind = super+r=reload_config
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+keybind = super+shift+p=toggle_command_palette
+keybind = super+ctrl+f=toggle_fullscreen
+keybind = super+f=toggle_maximize
+
+{{- end }}

@@ -47,6 +47,8 @@ app.eza = {{ dig "app" "eza" true . }}
 
 app.fd = {{ dig "app" "fd" true . }}
 
+app.ghostty = {{ $ghostty := dig "app" "ghostty" true . }}{{ $ghostty }}
+
 app.git = {{ $git := dig "app" "git" true . }}{{ $git }}
 
 {{- if $git }}
@@ -80,14 +82,6 @@ app.jq = {{ dig "app" "jq" true . }}
 
 app.kitty = {{ $kitty := dig "app" "kitty" true . }}{{ $kitty }}
 
-{{- if $kitty }}
-
-kitty.font.pragmata = {{ $pragmata := dig "kitty" "font" "pragmata" true . }}{{ $pragmata }}
-kitty.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
-kitty.font.size = {{ dig "kitty" "font" "size" 16 . }}
-
-{{- end }}
-
 app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ dig "app" "neovim" true . }}
@@ -101,6 +95,16 @@ app.ripgrep = {{ dig "app" "ripgrep" true . }}
 app.sd = {{ dig "app" "sd" true . }}
 
 app.zsh = {{ dig "app" "zsh" true . }}
+
+has.terminal = {{ $has_terminal := or $ghostty $kitty }}{{ $has_terminal }}
+
+{{- if $has_terminal }}
+
+terminal.font.pragmata = {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
+terminal.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
+terminal.font.size = {{ dig "terminal" "font" "size" 16 . }}
+
+{{- end }}
 
 ################################################################################
 # Programming Languages

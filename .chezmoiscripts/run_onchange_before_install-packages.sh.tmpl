@@ -53,6 +53,10 @@ PACKAGES=(
   fd
 {{- end }}
 
+{{- if .app.ghostty }}
+  homebrew/cask/ghostty
+{{- end }}
+
 {{- if .app.git }}
   git
   git-delta
@@ -73,7 +77,7 @@ PACKAGES=(
   homebrew/cask/kitty
 {{- end }}
 
-{{- if and .app.kitty (not .kitty.font.pragmata) }}
+{{- if and .has.terminal (not .terminal.font.pragmata) }}
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
