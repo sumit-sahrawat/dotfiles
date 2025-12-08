@@ -21,9 +21,7 @@ input.mouse.linear = {{ dig "input" "mouse" "linear" true . }}
 
 ui.theme.is_dark = {{ $is_dark := dig "ui" "theme" "is_dark" true . }}{{ $is_dark }}
 
-ui.theme.catppuccin.light = {{ $catppuccin_light := dig "ui" "theme" "catppuccin" "light" "latte" . }}{{ $catppuccin_light | quote }}
-ui.theme.catppuccin.dark = {{ $catppuccin_dark := dig "ui" "theme" "catppuccin" "dark" "macchiato" . }}{{ $catppuccin_dark | quote }}
-ui.theme.catppuccin.active = {{ $catppuccin_active := ternary $catppuccin_dark $catppuccin_light $is_dark }}{{ $catppuccin_active | quote }}
+ui.theme.catppuccin = {{ $catppuccin := ternary "macchiato" "latte" $is_dark }}{{ $catppuccin | quote }}
 
 ui.night_shift.enabled = {{ dig "ui" "night_shift" "enabled" true . }}
 ui.night_shift.temperature = {{ dig "ui" "night_shift" "temperature" 50 . }}

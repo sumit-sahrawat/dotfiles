@@ -11,9 +11,7 @@ font-shaping-break = cursor
 
 macos-option-as-alt = true
 
-# TODO: use "dark:___,light:___" once title bar issue is fixed
-{{- $themes_dir := joinPath .chezmoi.homeDir ".config/ghostty/catppuccin/themes" }}
-theme = {{ $themes_dir }}/catppuccin-{{ .ui.theme.catppuccin.dark }}.conf
+theme = catppuccin-{{ .ui.theme.catppuccin }}.conf
 
 macos-titlebar-style = tabs
 
