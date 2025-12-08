@@ -14,9 +14,6 @@
   navigate = true  # use n and N to move between diff sections
   line-numbers = true
   hyperlinks = true
-{{- if .app.kitty }}
-  hyperlinks-file-link-format = "file://{path}#{line}"
-{{- end }}
 {{- if .app.bat }}
 [include]
   path = ~/.config/delta/themes/catppuccin/catppuccin.gitconfig

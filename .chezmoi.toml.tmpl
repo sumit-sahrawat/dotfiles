@@ -79,8 +79,6 @@ app.helium = {{ dig "app" "helium" true . }}
 
 app.jq = {{ dig "app" "jq" true . }}
 
-app.kitty = {{ $kitty := dig "app" "kitty" true . }}{{ $kitty }}
-
 app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ dig "app" "neovim" true . }}
@@ -95,9 +93,7 @@ app.sd = {{ dig "app" "sd" true . }}
 
 app.zsh = {{ dig "app" "zsh" true . }}
 
-has.terminal = {{ $has_terminal := or $ghostty $kitty }}{{ $has_terminal }}
-
-{{- if $has_terminal }}
+{{- if $ghostty }}
 
 terminal.font.pragmata = {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
 terminal.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}

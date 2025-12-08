@@ -73,11 +73,7 @@ PACKAGES=(
   jaq
 {{- end }}
 
-{{- if .app.kitty }}
-  homebrew/cask/kitty
-{{- end }}
-
-{{- if and .has.terminal (not .terminal.font.pragmata) }}
+{{- if and .app.ghostty (not .terminal.font.pragmata) }}
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
