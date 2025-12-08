@@ -53,8 +53,8 @@
 [gpg "ssh"]
   allowedSignersFile = ~/.config/git/allowed_signers
 {{- if .git.work.enabled }}
-[includeIf "gitdir:~/Work/**"]
-  path = ~/Work/.gitconfig
+[includeIf "gitdir:~/Workspaces/**"]
+  path = ~/Workspaces/.gitconfig
 {{- end }}
 
 {{- end }}
