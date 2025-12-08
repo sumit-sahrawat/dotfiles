@@ -4,7 +4,7 @@
 
 zparseopts -D -E f:=file_opt file:=file_opt
 
-subcommand="${1:-}"
+subcommand="${1:-sync}"
 
 ERROR_COLOR='%F{red}'
 DIRECTORY_COLOR='%F{blue}'
@@ -49,7 +49,7 @@ while read -r line; do
       trying_to 'Status for'  "${remote}" 'at' "${target}"
       git -C "${target}" status -s || failed_to 'get status for' "${remote}" 'at' "${target}"
       ;;
-    *)
+    sync)
       default_branch="$(git -C "${target}" remote show origin | awk '/HEAD branch/ {print $NF}')"
 
       trying_to "Syncing default branch '${default_branch}' for" "${remote}" 'at' "${target}"
@@ -60,6 +60,14 @@ while read -r line; do
       else
         git -C "${target}" fetch --quiet origin "${default_branch}:${default_branch}" || failed_to 'sync' "${remote}" 'at' "${target}"
       fi
+      ;;
+    branch)
+      trying_to 'Print run `git branch` for' "${remote}" 'at' "${target}"
+      git -C "${target}" branch
+      ;;
+    *)
+      echo "Unknown sub-command: ${subcommand}"
+      exit 1
       ;;
   esac
 done < <(read_list_from "${LIST_FILE}")
