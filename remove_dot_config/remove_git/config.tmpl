@@ -21,7 +21,7 @@
 [include]
   path = ~/.config/delta/themes/catppuccin/catppuccin.gitconfig
 [delta]
-  features = catppuccin-{{ includeTemplate "ui.catppuccin.palette" . }}
+  features = catppuccin-{{ .ui.theme.catppuccin.active }}
 {{- end }}
 {{- if .app.neovim }}
 [merge]

@@ -1,2 +1,0 @@
-{{- $palette := includeTemplate "ui.catppuccin.palette" . | trim -}}
-{{- output "bash" (joinPath .chezmoi.sourceDir "_helpers/get-fzf-opts.sh") $palette | trim -}}

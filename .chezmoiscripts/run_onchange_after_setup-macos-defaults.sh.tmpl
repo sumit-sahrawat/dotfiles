@@ -41,27 +41,8 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 # Remove margins around tiled windows
 defaults write com.apple.WindowManager EnableTiledWindowMargins -int 0
 
-# .ui.theme.choice: {{ .ui.theme.choice }}
-
-{{- $dark_mode := "" }}
-{{- if eq .ui.theme.choice "auto" }}
-{{- $dark_mode = "auto" }}
-{{- else if eq .ui.theme.choice "dark" }}
-{{- $dark_mode = "true" }}
-{{- else if eq .ui.theme.choice "light" }}
-{{- $dark_mode = "false" }}
-{{- end }}
-
-{{- if ne $dark_mode "auto" }}
-
 defaults delete -g AppleInterfaceStyleSwitchesAutomatically &>/dev/null || true
-osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to {{ $dark_mode }}'
-
-{{- else }}
-
-defaults write -g AppleInterfaceStyleSwitchesAutomatically -bool true
-
-{{- end }}
+osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to {{ .ui.theme.is_dark }}'
 
 # disable hot corners, including the bottom-right corner for apple notes
 for corner in {t,b}{l,r}; do

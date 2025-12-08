@@ -1,9 +1,0 @@
-{{- $theme := "" -}}
-{{- if eq .ui.theme.choice "auto" -}}
-{{-     $theme = output "sh" (joinPath .chezmoi.sourceDir "_helpers/get-os-theme.sh") | trim -}}
-{{- else -}}
-{{-     $theme = .ui.theme.choice -}}
-{{- end -}}
-
-{{- $palettes := dict "light" .ui.theme.catppuccin.light "dark" .ui.theme.catppuccin.dark -}}
-{{- get $palettes $theme -}}
