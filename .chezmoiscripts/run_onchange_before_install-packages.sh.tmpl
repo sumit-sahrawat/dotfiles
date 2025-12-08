@@ -118,6 +118,10 @@ PACKAGES=(
 # Programming Languages
 ################################################################################
 
+{{- if .lang.cpp }}
+  meson
+{{- end }}
+
 {{- if .lang.java }}
   maven
   openjdk
