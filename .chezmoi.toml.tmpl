@@ -51,7 +51,7 @@ app.git = {{ $git := dig "app" "git" true . }}{{ $git }}
 {{- if $git }}
 
 {{- $default_name := "Sumit Sahrawat" }}
-{{- $default_email := "139506625+sumit-sahrawat@users.noreply.github.com" }}
+{{- $default_email := "sumit-sahrawat@noreply.codeberg.org" }}
 {{- $default_key_name := "id_ed25519" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 

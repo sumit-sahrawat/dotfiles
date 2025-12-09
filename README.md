@@ -4,8 +4,7 @@ My MacOS dotfiles managed using [chezmoi](https://chezmoi.io).
 
 ## Quickstart
 
-Download from github.com/sumit-sahrawat/dotfiles and apply:
-
 ```sh
-chezmoi init --apply sumit-sahrawat
+# download to ~/.local/share/chezmoi and apply to homedir
+chezmoi init --apply --ssh codeberg.org/sumit-sahrawat
 ```
