@@ -1,14 +1,121 @@
 {{- if .app.zsh -}}
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+################################################################################
+# https://zsh.sourceforge.io/Doc/Release/Options.html
+################################################################################
+
+emulate zsh
+
+## Completion
+
+setopt ALWAYS_TO_END          # Move cursor to the end of a completed word.
+setopt AUTO_LIST              # Automatically list choices on ambiguous completion.
+setopt AUTO_MENU              # Show completion menu on a successive tab press.
+setopt AUTO_PARAM_SLASH       # If completed parameter is a directory, add a trailing slash.
+setopt COMPLETE_IN_WORD       # Complete from both ends of a word.
+unsetopt LIST_TYPES           # Do not show file types with a trailing mark.
+unsetopt MENU_COMPLETE        # Do not autoselect the first completion entry.
+
+## Expansion and Globbing
+
+setopt EXTENDED_GLOB          # Needed for file modification glob modifiers with compinit.
+
+## History
+
+setopt BANG_HIST              # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
+setopt HIST_BEEP              # Beep when accessing non-existent history.
+
+## Input/Output
+
+setopt INTERACTIVE_COMMENTS   # Enable comments in interactive shell.
+setopt PATH_DIRS              # Perform path search even on command names with slashes.
+unsetopt FLOW_CONTROL         # Disable start/stop characters in shell editor.
+
+## Job Control
+
+setopt AUTO_RESUME            # Attempt to resume existing job before creating a new process.
+setopt LONG_LIST_JOBS         # List jobs in the long format by default.
+setopt NOTIFY                 # Report status of background jobs immediately.
+unsetopt BG_NICE              # Don't run all background jobs at a lower priority.
+unsetopt CHECK_JOBS           # Don't report on jobs when shell exit.
+unsetopt HUP                  # Don't kill jobs on shell exit.
+
+## Prompting
+
+unsetopt PROMPT_BANG          # Don't treat '!' as a special character in prompt.
+unsetopt PROMPT_SUBST         # Don't perform expansion/substitution in prompt.
+
+## Scripts and Functions
+
+setopt C_BASES                # Print hexadecimals in standard C format (0xFF).
+
+## Zle
+
+setopt BEEP                   # Beep on error in line editor.
+
+################################################################################
+# https://zsh.sourceforge.io/Doc/Release/Parameters.html
+################################################################################
+
+HISTFILE="${HOME}/.zsh_history"
+HISTSIZE='1000000000'
+SAVEHIST='1000000000'
+
+PROMPT_EOL_MARK='%K{red} %k'   # mark the missing \n at the end of a comand output with a red block
+WORDCHARS=''                   # only alphanums make up words in word-based zle widgets
+ZLE_REMOVE_SUFFIX_CHARS=''     # don't eat space when typing '|' after a tab completion
+KEYTIMEOUT=20                  # wait for 200ms for the continuation of a key sequence
+zle_highlight=('paste:none')   # disable highlighting of text pasted into the command line
+
+################################################################################
+# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html
+################################################################################
+
+bindkey -e
+
+################################################################################
+# https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html
+################################################################################
+
+zmodload zsh/datetime
+zmodload -F zsh/files b:{zf_mv,zf_rm}
+zmodload -F zsh/stat b:zstat
+
 ###############################################################################
 # Environment
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-export XDG_CONFIG_HOME=~/.config
+export -T MANPATH=${MANPATH:-:} manpath
+export -T INFOPATH=${INFOPATH:-:} infopath
+typeset -gaU cdpath fpath mailpath path manpath infopath
 
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+# Import standard paths
+eval "$(/usr/libexec/path_helper)"
+
+# Import brew environment
+eval "$(brew shellenv zsh)"
+
+# Colors for ls, tree, fd, etc.
+export LS_COLORS="$(vivid generate catppuccin-{{ .ui.theme.catppuccin }})"
+
+export XDG_CONFIG_HOME=~/.config
 
 export EDITOR={{ ternary "nvim" "vi" .app.neovim }}
 export VISUAL="${EDITOR}"
@@ -35,7 +142,12 @@ path=(
 )
 
 fpath=(
+  "${HOMEBREW_PREFIX}/share/zsh-completions"
   ~/.local/share/zsh/site-functions
+
+{{- if .app.git }}
+  ~/.zsh/zimfw/git/functions
+{{- end }}
 
 {{- if .app.docker }}
   ~/.docker/completions
@@ -45,76 +157,42 @@ fpath=(
 )
 
 ###############################################################################
-# zsh4humans (https://github.com/romkatv/zsh4humans/blob/v5/README.md)
+# Load additional plugins/scripts
 
-# https://github.com/romkatv/zsh4humans/blob/v5/tips.md#prompt
-POSTEDIT=$'\n\n\e[2A'
+# A helper to autoload multiple files based on their basename
+autoload -Uz :autoload
 
-zstyle ':z4h:'                auto-update      'no'
-zstyle ':z4h:'                auto-update-days '28'
+# A helper to source files and also compile them if needed
+:autoload ~/.local/share/zsh/site-functions/*
 
-zstyle ':z4h:bindkey'         keyboard  'mac'
-zstyle ':z4h:'                start-tmux 'no'
-# zstyle ':z4h:'                start-tmux command tmux -u new -A -D -t z4h
-zstyle ':z4h:'                prompt-at-bottom 'no'
-zstyle ':z4h:'                propagate-cwd yes
+# zsh-autosuggestions
+:source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 if test -n "${GHOSTTY_RESOURCES_DIR}"; then
   builtin source -- "${GHOSTTY_RESOURCES_DIR}"/shell-integration/zsh/ghostty-integration
-  zstyle ':z4h:'                term-shell-integration 'no'
-else
-  zstyle ':z4h:'                term-shell-integration 'yes'
 fi
 
-zstyle ':z4h:autosuggestions' forward-char 'partial-accept'
-zstyle ':z4h:autosuggestions' end-of-line 'partial-accept'
+for partial_widget in {,vi-}forward-char; do
+  ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(${partial_widget})
+  ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(${ZSH_AUTOSUGGEST_ACCEPT_WIDGETS:#${partial_widget}})
+done
 
-# Instruct zsh4humans to use fzf from PATH.
-zstyle ':z4h:*'               fzf-command fzf
-zstyle ':z4h:fzf-complete'    recurse-dirs 'yes'
+# zsh-syntax-highlighting
+:source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-zstyle ':z4h:ssh:*'           enable 'no'
+# zsh-autopair
+:source ~/.zsh/zsh-autopair/autopair.zsh
 
-###############################################################################
-# Clone git repositories using `z4h install`
+# zsh-you-should-use
+:source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
 
-{{- if .app.git }}
-
-z4h install zimfw/git
-
-{{- end }}
-
-###############################################################################
-# Initialize zsh4humans. Console/Network I/O is unavailable after this.
-z4h init || return
-
-###############################################################################
-# Customizations
-
-# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
-setopt no_auto_menu  # require an extra TAB press to open the completion menu
-setopt no_auto_cd    # don't cd without cd
+# zimfw/completion
+:source ~/.zsh/zimfw/completion/init.zsh
 
 # Source additional local files if they exist.
-z4h source --compile ~/.profile
-z4h source --compile ~/.bashrc
-z4h source --compile ~/.zsh/private.zsh
-
-# Define key bindings.
-z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
-
-# Always accept line on enter
-z4h bindkey z4h-accept-line Enter
-
-# Autoload functions.
-autoload -Uz zmv
-
-# Define functions and completions.
-function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
-compdef _directories md
+:source --skip ~/.profile
+:source --skip ~/.bashrc
+:source --skip ~/.zsh/private.zsh
 
 ###############################################################################
 # Aliases
@@ -138,8 +216,6 @@ function :sup {
 {{- if .lang.rust }}
   rustup update
 {{- end }}
-
-  z4h update
 }
 
 # chezmoi
@@ -157,10 +233,13 @@ alias :hU='chezmoi update --init --refresh-externals'
 
 {{- if .app.git }}
 
+# zimfw/git
+:autoload ~/.zsh/zimfw/git/functions/*(N)
+
 gprefix=':g'
 
 zstyle ':zim:git' aliases-prefix "${gprefix}"
-z4h load --compile zimfw/git
+:source ~/.zsh/zimfw/git/init.zsh
 
 alias "${gprefix}"=lazygit
 
@@ -208,3 +287,9 @@ function :yt {
 {{- end }}
 
 {{- end }}
+
+###############################################################################
+# Powerlevel10k Prompt Theme
+
+:source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+:source ~/.p10k.zsh
