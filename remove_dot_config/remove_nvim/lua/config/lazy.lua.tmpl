@@ -59,6 +59,10 @@ require("lazy").setup({
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.rust" }}
 {{- end }}
 
+{{- if .lang.zig }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.zig" }}
+{{- end }}
+
 {{- range $extra := sortAlpha $extras }}
     { "LazyVim/LazyVim", import = {{ $extra | quote }} },
 {{- end }}

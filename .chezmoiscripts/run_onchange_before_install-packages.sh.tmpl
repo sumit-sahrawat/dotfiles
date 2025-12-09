@@ -132,6 +132,10 @@ PACKAGES=(
   rustup
 {{- end }}
 
+{{- if .lang.zig }}
+  zig
+{{- end }}
+
 )
 
 echo "${PACKAGES[@]}" | xargs -r brew install --quiet
