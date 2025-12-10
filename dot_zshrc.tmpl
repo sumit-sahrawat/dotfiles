@@ -194,6 +194,9 @@ done
 # zimfw/completion
 :source ~/.zsh/zimfw/completion/init.zsh
 
+# Homebrew's command-not-found handler
+:source "${HOMEBREW_REPOSITORY}/Library/Homebrew/command-not-found/handler.sh"
+
 # Source additional local files if they exist.
 :source --skip ~/.profile
 :source --skip ~/.bashrc
