@@ -133,6 +133,10 @@ PACKAGES=(
   gleam
 {{- end }}
 
+{{- if .lang.go }}
+  go
+{{- end }}
+
 {{- if .lang.haskell }}
   ghcup
 {{- end }}

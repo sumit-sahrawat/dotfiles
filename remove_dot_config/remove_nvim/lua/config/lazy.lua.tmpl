@@ -51,6 +51,10 @@ require("lazy").setup({
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.gleam" }}
 {{- end }}
 
+{{- if .lang.go }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.go" }}
+{{- end }}
+
 {{- if .lang.haskell }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.haskell" }}
 {{- end }}

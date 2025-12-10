@@ -161,6 +161,12 @@ fpath=(
   $fpath
 )
 
+{{- if .lang.go }}
+
+export GOPATH=~/.go
+
+{{- end }}
+
 ###############################################################################
 # Load additional plugins/scripts
 
