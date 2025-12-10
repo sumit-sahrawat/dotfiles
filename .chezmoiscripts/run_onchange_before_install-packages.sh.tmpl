@@ -36,6 +36,10 @@ PACKAGES=(
   homebrew/cask/anki
 {{- end }}
 
+{{- if .app.bash }}
+  bash
+{{- end }}
+
 {{- if .app.bat }}
   bat
 {{- end }}
