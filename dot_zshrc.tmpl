@@ -191,6 +191,18 @@ done
 # zsh-syntax-highlighting
 :source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# zsh-syntax-highlighting
+:source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
+
 # zsh-autopair
 :source ~/.zsh/zsh-autopair/autopair.zsh
 
