@@ -45,6 +45,10 @@ PACKAGES=(
   lazydocker
 {{- end }}
 
+{{- if .app.exercism }}
+  exercism
+{{- end }}
+
 {{- if .app.eza }}
   eza
   vivid
