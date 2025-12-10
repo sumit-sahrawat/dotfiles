@@ -47,6 +47,10 @@ require("lazy").setup({
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.clangd" }}
 {{- end }}
 
+{{- if .lang.haskell }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.haskell" }}
+{{- end }}
+
 {{- if .lang.java }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.java" }}
 {{- end }}

@@ -1,0 +1,15 @@
+{{- if .lang.haskell -}}
+
+# hooks are only run when 'system-ghc: false'
+system-ghc: false
+
+{{- if .app.git }}
+
+templates:
+  params:
+    author-name: {{ .git.global.user.name }}
+    author-email: {{ .git.global.user.email }}
+
+{{- end }}
+
+{{- end }}

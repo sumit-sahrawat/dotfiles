@@ -128,6 +128,10 @@ PACKAGES=(
   meson
 {{- end }}
 
+{{- if .lang.haskell }}
+  ghcup
+{{- end }}
+
 {{- if .lang.java }}
   maven
   openjdk

@@ -130,6 +130,11 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 path=(
   ~/.local/bin
 
+{{- if .lang.haskell }}
+  ~/.cabal/bin
+  ~/.ghcup/bin
+{{- end }}
+
 {{- if .lang.java }}
   ${HOMEBREW_PREFIX}/opt/openjdk/bin
 {{- end }}
