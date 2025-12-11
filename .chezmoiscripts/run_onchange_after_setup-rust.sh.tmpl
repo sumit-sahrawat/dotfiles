@@ -4,7 +4,9 @@ set -euo pipefail
 
 {{- if .lang.rust }}
 
-rustup toolchain install stable \
+rustup-init \
+  -y \
+  --default-toolchain stable \
   --profile default \
   --component rust-analyzer,rust-src
 
