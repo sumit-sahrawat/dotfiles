@@ -154,6 +154,10 @@ PACKAGES=(
   rustup
 {{- end }}
 
+{{- if .lang.scheme }}
+  guile
+{{- end }}
+
 {{- if .lang.zig }}
   zig
 {{- end }}
