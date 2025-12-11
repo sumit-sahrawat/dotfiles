@@ -146,6 +146,10 @@ PACKAGES=(
   openjdk
 {{- end }}
 
+{{- if .lang.nasm }}
+  nasm
+{{- end }}
+
 {{- if .lang.python }}
   uv
 {{- end }}
