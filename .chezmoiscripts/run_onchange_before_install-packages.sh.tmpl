@@ -146,6 +146,11 @@ PACKAGES=(
   openjdk
 {{- end }}
 
+{{- if .lang.lua }}
+  lua
+  busted
+{{- end }}
+
 {{- if .lang.nasm }}
   nasm
 {{- end }}
