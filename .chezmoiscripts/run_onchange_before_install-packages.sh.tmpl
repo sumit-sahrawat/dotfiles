@@ -45,6 +45,10 @@ PACKAGES=(
   bat
 {{- end }}
 
+{{- if .app.chatgpt }}
+  homebrew/cask/chatgpt
+{{- end }}
+
 {{- if .app.docker }}
   homebrew/cask/docker-desktop
   lazydocker
