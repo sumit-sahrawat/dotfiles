@@ -92,6 +92,10 @@ PACKAGES=(
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
+{{- if .app.mprocs }}
+  mprocs
+{{- end }}
+
 {{- if .app.mpv }}
   mpv
   yt-dlp
