@@ -1,5 +1,8 @@
 {{- if .app.zsh -}}
 
+# Disable alias expansion during ~/.zshrc
+setopt NO_ALIASES
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -319,3 +322,6 @@ function :yt {
 
 :source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 :source ~/.p10k.zsh
+
+# Re-enable alias expansion for interactive usage
+setopt ALIASES
