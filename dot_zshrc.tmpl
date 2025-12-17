@@ -111,13 +111,13 @@ export -T INFOPATH=${INFOPATH:-:} infopath
 typeset -gaU cdpath fpath mailpath path manpath infopath
 
 # Import standard paths
-eval "$(/usr/libexec/path_helper)"
+{{ output "/usr/libexec/path_helper" }}
 
 # Import brew environment
-eval "$(brew shellenv zsh)"
+{{ output "brew" "shellenv" "zsh" }}
 
 # Colors for ls, tree, fd, etc.
-export LS_COLORS="$(vivid generate catppuccin-{{ .ui.theme.catppuccin }})"
+export LS_COLORS="{{- output "vivid" "generate" (list "catppuccin" .ui.theme.catppuccin | join "-") | trim -}}"
 
 export XDG_CONFIG_HOME=~/.config
 
