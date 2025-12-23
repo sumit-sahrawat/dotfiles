@@ -79,8 +79,6 @@ git.work.user.key = {{ joinPath $ssh_dir $work_key_name | quote }}
 
 {{- end }}
 
-app.jq = {{ dig "app" "jq" true . }}
-
 app.mpv = {{ dig "app" "mpv" true . }}
 
 app.mprocs = {{ dig "app" "mprocs" true . }}
@@ -114,6 +112,7 @@ lang.gleam = {{ dig "lang" "gleam" true . }}
 lang.go = {{ dig "lang" "go" true . }}
 lang.haskell = {{ dig "lang" "haskell" true . }}
 lang.java = {{ dig "lang" "java" true . }}
+lang.jq = {{ dig "lang" "jq" true . }}
 lang.lua = {{ dig "lang" "lua" true . }}
 lang.nasm = {{ dig "lang" "nasm" true . }}
 lang.python = {{ dig "lang" "python" true . }}

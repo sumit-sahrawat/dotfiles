@@ -80,10 +80,6 @@ PACKAGES=(
   lazygit
 {{- end }}
 
-{{- if .app.jq }}
-  jaq
-{{- end }}
-
 {{- if and .app.ghostty (not .terminal.font.pragmata) }}
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
@@ -147,6 +143,10 @@ PACKAGES=(
 {{- if .lang.java }}
   maven
   openjdk
+{{- end }}
+
+{{- if .lang.jq }}
+  jaq
 {{- end }}
 
 {{- if .lang.lua }}
