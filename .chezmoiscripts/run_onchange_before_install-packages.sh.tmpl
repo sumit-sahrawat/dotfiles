@@ -169,6 +169,11 @@ PACKAGES=(
   nasm
 {{- end }}
 
+{{- if .lang.ocaml }}
+  ocaml
+  dune
+{{- end }}
+
 {{- if .lang.python }}
   uv
 {{- end }}
