@@ -149,6 +149,13 @@ PACKAGES=(
   openjdk
 {{- end }}
 
+{{- if .lang.javascript }}
+  volta
+  node
+  npm
+  corepack
+{{- end }}
+
 {{- if .lang.jq }}
   jaq
 {{- end }}
