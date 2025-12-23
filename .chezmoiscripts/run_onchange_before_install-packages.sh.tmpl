@@ -186,6 +186,10 @@ PACKAGES=(
   guile
 {{- end }}
 
+{{- if .lang.sqlite }}
+  sqlite
+{{- end }}
+
 {{- if .lang.zig }}
   zig
 {{- end }}
