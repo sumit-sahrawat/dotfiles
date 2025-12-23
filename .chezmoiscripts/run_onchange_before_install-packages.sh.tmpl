@@ -124,6 +124,10 @@ PACKAGES=(
 # Programming Languages
 ################################################################################
 
+{{- if .lang.bash }}
+  bats-core
+{{- end }}
+
 {{- if .lang.cpp }}
   meson
 {{- end }}
