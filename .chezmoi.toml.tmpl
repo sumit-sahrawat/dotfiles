@@ -83,7 +83,7 @@ app.mpv = {{ dig "app" "mpv" true . }}
 
 app.mprocs = {{ dig "app" "mprocs" true . }}
 
-app.neovim = {{ dig "app" "neovim" true . }}
+app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
 
 app.obsidian = {{ dig "app" "obsidian" true . }}
 
@@ -115,7 +115,7 @@ lang.haskell = {{ dig "lang" "haskell" true . }}
 lang.java = {{ dig "lang" "java" true . }}
 lang.javascript = {{ dig "lang" "javascript" true . }}
 lang.jq = {{ dig "lang" "jq" true . }}
-lang.lua = {{ dig "lang" "lua" true . }}
+lang.lua = {{ or (dig "lang" "lua" true .) $neovim }}
 lang.ocaml = {{ dig "lang" "ocaml" true . }}
 lang.nasm = {{ dig "lang" "nasm" true . }}
 lang.python = {{ dig "lang" "python" true . }}
