@@ -191,6 +191,7 @@ for partial_widget in {,vi-}forward-char; do
   ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(${partial_widget})
   ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(${ZSH_AUTOSUGGEST_ACCEPT_WIDGETS:#${partial_widget}})
 done
+unset partial_widget
 
 # zsh-syntax-highlighting
 :source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
