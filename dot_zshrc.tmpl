@@ -1,24 +1,247 @@
 {{- if .app.zsh -}}
 
-# Disable alias expansion during ~/.zshrc
-setopt NO_ALIASES
+# Personal Zsh configuration file. It is strongly recommended to keep all
+# shell customization and configuration (including exported environment
+# variables such as PATH) in this file or in files sourced from it.
+#
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# https://github.com/romkatv/zsh4humans/blob/v5/tips.md#prompt
+POSTEDIT=$'\n\n\e[2A'
+
+zstyle ':z4h:' auto-update      'no'
+zstyle ':z4h:bindkey' keyboard  'mac'
+zstyle ':z4h:' start-tmux       no
+
+# Mark up shell's output with semantic information (manually for ghostty).
+if test -n "${GHOSTTY_RESOURCES_DIR}"; then
+  builtin source -- "${GHOSTTY_RESOURCES_DIR}"/shell-integration/zsh/ghostty-integration
+  zstyle ':z4h:' term-shell-integration 'no'
+else
+  zstyle ':z4h:' term-shell-integration 'yes'
 fi
 
-################################################################################
-# https://zsh.sourceforge.io/Doc/Release/Options.html
-################################################################################
+# Accepts partially to match cursor movement in command autosuggestions.
+zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
-emulate zsh
+# Enable direnv to automatically source .envrc files.
+zstyle ':z4h:direnv'         enable 'no'
+# Show "loading" and "unloading" notifications from direnv.
+zstyle ':z4h:direnv:success' notify 'yes'
+
+# Instruct zsh4humans to use fzf from PATH.
+zstyle ':z4h:*'               fzf-command fzf
+zstyle ':z4h:fzf-complete'    recurse-dirs 'yes'
+
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# SSH when connecting to specific hosts.
+# zstyle ':z4h:ssh:example-hostname'   enable 'yes'
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
+
+# Send these files over to the remote host when connecting over SSH to the
+# enabled hosts.
+# zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
+
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`.
+
+{{- if .app.git }}
+
+# Git Aliases
+z4h install zimfw/git
+
+{{- end }}
+
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
+
+# Colors for ls, tree, fd, etc.
+export LS_COLORS="{{- output "vivid" "generate" (list "catppuccin" .ui.theme.catppuccin | join "-") | trim -}}"
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+
+# We manually update via :sup so no auto-update for brew.
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Some tools only use ~/.config instead of ~/Library when this is set
+export XDG_CONFIG_HOME=~/.config
+
+export EDITOR={{ ternary "nvim" "vi" .app.neovim }}
+export VISUAL="${EDITOR}"
+
+{{- if .app.bat }}
+
+export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
+
+{{- end }}
+
+# Extend PATH.
+path=(
+  ~/.local/bin
+
+{{- if .lang.haskell }}
+  ~/.cabal/bin
+  ~/.ghcup/bin
+{{- end }}
+
+{{- if .lang.java }}
+  ${HOMEBREW_PREFIX}/opt/openjdk/bin
+{{- end }}
+
+{{- if .lang.rust }}
+  ~/.cargo/bin
+{{- end }}
+
+  $path
+)
+
+fpath=(
+  ~/.local/share/zsh/site-functions
+
+{{- if .app.docker }}
+  ~/.docker/completions
+{{- end }}
+
+  $fpath
+)
+
+{{- if .lang.go }}
+
+# Out of sight, out of mind.
+export GOPATH=~/.go
+
+{{- end }}
+
+# Make history substring search highlight actually readable with catppuccin.
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
+
+# Source additional local files if they exist.
+z4h source ~/.profile
+z4h source ~/.bashrc
+z4h source ~/.zsh/private.zsh
+
+# Use additional Git repositories pulled in with `z4h install`.
+
+{{- if .app.git }}
+
+gprefix=':g'
+
+zstyle ':zim:git' aliases-prefix "${gprefix}"
+z4h load --compile zimfw/git
+
+alias "${gprefix}"=lazygit
+
+# lga = lg with --all
+alias "${gprefix}lga"="${gprefix}lg --all"
+
+# lgl = lg with --branches
+alias "${gprefix}lgl"="${gprefix}lg --branches"
+
+# cst = commit show stat
+alias "${gprefix}cst"="git show --stat"
+
+unset gprefix
+
+{{- end }}
+
+# Define key bindings.
+z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
+z4h bindkey redo Option+/            # redo the last undone command line change
+
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+z4h bindkey z4h-accept-line Enter
+
+# Autoload functions.
+autoload -Uz zmv
+
+# Define functions and completions.
+function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+compdef _directories md
+
+function :sup {
+  chezmoi update --init --apply --refresh-externals
+  brew upgrade
+
+{{- if .lang.rust }}
+  rustup update
+{{- end }}
+
+  z4h update
+
+  z4h source ~/.zsh/private-update.zsh
+}
+
+# Define aliases.
+
+{{- if .app.bat }}
+alias c='bat --style=plain'
+alias b='bat --style=default'
+{{- else }}
+alias c='cat'
+{{- end }}
+alias e='${EDITOR}'
+alias o='open'
+alias q='exit'
+
+# chezmoi
+alias :ha='chezmoi add'
+alias :hA='chezmoi add --template'
+alias :hc='cd {{ .chezmoi.sourceDir | quote }}'
+alias :hd='chezmoi diff --init'
+alias :he='chezmoi edit --init --apply'
+alias :hs='chezmoi edit-config'
+alias :hS='chezmoi cat-config'
+alias :hm='chezmoi merge'
+alias :hp='chezmoi apply --init'
+alias :hu='chezmoi update --init'
+alias :hU='chezmoi update --init --refresh-externals'
+
+{{- if .app.eza }}
+
+alias ls=eza
+
+# tree: include hidden files, exclude gitignored paths, exclude .git dir
+alias :t='eza --tree --git-ignore --ignore-glob .git --all'
+
+# tree: exclude hidden files, exclude gitignored paths, exclude .git dir
+alias :tA='eza --tree --git-ignore --ignore-glob .git'
+
+# tree: include hidden files, include gitignored paths, exclude .git dir
+alias :tG='eza --tree --ignore-glob .git --all'
+
+# tree: exclude hidden files, include gitignored paths, exclude .git dir
+alias :tGA='eza --tree --ignore-glob .git'
+
+{{- end }}
+
+{{- if .app.mpv }}
+
+function :mpv {
+  mpv "${@}" </dev/null &>/dev/null & disown
+}
+
+function :yt {
+  yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
+}
+
+{{- end }}
+
+# Set shell options: https://zsh.sourceforge.io/Doc/Release/Options.html.
 
 ## Completion
 
 setopt ALWAYS_TO_END          # Move cursor to the end of a completed word.
+unsetopt AUTO_CD              # Require an explicit call to cd to change directories.
 setopt AUTO_LIST              # Automatically list choices on ambiguous completion.
 setopt AUTO_MENU              # Show completion menu on a successive tab press.
 setopt AUTO_PARAM_SLASH       # If completed parameter is a directory, add a trailing slash.
@@ -53,11 +276,11 @@ unsetopt FLOW_CONTROL         # Disable start/stop characters in shell editor.
 ## Job Control
 
 setopt AUTO_RESUME            # Attempt to resume existing job before creating a new process.
-setopt LONG_LIST_JOBS         # List jobs in the long format by default.
-setopt NOTIFY                 # Report status of background jobs immediately.
 unsetopt BG_NICE              # Don't run all background jobs at a lower priority.
 unsetopt CHECK_JOBS           # Don't report on jobs when shell exit.
 unsetopt HUP                  # Don't kill jobs on shell exit.
+setopt LONG_LIST_JOBS         # List jobs in the long format by default.
+setopt NOTIFY                 # Report status of background jobs immediately.
 
 ## Prompting
 
@@ -73,259 +296,4 @@ setopt MULTIOS                # Perform implicit tees or cats when multiple redi
 
 setopt BEEP                   # Beep on error in line editor.
 
-################################################################################
-# https://zsh.sourceforge.io/Doc/Release/Parameters.html
-################################################################################
-
-HISTFILE="${HOME}/.zsh_history"
-HISTSIZE='1000000000'
-SAVEHIST='1000000000'
-
-PROMPT_EOL_MARK='%K{red} %k'   # mark the missing \n at the end of a comand output with a red block
-WORDCHARS=''                   # only alphanums make up words in word-based zle widgets
-ZLE_REMOVE_SUFFIX_CHARS=''     # don't eat space when typing '|' after a tab completion
-KEYTIMEOUT=20                  # wait for 200ms for the continuation of a key sequence
-zle_highlight=('paste:none')   # disable highlighting of text pasted into the command line
-
-################################################################################
-# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html
-################################################################################
-
-bindkey -e
-
-################################################################################
-# https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html
-################################################################################
-
-zmodload zsh/datetime
-zmodload -F zsh/files b:{zf_mv,zf_rm}
-zmodload -F zsh/stat b:zstat
-
-###############################################################################
-# Environment
-
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-export -T MANPATH=${MANPATH:-:} manpath
-export -T INFOPATH=${INFOPATH:-:} infopath
-typeset -gaU cdpath fpath mailpath path manpath infopath
-
-# Import standard paths
-{{ output "/usr/libexec/path_helper" }}
-
-# Import brew environment
-{{ output "brew" "shellenv" "zsh" }}
-
-# Colors for ls, tree, fd, etc.
-export LS_COLORS="{{- output "vivid" "generate" (list "catppuccin" .ui.theme.catppuccin | join "-") | trim -}}"
-
-export XDG_CONFIG_HOME=~/.config
-
-export EDITOR={{ ternary "nvim" "vi" .app.neovim }}
-export VISUAL="${EDITOR}"
-
-{{- if .app.bat }}
-
-export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
-
 {{- end }}
-
-# Extend PATH.
-path=(
-  ~/.local/bin
-
-{{- if .lang.haskell }}
-  ~/.cabal/bin
-  ~/.ghcup/bin
-{{- end }}
-
-{{- if .lang.java }}
-  ${HOMEBREW_PREFIX}/opt/openjdk/bin
-{{- end }}
-
-{{- if .lang.rust }}
-  ~/.cargo/bin
-{{- end }}
-
-  $path
-)
-
-fpath=(
-  "${HOMEBREW_PREFIX}/share/zsh-completions"
-  ~/.local/share/zsh/site-functions
-
-{{- if .app.git }}
-  ~/.zsh/zimfw/git/functions
-{{- end }}
-
-{{- if .app.docker }}
-  ~/.docker/completions
-{{- end }}
-
-  $fpath
-)
-
-{{- if .lang.go }}
-
-export GOPATH=~/.go
-
-{{- end }}
-
-###############################################################################
-# Load additional plugins/scripts
-
-# A helper to autoload multiple files based on their basename
-autoload -Uz :autoload
-
-# A helper to source files and also compile them if needed
-:autoload ~/.local/share/zsh/site-functions/*
-
-# zsh-autosuggestions
-:source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-if test -n "${GHOSTTY_RESOURCES_DIR}"; then
-  builtin source -- "${GHOSTTY_RESOURCES_DIR}"/shell-integration/zsh/ghostty-integration
-fi
-
-for partial_widget in {,vi-}forward-char; do
-  ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(${partial_widget})
-  ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(${ZSH_AUTOSUGGEST_ACCEPT_WIDGETS:#${partial_widget}})
-done
-unset partial_widget
-
-# zsh-syntax-highlighting
-:source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# zsh-history-substring-search
-:source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# zsh-fzf-history-search
-:source ~/.zsh/zsh-fzf-history-search/zsh-fzf-history-search.zsh
-
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
-
-# zsh-you-should-use
-:source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
-
-# zimfw/completion
-:source ~/.zsh/zimfw/completion/init.zsh
-
-# Homebrew's command-not-found handler
-:source "${HOMEBREW_REPOSITORY}/Library/Homebrew/command-not-found/handler.sh"
-
-# Source additional local files if they exist.
-:source --skip ~/.profile
-:source --skip ~/.bashrc
-:source --skip ~/.zsh/private.zsh
-
-###############################################################################
-# Aliases
-
-# Basics
-{{- if .app.bat }}
-alias c='bat --style=plain'
-alias b='bat --style=default'
-{{- else }}
-alias c='cat'
-{{- end }}
-alias e='${EDITOR}'
-alias o='open'
-alias q='exit'
-
-# System upgrade
-function :sup {
-  chezmoi update --init --apply --refresh-externals
-  brew upgrade
-
-{{- if .lang.rust }}
-  rustup update
-{{- end }}
-
-  :source --skip ~/.zsh/private-update.zsh
-}
-
-# chezmoi
-alias :ha='chezmoi add'
-alias :hA='chezmoi add --template'
-alias :hc='cd {{ .chezmoi.sourceDir | quote }}'
-alias :hd='chezmoi diff --init'
-alias :he='chezmoi edit --init --apply'
-alias :hs='chezmoi edit-config'
-alias :hS='chezmoi cat-config'
-alias :hm='chezmoi merge'
-alias :hp='chezmoi apply --init'
-alias :hu='chezmoi update --init'
-alias :hU='chezmoi update --init --refresh-externals'
-
-{{- if .app.git }}
-
-# zimfw/git
-:autoload ~/.zsh/zimfw/git/functions/*(N)
-
-gprefix=':g'
-
-zstyle ':zim:git' aliases-prefix "${gprefix}"
-:source ~/.zsh/zimfw/git/init.zsh
-
-alias "${gprefix}"=lazygit
-
-# lga = lg with --all
-alias "${gprefix}lga"="${gprefix}lg --all"
-
-# lgl = lg with --branches
-alias "${gprefix}lgl"="${gprefix}lg --branches"
-
-# cst = commit show stat
-alias "${gprefix}cst"="git show --stat"
-
-unset gprefix
-
-{{- end }}
-
-{{- if .app.eza }}
-
-alias ls=eza
-
-# tree: include hidden files, exclude gitignored paths, exclude .git dir
-alias :t='eza --tree --git-ignore --ignore-glob .git --all'
-
-# tree: exclude hidden files, exclude gitignored paths, exclude .git dir
-alias :tA='eza --tree --git-ignore --ignore-glob .git'
-
-# tree: include hidden files, include gitignored paths, exclude .git dir
-alias :tG='eza --tree --ignore-glob .git --all'
-
-# tree: exclude hidden files, include gitignored paths, exclude .git dir
-alias :tGA='eza --tree --ignore-glob .git'
-
-{{- end }}
-
-{{- if .app.mpv }}
-
-function :mpv {
-  mpv "${@}" </dev/null &>/dev/null & disown
-}
-
-function :yt {
-  yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
-}
-
-{{- end }}
-
-{{- end }}
-
-###############################################################################
-# Powerlevel10k Prompt Theme
-
-:source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-:source ~/.p10k.zsh
-
-# Re-enable alias expansion for interactive usage
-setopt ALIASES
