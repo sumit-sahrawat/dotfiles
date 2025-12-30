@@ -67,6 +67,10 @@ require("lazy").setup({
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.typescript" }}
 {{- end }}
 
+{{- if .lang.ocaml }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.ocaml" }}
+{{- end }}
+
 {{- if .lang.python }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.python" }}
 {{- end }}
