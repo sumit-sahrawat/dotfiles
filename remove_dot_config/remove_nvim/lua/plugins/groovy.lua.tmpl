@@ -1,0 +1,36 @@
+{{- if .lang.groovy -}}
+
+return {
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        groovy = { "npm-groovy-lint" },
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        groovy = { "npm-groovy-lint" },
+      },
+    },
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    ensure_installed = {
+      "groovy-language-server",
+    },
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "npm-groovy-lint",
+      },
+    },
+  },
+}
+
+{{- end }}

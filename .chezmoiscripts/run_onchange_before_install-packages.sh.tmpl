@@ -140,6 +140,10 @@ PACKAGES=(
   go
 {{- end }}
 
+{{- if .lang.groovy }}
+  groovysdk
+{{- end }}
+
 {{- if .lang.haskell }}
   ghcup
 {{- end }}
