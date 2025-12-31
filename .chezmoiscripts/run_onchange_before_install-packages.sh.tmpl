@@ -49,6 +49,10 @@ PACKAGES=(
   homebrew/cask/chatgpt
 {{- end }}
 
+{{- if .app.direnv }}
+  direnv
+{{- end }}
+
 {{- if .app.docker }}
   homebrew/cask/docker-desktop
   lazydocker
