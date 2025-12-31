@@ -89,6 +89,10 @@ require("lazy").setup({
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.rust" }}
 {{- end }}
 
+{{- if .lang.sqlite }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.sql" }}
+{{- end }}
+
 {{- if .lang.zig }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.zig" }}
 {{- end }}
