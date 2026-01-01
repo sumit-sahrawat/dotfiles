@@ -48,6 +48,8 @@ zstyle ':z4h:ssh:*'                   enable 'no'
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`.
 
+z4h install MichaelAquilina/zsh-you-should-use
+
 {{- if .app.git }}
 
 # Git Aliases
@@ -127,6 +129,8 @@ z4h source ~/.bashrc
 z4h source ~/.zsh/private.zsh
 
 # Use additional Git repositories pulled in with `z4h install`.
+
+z4h load --compile MichaelAquilina/zsh-you-should-use
 
 {{- if .app.git }}
 
