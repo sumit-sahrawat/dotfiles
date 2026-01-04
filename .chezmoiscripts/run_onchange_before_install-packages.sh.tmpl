@@ -45,6 +45,10 @@ PACKAGES=(
   bat
 {{- end }}
 
+{{- if .app.blender }}
+  blender
+{{- end }}
+
 {{- if .app.chatgpt }}
   homebrew/cask/chatgpt
 {{- end }}
