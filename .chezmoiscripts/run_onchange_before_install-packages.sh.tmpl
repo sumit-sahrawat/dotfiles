@@ -46,10 +46,6 @@ PACKAGES=(
   homebrew/cask/1password
 {{- end }}
 
-{{- if index .app "anki" }}
-  homebrew/cask/anki
-{{- end }}
-
 {{- if .app.chatgpt }}
   homebrew/cask/chatgpt
 {{- end }}
