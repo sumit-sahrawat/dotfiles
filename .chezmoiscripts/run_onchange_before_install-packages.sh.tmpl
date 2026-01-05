@@ -42,10 +42,6 @@ PACKAGES=(
 # Apps
 ################################################################################
 
-{{- if index .app "1password" }}
-  homebrew/cask/1password
-{{- end }}
-
 {{- if .app.chatgpt }}
   homebrew/cask/chatgpt
 {{- end }}
