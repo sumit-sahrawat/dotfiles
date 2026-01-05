@@ -36,11 +36,6 @@ PACKAGES=(
   homebrew/cask/anki
 {{- end }}
 
-{{- if .app.bash }}
-  bash
-  bats-core
-{{- end }}
-
 {{- if .app.bat }}
   bat
 {{- end }}
@@ -137,6 +132,7 @@ PACKAGES=(
 ################################################################################
 
 {{- if .lang.bash }}
+  bash
   bats-core
 {{- end }}
 
