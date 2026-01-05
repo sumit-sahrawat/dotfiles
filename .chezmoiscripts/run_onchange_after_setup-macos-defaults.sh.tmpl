@@ -38,6 +38,9 @@ defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
 
+# Don’t show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
+
 # Remove margins around tiled windows
 defaults write com.apple.WindowManager EnableTiledWindowMargins -int 0
 
