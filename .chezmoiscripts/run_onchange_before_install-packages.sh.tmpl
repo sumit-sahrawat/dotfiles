@@ -9,6 +9,20 @@ fi
 PACKAGES=(
 
 ################################################################################
+# Core CLI Tools
+################################################################################
+
+  bat
+  eza
+  fd
+  fzf
+  mprocs
+  procs
+  ripgrep
+  sd
+  vivid
+
+################################################################################
 # INPUT
 ################################################################################
 
@@ -36,8 +50,6 @@ PACKAGES=(
   homebrew/cask/anki
 {{- end }}
 
-  bat
-
 {{- if .app.blender }}
   blender
 {{- end }}
@@ -58,11 +70,6 @@ PACKAGES=(
 {{- if .app.exercism }}
   exercism
 {{- end }}
-
-  eza
-  vivid
-
-  fd
 
 {{- if .app.ghostty }}
   homebrew/cask/ghostty
@@ -85,8 +92,6 @@ PACKAGES=(
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
-  mprocs
-
 {{- if .app.mpv }}
   mpv
   yt-dlp
@@ -102,14 +107,6 @@ PACKAGES=(
 {{- if .app.obsidian }}
   homebrew/cask/obsidian
 {{- end }}
-
-  procs
-
-  ripgrep
-
-  sd
-
-  fzf
 
 ################################################################################
 # Programming Languages
