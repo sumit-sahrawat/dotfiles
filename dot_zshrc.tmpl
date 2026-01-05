@@ -76,11 +76,7 @@ export XDG_CONFIG_HOME=~/.config
 export EDITOR={{ ternary "nvim" "vi" .app.neovim }}
 export VISUAL="${EDITOR}"
 
-{{- if .app.bat }}
-
 export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
-
-{{- end }}
 
 # Extend PATH.
 path=(
@@ -187,12 +183,8 @@ function :sup {
 
 # Define aliases.
 
-{{- if .app.bat }}
 alias c='bat --style=plain'
 alias b='bat --style=default'
-{{- else }}
-alias c='cat'
-{{- end }}
 alias e='${EDITOR}'
 alias o='open'
 alias q='exit'
@@ -210,8 +202,6 @@ alias :hp='chezmoi apply --init'
 alias :hu='chezmoi update --init'
 alias :hU='chezmoi update --init --refresh-externals'
 
-{{- if .app.eza }}
-
 alias ls=eza
 
 # tree: include hidden files, exclude gitignored paths, exclude .git dir
@@ -225,8 +215,6 @@ alias :tG='eza --tree --ignore-glob .git --all'
 
 # tree: exclude hidden files, include gitignored paths, exclude .git dir
 alias :tGA='eza --tree --ignore-glob .git'
-
-{{- end }}
 
 {{- if .app.mpv }}
 

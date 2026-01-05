@@ -36,9 +36,7 @@ PACKAGES=(
   homebrew/cask/anki
 {{- end }}
 
-{{- if .app.bat }}
   bat
-{{- end }}
 
 {{- if .app.blender }}
   blender
@@ -61,14 +59,10 @@ PACKAGES=(
   exercism
 {{- end }}
 
-{{- if .app.eza }}
   eza
   vivid
-{{- end }}
 
-{{- if .app.fd }}
   fd
-{{- end }}
 
 {{- if .app.ghostty }}
   homebrew/cask/ghostty
@@ -91,9 +85,7 @@ PACKAGES=(
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
 
-{{- if .app.mprocs }}
   mprocs
-{{- end }}
 
 {{- if .app.mpv }}
   mpv
@@ -111,17 +103,11 @@ PACKAGES=(
   homebrew/cask/obsidian
 {{- end }}
 
-{{- if .app.procs }}
   procs
-{{- end }}
 
-{{- if .app.ripgrep }}
   ripgrep
-{{- end }}
 
-{{- if .app.sd }}
   sd
-{{- end }}
 
 {{- if .app.zsh }}
   fzf

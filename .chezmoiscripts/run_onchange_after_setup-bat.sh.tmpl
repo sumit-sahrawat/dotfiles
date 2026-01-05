@@ -2,11 +2,7 @@
 
 set -euo pipefail
 
-{{- if .app.bat }}
-
 # {{ output "git" "-C" (joinPath .chezmoi.homeDir ".config/bat/themes/catppuccin") "rev-parse" "HEAD" }}
 
 # Load themes/styles/etc.
 bat cache --build
-
-{{- end }}

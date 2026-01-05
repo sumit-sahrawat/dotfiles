@@ -33,11 +33,7 @@ while [[ $# -gt 0 ]]; do
   fi
 done
 
-{{- if .app.fd }}
-
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-
-{{- end }}
 
 source ~/.config/fzf/catppuccin/themes/catppuccin-fzf-{{ .ui.theme.catppuccin }}.sh
 
