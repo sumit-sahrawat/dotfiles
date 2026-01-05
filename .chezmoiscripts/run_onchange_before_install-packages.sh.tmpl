@@ -88,6 +88,10 @@ PACKAGES=(
   lazygit
 {{- end }}
 
+{{- if .app.helium }}
+  homebrew/cask/helium-browser
+{{- end }}
+
 {{- if and .app.ghostty (not .terminal.font.pragmata) }}
   homebrew/cask-fonts/font-iosevka-ss08
 {{- end }}
