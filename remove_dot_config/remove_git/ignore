@@ -20,6 +20,9 @@ venv.bak/
 # ruff stuff
 .ruff_cache/
 
+### ZSH ###
+*.zwc
+
 
 ### Created by https://www.gitignore.io
 ### macOS ###
