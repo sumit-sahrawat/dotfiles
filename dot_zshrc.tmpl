@@ -120,9 +120,9 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
 
 # Source additional local files if they exist.
-z4h source ~/.profile
-z4h source ~/.bashrc
-z4h source ~/.zsh/private.zsh
+z4h source --compile ~/.profile
+z4h source --compile ~/.bashrc
+z4h source --compile ~/.zsh/private.zsh
 
 # Use additional Git repositories pulled in with `z4h install`.
 
@@ -178,7 +178,7 @@ function :sup {
 
   z4h update
 
-  z4h source ~/.zsh/private-update.zsh
+  z4h source --compile ~/.zsh/private-update.zsh
 }
 
 # Define aliases.
