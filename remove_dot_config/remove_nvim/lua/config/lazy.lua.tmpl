@@ -46,6 +46,10 @@ require("lazy").setup({
       "lazyvim.plugins.extras.util.octo"
 }}
 
+{{- if .app.claude }}
+{{- $extras = append $extras "lazyvim.plugins.extras.ai.claudecode" }}
+{{- end }}
+
 {{- if .app.docker }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.docker" }}
 {{- end }}
