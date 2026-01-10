@@ -1,0 +1,3 @@
+{{- if .app.git -}}
+{{- joinPath .chezmoi.homeDir (joinPath ".config/tokyonight/extras/lazygit" (list "tokyonight_" .ui.theme.tokyonight ".conf" | join "")) -}}
+{{- end -}}
