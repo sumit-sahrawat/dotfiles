@@ -35,7 +35,7 @@ done
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
-source ~/.config/fzf/catppuccin/themes/catppuccin-fzf-{{ .ui.theme.catppuccin }}.sh
+source ~/.config/tokyonight/extras/fzf/tokyonight_{{ .ui.theme.tokyonight }}.sh
 
 exec "${HOMEBREW_PREFIX}/bin/fzf" "${FILTERED_ARGS[@]}"
 

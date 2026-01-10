@@ -1,5 +1,3 @@
 {{- if .app.ghostty -}}
-
-catppuccin/themes
-
+{{- joinPath .chezmoi.homeDir ".config/tokyonight/extras/ghostty" -}}
 {{- end }}

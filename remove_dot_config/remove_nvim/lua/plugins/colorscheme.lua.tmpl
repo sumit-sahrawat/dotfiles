@@ -1,14 +1,8 @@
 return {
   {
-    "catppuccin/nvim",
+    "folke/tokyonight.nvim",
     opts = {
-      flavour = {{ .ui.theme.catppuccin | quote }},
+      style = "{{ .ui.theme.tokyonight }}",
     },
   },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
-  }
 }

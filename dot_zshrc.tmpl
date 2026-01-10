@@ -64,7 +64,7 @@ z4h install zimfw/git
 z4h init || return
 
 # Colors for ls, tree, fd, etc.
-export LS_COLORS="{{- output "vivid" "generate" (list "catppuccin" .ui.theme.catppuccin | join "-") | trim -}}"
+export LS_COLORS="{{- output "vivid" "generate" (list "tokyonight" .ui.theme.tokyonight | join "-") | trim -}}"
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 # We manually update via :sup so no auto-update for brew.
@@ -115,7 +115,7 @@ export GOPATH=~/.go
 
 {{- end }}
 
-# Make history substring search highlight actually readable with catppuccin.
+# Make history substring search highlight actually readable with dark themes.
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
 
