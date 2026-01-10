@@ -1,7 +1,3 @@
-{{- if .app.ghostty }}
-
 ["Library/Fonts/PragmataPro"]
 type = "git-repo"
 url = "git@codeberg.org:sumit-sahrawat/pragmata"
-
-{{- end }}
