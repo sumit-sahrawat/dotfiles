@@ -1,6 +1,5 @@
 /README.md
 /UNLICENSE
-/_helpers
 
 {{- if not .app.neovim }}
 /.config/nvim/
