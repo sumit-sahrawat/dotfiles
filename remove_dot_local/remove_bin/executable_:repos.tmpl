@@ -6,6 +6,8 @@ zparseopts -D -E f:=file_opt file:=file_opt
 
 subcommand="${1:-sync}"
 
+args=("${@:2}")
+
 ERROR_COLOR='%F{red}'
 DIRECTORY_COLOR='%F{blue}'
 URL_COLOR='%F{cyan}'
@@ -62,8 +64,20 @@ while read -r line; do
       fi
       ;;
     branch)
-      trying_to 'Print run `git branch` for' "${remote}" 'at' "${target}"
+      trying_to 'Run `git branch` for' "${remote}" 'at' "${target}"
       git -C "${target}" branch
+      ;;
+    checkout)
+      target_branch="${args[1]}"
+      current_branch="$(git -C "${target}" branch --show-current)"
+
+      if [[ -z "${target_branch}" ]]; then
+        target_branch="$(git -C "${target}" remote show origin | awk '/HEAD branch/ {print $NF}')"
+      fi
+
+      if [[ ${current_branch} == ${target_branch} ]]; then
+        trying_to "Already on branch '${target_branch}' for" "${remote}" 'at' "${target}"
+      fi
       ;;
     *)
       echo "Unknown sub-command: ${subcommand}"
