@@ -45,9 +45,11 @@
   format = ssh
 [gpg "ssh"]
   allowedSignersFile = ~/.config/git/allowed_signers
-{{- if .git.work.enabled }}
-[includeIf "gitdir:~/Workspaces/**"]
-  path = ~/Workspaces/.gitconfig
+{{- if .git.isolated.enabled }}
+{{- range .git.isolated.dirs }}
+[includeIf "gitdir:{{ . }}/**"]
+  path = ~/.config/git/isolated
+{{- end }}
 {{- end }}
 
 {{- end }}

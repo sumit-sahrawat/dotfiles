@@ -1,0 +1,10 @@
+{{- if and .app.git .git.isolated.enabled -}}
+
+[user]
+  name = {{ .git.isolated.user.name }}
+  email = {{ .git.isolated.user.email }}
+  signingkey = {{ .git.isolated.user.key }}
+[core]
+  sshCommand = "ssh -i {{ .git.isolated.user.key | squote }} -o IdentitiesOnly=yes"
+
+{{- end }}

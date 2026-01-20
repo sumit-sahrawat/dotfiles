@@ -52,14 +52,15 @@ git.global.user.email = {{ dig "git" "global" "user" "email" $default_email . | 
 git.global.user.key_name = {{ $global_key_name := dig "git" "global" "user" "key_name" $default_key_name . }}{{ $global_key_name | quote }}
 git.global.user.key = {{ joinPath $ssh_dir $global_key_name | quote }}
 
-git.work.enabled = {{ $git_work := promptBoolOnce . "git.work.enabled" "Use a separate git directory for work" }}{{ $git_work }}
+git.isolated.enabled = {{ $git_isolated := promptBoolOnce . "git.isolated.enabled" "Use isolated directories for git" }}{{ $git_isolated }}
 
-{{- if $git_work }}
+{{- if $git_isolated }}
 
-git.work.user.name = {{ dig "git" "work" "user" "name" $default_name . | quote }}
-git.work.user.email = {{ promptStringOnce . "git.work.user.email" "Committer email address for work" | quote }}
-git.work.user.key_name = {{ $work_key_name := promptStringOnce . "git.work.user.key_name" "SSH key name for work" }}{{ $work_key_name | quote }}
-git.work.user.key = {{ joinPath $ssh_dir $work_key_name | quote }}
+git.isolated.user.name = {{ dig "git" "isolated" "user" "name" $default_name . | quote }}
+git.isolated.user.email = {{ promptStringOnce . "git.isolated.user.email" "Committer email address for isolated dirs" | quote }}
+git.isolated.user.key_name = {{ $isolated_key_name := promptStringOnce . "git.isolated.user.key_name" "SSH key name for isolated dirs" }}{{ $isolated_key_name | quote }}
+git.isolated.user.key = {{ joinPath $ssh_dir $isolated_key_name | quote }}
+git.isolated.dirs = {{ dig "git" "isolated" "dirs" (list) . | toToml }}
 
 {{- end }}
 
