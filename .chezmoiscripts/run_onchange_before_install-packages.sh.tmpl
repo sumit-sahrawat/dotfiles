@@ -175,4 +175,4 @@ PACKAGES=(
 
 )
 
-echo "${PACKAGES[@]}" | xargs -r brew install --quiet
+echo "${PACKAGES[@]}" | sort -u | xargs -r brew install --quiet
