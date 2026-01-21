@@ -6,28 +6,28 @@ if ! hash brew >/dev/null; then
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-PACKAGES=(
+brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 
 ################################################################################
 # Core CLI Tools
 ################################################################################
 
-  bat
-  eza
-  fd
-  fzf
-  mprocs
-  procs
-  ripgrep
-  sd
-  vivid
+  brew "bat"
+  brew "eza"
+  brew "fd"
+  brew "fzf"
+  brew "mprocs"
+  brew "procs"
+  brew "ripgrep"
+  brew "sd"
+  brew "vivid"
 
 ################################################################################
 # INPUT
 ################################################################################
 
 {{- if .input.mouse.linear }}
-  homebrew/cask/linearmouse
+  cask "linearmouse"
 {{- end }}
 
 ################################################################################
@@ -35,7 +35,8 @@ PACKAGES=(
 ################################################################################
 
 {{- if .ui.night_shift.enabled }}
-  smudge/smudge/nightlight
+  tap "smudge/smudge"
+  brew "smudge/smudge/nightlight"
 {{- end }}
 
 ################################################################################
@@ -43,53 +44,53 @@ PACKAGES=(
 ################################################################################
 
 {{- if .app.direnv }}
-  direnv
+  brew "direnv"
 {{- end }}
 
 {{- if .app.docker }}
-  homebrew/cask/docker-desktop
-  lazydocker
+  cask "docker-desktop"
+  brew "lazydocker"
 {{- end }}
 
 {{- if .app.ghostty }}
-  homebrew/cask/ghostty
+  cask "ghostty"
 {{- end }}
 
 {{- if .app.git }}
-  git
-  git-delta
-  git-ignore
-  codeberg-cli
-  gh
-  lazygit
+  brew "git"
+  brew "git-delta"
+  brew "git-ignore"
+  brew "codeberg-cli"
+  brew "gh"
+  brew "lazygit"
 {{- end }}
 
 {{- if .app.helium }}
-  homebrew/cask/helium-browser
+  cask "helium-browser"
 {{- end }}
 
 {{- if and .app.ghostty (not .terminal.font.pragmata) }}
-  homebrew/cask/font-iosevka-ss08
+  cask "font-iosevka-ss08"
 {{- end }}
 
 {{- if .app.mpv }}
-  mpv
-  yt-dlp
-  aria2
+  brew "mpv"
+  brew "yt-dlp"
+  brew "aria2"
 {{- end }}
 
 {{- if .app.neovim }}
-  neovim
-  tree-sitter-cli
-  node
+  brew "neovim"
+  brew "tree-sitter-cli"
+  brew "node"
 {{- end }}
 
 {{- if .app.obsidian }}
-  homebrew/cask/obsidian
+  cask "obsidian"
 {{- end }}
 
 {{- if .app.opencode }}
-  opencode
+  brew "opencode"
 {{- end }}
 
 ################################################################################
@@ -97,83 +98,81 @@ PACKAGES=(
 ################################################################################
 
 {{- if .lang.bash }}
-  bash
-  bats-core
+  brew "bash"
+  brew "bats-core"
 {{- end }}
 
 {{- if .lang.cpp }}
-  cmake
-  meson
+  brew "cmake"
+  brew "meson"
 {{- end }}
 
 {{- if .lang.gleam }}
-  gleam
+  brew "gleam"
 {{- end }}
 
 {{- if .lang.go }}
-  go
+  brew "go"
 {{- end }}
 
 {{- if .lang.groovy }}
-  groovysdk
+  brew "groovysdk"
 {{- end }}
 
 {{- if .lang.haskell }}
-  ghcup
+  brew "ghcup"
 {{- end }}
 
 {{- if .lang.java }}
-  maven
-  openjdk
+  brew "maven"
+  brew "openjdk"
 {{- end }}
 
 {{- if .lang.javascript }}
-  volta
-  node
-  npm
-  corepack
+  brew "volta"
+  brew "node"
+  brew "npm"
+  brew "corepack"
 {{- end }}
 
 {{- if .lang.jq }}
-  jaq
+  brew "jaq"
 {{- end }}
 
 {{- if .lang.lua }}
-  lua
-  busted
-  luarocks
+  brew "lua"
+  brew "busted"
+  brew "luarocks"
 {{- end }}
 
 {{- if .lang.nasm }}
-  nasm
+  brew "nasm"
 {{- end }}
 
 {{- if .lang.ocaml }}
-  ocaml
-  dune
+  brew "ocaml"
+  brew "dune"
 {{- end }}
 
 {{- if .lang.python }}
-  python3
-  uv
+  brew "python3"
+  brew "uv"
 {{- end }}
 
 {{- if .lang.rust }}
-  rustup
+  brew "rustup"
 {{- end }}
 
 {{- if .lang.scheme }}
-  guile
+  brew "guile"
 {{- end }}
 
 {{- if .lang.sqlite }}
-  sqlite
+  brew "sqlite"
 {{- end }}
 
 {{- if .lang.zig }}
-  zig
+  brew "zig"
 {{- end }}
 
-)
-
-echo "${PACKAGES[@]}" | sort -u | xargs -r brew install --quiet
+EOF
