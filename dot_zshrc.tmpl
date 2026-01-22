@@ -125,7 +125,6 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
 # Source additional local files if they exist.
 z4h source --compile ~/.profile
 z4h source --compile ~/.bashrc
-z4h source --compile ~/.zsh/private.zsh
 
 # Use additional Git repositories pulled in with `z4h install`.
 
@@ -290,5 +289,7 @@ setopt MULTIOS                # Perform implicit tees or cats when multiple redi
 ## Zle
 
 setopt BEEP                   # Beep on error in line editor.
+
+z4h source --compile ~/.zsh/private.zsh
 
 {{- end }}
