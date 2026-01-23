@@ -129,10 +129,8 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 {{- end }}
 
 {{- if .lang.javascript }}
-  brew "volta"
   brew "node"
   brew "npm"
-  brew "corepack"
 {{- end }}
 
 {{- if .lang.jq }}
