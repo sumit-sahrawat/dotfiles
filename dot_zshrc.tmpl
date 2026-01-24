@@ -172,6 +172,8 @@ compdef _directories md
 
 function :sup {
   chezmoi update --init --apply --refresh-externals
+
+  brew update
   brew upgrade
 
 {{- if .lang.rust }}
