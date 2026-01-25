@@ -1,0 +1,33 @@
+{{- if .lang.cpp -}}
+
+return {
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "mesonlsp",
+        "neocmake",
+      },
+    },
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "cmakelang",
+        "mesonlsp",
+        "neocmakelsp",
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        cmake = { "cmake_format" },
+      },
+    },
+  },
+}
+
+{{- end }}
