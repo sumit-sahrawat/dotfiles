@@ -1,0 +1,14 @@
+{{- if .app.opencode -}}
+
+return {
+  {
+    "folke/sidekick.nvim",
+    opts = {
+      nes = {
+        enabled = false,
+      },
+    },
+  },
+}
+
+{{- end }}

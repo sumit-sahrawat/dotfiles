@@ -54,6 +54,10 @@ require("lazy").setup({
 {{- $extras = append $extras "lazyvim.plugins.extras.util.gh" }}
 {{- end }}
 
+{{- if .app.opencode }}
+{{- $extras = append $extras "lazyvim.plugins.extras.ai.sidekick" }}
+{{- end }}
+
 {{- if .lang.cpp }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.clangd" }}
 {{- end }}
