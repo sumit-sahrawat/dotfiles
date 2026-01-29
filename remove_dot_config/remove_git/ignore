@@ -1,0 +1,44 @@
+### Cursor ###
+.cursor/
+
+### Claude Code ###
+.claude/
+
+### C++ ###
+
+# ClangD LSP for C++
+/.cache/clangd/
+
+### Python ###
+
+# virtualenv
+.venv/
+.venv.bak/
+venv/
+venv.bak/
+
+# ruff stuff
+.ruff_cache/
+
+### ZSH ###
+*.zwc
+
+### macOS ###
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# iCloud generated files
+*.icloud
