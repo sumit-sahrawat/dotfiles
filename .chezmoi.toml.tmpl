@@ -108,3 +108,15 @@ lang.rust = {{ dig "lang" "rust" true . }}
 lang.scheme = {{ dig "lang" "scheme" true . }}
 lang.sqlite = {{ dig "lang" "sqlite" true . }}
 lang.zig = {{ dig "lang" "zig" true . }}
+
+################################################################################
+# Chezmoi
+################################################################################
+
+{{- if $neovim }}
+
+[merge]
+command = "nvim"
+args = {{ list "-d" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" | toToml }}
+
+{{- end }}
