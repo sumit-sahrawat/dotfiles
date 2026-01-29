@@ -76,8 +76,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Some tools only use ~/.config instead of ~/Library when this is set
 export XDG_CONFIG_HOME=~/.config
 
-export EDITOR={{ ternary "nvim" "vi" .app.neovim }}
-export VISUAL="${EDITOR}"
+export EDITOR={{ .tool.editor | quote }}
+export VISUAL={{ .tool.editor | quote }}
 
 export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 

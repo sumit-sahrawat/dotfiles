@@ -18,15 +18,13 @@
   side-by-side = true
 [include]
   path = ~/.config/tokyonight/extras/delta/tokyonight_{{ .ui.theme.tokyonight }}.gitconfig
-{{- if .app.neovim }}
 [merge]
-  tool = nvimdiff
+  tool = {{ .tool.merge }}
 [mergetool]
   prompt = false
   keepBackup = false
-[mergetool "nvimdiff"]
+[mergetool {{ .tool.merge | quote }}]
   layout = "LOCAL,BASE,REMOTE / MERGED"
-{{- end }}
 [merge]
   conflictStyle = zdiff3
 [diff]

@@ -72,6 +72,9 @@ app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
 
+tool.editor = {{ ternary "nvim" "vim" $neovim | quote }}
+tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
+
 app.opencode = {{ dig "app" "opencode" true . }}
 
 app.zsh = {{ dig "app" "zsh" true . }}
