@@ -77,9 +77,11 @@ tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
 
 app.opencode = {{ dig "app" "opencode" true . }}
 
+app.wezterm = {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
+
 app.zsh = {{ dig "app" "zsh" true . }}
 
-{{- if $ghostty }}
+{{- if or $ghostty $wezterm }}
 
 terminal.font.pragmata = {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
 terminal.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
