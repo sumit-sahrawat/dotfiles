@@ -79,6 +79,8 @@ app.opencode = {{ dig "app" "opencode" true . }}
 
 app.wezterm = {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
 
+app.zellij = {{ dig "app" "zellij" true . }}
+
 app.zsh = {{ dig "app" "zsh" true . }}
 
 {{- if or $ghostty $wezterm }}
