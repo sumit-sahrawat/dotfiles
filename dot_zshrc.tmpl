@@ -60,6 +60,8 @@ z4h install zimfw/git
 
 {{- end }}
 
+z4h install hlissner/zsh-autopair
+
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
 # is fully initialized. Everything that requires user interaction or can
@@ -151,6 +153,8 @@ alias "${gprefix}cst"="git show --stat"
 unset gprefix
 
 {{- end }}
+
+z4h load --compile hlissner/zsh-autopair
 
 # Define key bindings.
 z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
