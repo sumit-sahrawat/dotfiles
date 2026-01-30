@@ -77,6 +77,8 @@ tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
 
 app.opencode = {{ dig "app" "opencode" true . }}
 
+app.tmux = {{ dig "app" "tmux" true . }}
+
 app.wezterm = {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
 
 app.zellij = {{ dig "app" "zellij" true . }}
