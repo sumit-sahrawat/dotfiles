@@ -193,6 +193,13 @@ alias e='${EDITOR}'
 alias o='open'
 alias q='exit'
 
+{{- if .app.zellij }}
+
+# multiplexer
+alias m=zellij
+
+{{- end }}
+
 # chezmoi
 alias :ha='chezmoi add'
 alias :hA='chezmoi add --template'
