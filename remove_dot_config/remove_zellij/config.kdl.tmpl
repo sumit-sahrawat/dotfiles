@@ -4,13 +4,15 @@ theme "tokyonight_{{ .ui.theme.tokyonight }}"
 
 show_startup_tips false
 
+{{ $lock := ("Ctrl ]" | quote) }}
+
 default_mode "locked"
 keybinds clear-defaults=true {
   locked {
-    bind "Ctrl g" { SwitchToMode "normal"; }
+    bind {{ $lock }} { SwitchToMode "normal"; }
   }
   shared_except "locked" {
-    bind "Ctrl g" { SwitchToMode "locked"; }
+    bind {{ $lock }} { SwitchToMode "locked"; }
     bind "Ctrl d" { Detach; }
     bind "Ctrl q" { Quit; }
 
