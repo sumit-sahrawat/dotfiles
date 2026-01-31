@@ -1,3 +1,0 @@
-[".config/tokyonight"]
-type = "git-repo"
-url = "https://github.com/folke/tokyonight.nvim"

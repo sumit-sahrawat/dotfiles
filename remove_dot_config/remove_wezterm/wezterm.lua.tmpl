@@ -4,6 +4,6 @@ local config = wezterm.config_builder()
 
 config.font = wezterm.font("{{ .terminal.font.family }}")
 config.font_size = {{ .terminal.font.size }}
-config.color_scheme = "tokyonight_{{ .ui.theme.tokyonight }}"
+config.color_scheme = "Catppuccin {{ .ui.theme.catppuccin | title }}"
 
 return config

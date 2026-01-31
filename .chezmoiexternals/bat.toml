@@ -1,0 +1,3 @@
+[".config/bat/themes"]
+type = "git-repo"
+url = "https://github.com/catppuccin/bat.git"
