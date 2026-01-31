@@ -200,10 +200,15 @@ alias e='${EDITOR}'
 alias o='open'
 alias q='exit'
 
+{{- if .app.tmux }}
+
+alias m=tmux
+
+{{- end }}
+
 {{- if .app.zellij }}
 
-# multiplexer
-alias m=zellij
+alias n=zellij
 
 {{- end }}
 
