@@ -137,7 +137,7 @@ z4h load --compile MichaelAquilina/zsh-you-should-use
 
 {{- if .app.git }}
 
-gprefix=':g'
+gprefix={{ .git.alias.prefix | squote }}
 
 zstyle ':zim:git' aliases-prefix "${gprefix}"
 z4h load --compile zimfw/git

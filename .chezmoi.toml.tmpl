@@ -42,6 +42,8 @@ app.git = {{ $git := dig "app" "git" true . }}{{ $git }}
 
 {{- if $git }}
 
+git.alias.prefix = {{ dig "git" "alias" "prefix" ":g" . | quote }}
+
 {{- $default_name := "Sumit Sahrawat" }}
 {{- $default_email := "sumit-sahrawat@noreply.codeberg.org" }}
 {{- $default_key_name := "id_ed25519" }}
