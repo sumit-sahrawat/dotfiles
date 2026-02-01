@@ -1,0 +1,14 @@
+{{- if .lang.zig -}}
+
+return {
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "zls",
+      },
+    },
+  },
+}
+
+{{- end }}
