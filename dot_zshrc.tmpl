@@ -161,6 +161,14 @@ alias ${gprefix}idp="${aliases[${gprefix}id]/git/git-plain}"
 alias ${gprefix}ldp="${aliases[${gprefix}ld]/git/git-plain}"
 alias ${gprefix}sdp="${aliases[${gprefix}sd]/git/git-plain}"
 
+# aliases with [s]ide-by-side diffs in delta
+alias git-split='git -c delta.side-by-side=true'
+alias ${gprefix}wds="${aliases[${gprefix}wd]/git/git-split}"
+alias ${gprefix}css="${aliases[${gprefix}cs]/git/git-split}"
+alias ${gprefix}ids="${aliases[${gprefix}id]/git/git-split}"
+alias ${gprefix}lds="${aliases[${gprefix}ld]/git/git-split}"
+alias ${gprefix}sds="${aliases[${gprefix}sd]/git/git-split}"
+
 unset gprefix
 
 {{- end }}
