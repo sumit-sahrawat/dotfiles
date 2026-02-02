@@ -2,8 +2,6 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- disable animations globally
+vim.g.autoformat = false
 vim.g.snacks_animate = false
-
--- avoid concealing text
 vim.o.conceallevel = 0
