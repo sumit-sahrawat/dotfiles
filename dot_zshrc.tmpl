@@ -153,6 +153,14 @@ alias "${gprefix}lgl"="${gprefix}lg --branches"
 # cst = commit show stat
 alias "${gprefix}cst"="git show --stat"
 
+# aliases without delta [p]lain
+alias git-plain='git -c core.pager= -c interactive.diffFilter='
+alias ${gprefix}wdp="${aliases[${gprefix}wd]/git/git-plain}"
+alias ${gprefix}csp="${aliases[${gprefix}cs]/git/git-plain}"
+alias ${gprefix}idp="${aliases[${gprefix}id]/git/git-plain}"
+alias ${gprefix}ldp="${aliases[${gprefix}ld]/git/git-plain}"
+alias ${gprefix}sdp="${aliases[${gprefix}sd]/git/git-plain}"
+
 unset gprefix
 
 {{- end }}
