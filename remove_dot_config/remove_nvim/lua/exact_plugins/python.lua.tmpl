@@ -1,0 +1,14 @@
+{{- if .lang.python }}
+
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "python",
+      },
+    },
+  },
+}
+
+{{- end }}

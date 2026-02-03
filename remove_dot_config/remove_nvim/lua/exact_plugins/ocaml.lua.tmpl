@@ -1,0 +1,14 @@
+{{- if .lang.ocaml }}
+
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "ocaml",
+      },
+    },
+  },
+}
+
+{{- end }}

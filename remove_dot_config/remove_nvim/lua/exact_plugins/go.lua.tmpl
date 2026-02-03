@@ -1,0 +1,15 @@
+{{- if .lang.go }}
+
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "go",
+        "gomod",
+      },
+    },
+  },
+}
+
+{{- end }}

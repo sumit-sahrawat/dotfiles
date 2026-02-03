@@ -1,0 +1,14 @@
+{{- if .lang.jq }}
+
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "jq",
+      },
+    },
+  },
+}
+
+{{- end }}

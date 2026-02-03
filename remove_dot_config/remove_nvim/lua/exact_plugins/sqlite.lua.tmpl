@@ -1,0 +1,14 @@
+{{- if .lang.sqlite }}
+
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "sql",
+      },
+    },
+  },
+}
+
+{{- end }}
