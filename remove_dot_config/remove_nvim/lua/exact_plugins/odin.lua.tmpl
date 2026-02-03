@@ -1,0 +1,22 @@
+{{- if .lang.odin -}}
+
+return {
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        odin = {"odinfmt"}
+      },
+    },
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "ols",
+      },
+    },
+  },
+}
+
+{{- end }}

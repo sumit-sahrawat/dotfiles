@@ -154,6 +154,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "dune"
 {{- end }}
 
+{{- if .lang.odin }}
+  brew "odin"
+{{- end }}
+
 {{- if .lang.python }}
   brew "python3"
   brew "uv"
