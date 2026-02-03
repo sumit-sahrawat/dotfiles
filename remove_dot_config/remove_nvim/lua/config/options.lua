@@ -5,3 +5,4 @@
 vim.g.autoformat = false
 vim.g.snacks_animate = false
 vim.o.conceallevel = 0
+vim.o.exrc = true
