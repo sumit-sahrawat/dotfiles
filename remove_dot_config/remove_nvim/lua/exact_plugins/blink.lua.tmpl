@@ -4,5 +4,10 @@ return {
     keymap = {
       preset = "default",
     },
+{{- if .lang.rust }}
+    fuzzy = {
+      implementation = "rust",
+    }
+{{- end }}
   },
 }
