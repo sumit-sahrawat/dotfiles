@@ -1,0 +1,3 @@
+[".config/btop/catppuccin"]
+type = "git-repo"
+url = "https://github.com/catppuccin/btop.git"
