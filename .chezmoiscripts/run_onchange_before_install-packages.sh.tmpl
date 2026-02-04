@@ -87,6 +87,12 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "node"
 {{- end }}
 
+{{- if .app.helix }}
+  brew "helix"
+  brew "vscode-langservers-extracted"
+  brew "yaml-language-server"
+{{- end }}
+
 {{- if .app.opencode }}
   brew "opencode"
 {{- end }}

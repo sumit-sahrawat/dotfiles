@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- if .app.helix }}
+
+{{- $config_path := joinPath .chezmoi.homeDir ".config/helix/config.toml" }}
+
+# {{ include $config_path | sha256sum }}
+pkill -USR1 hx || true
+
+{{- end }}

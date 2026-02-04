@@ -70,12 +70,11 @@ git.isolated.dirs = {{ dig "git" "isolated" "dirs" (list) . | toToml }}
 
 app.helium = {{ dig "app" "helium" true . }}
 
+app.helix = {{ $helix := dig "app" "helix" true . }}{{ $helix }}
+
 app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
-
-tool.editor = {{ ternary "nvim" "vim" $neovim | quote }}
-tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
 
 app.opencode = {{ dig "app" "opencode" true . }}
 
@@ -94,6 +93,9 @@ terminal.font.family = {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $p
 terminal.font.size = {{ dig "terminal" "font" "size" 16 . }}
 
 {{- end }}
+
+tool.editor = {{ ternary "nvim" (ternary "hx" "vim" $helix) $neovim | quote }}
+tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
 
 ################################################################################
 # Programming Languages
