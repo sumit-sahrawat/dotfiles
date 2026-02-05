@@ -10,6 +10,11 @@ return {
       integrations = {
         harpoon = true,
       },
+      custom_highlights = function(C)
+        return {
+          WinSeparator = { fg = C.overlay0 },
+        }
+      end,
     },
   },
   {
