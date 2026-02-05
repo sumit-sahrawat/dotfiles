@@ -1,3 +1,8 @@
+### Neovim ###
+
+.nvim.lua
+.nvim/
+
 ### Helix Editor ###
 
 .helix/
