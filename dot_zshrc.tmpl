@@ -90,6 +90,10 @@ export MANPAGER="sh -c 'col -bx | bat --language man --style=plain'"
 path=(
   ~/.local/bin
 
+{{- if .app.lm_studio }}
+  ~/.lmstudio/bin
+{{- end }}
+
 {{- if .lang.haskell }}
   ~/.cabal/bin
   ~/.ghcup/bin
