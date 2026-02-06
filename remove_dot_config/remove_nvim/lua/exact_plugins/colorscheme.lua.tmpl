@@ -8,7 +8,10 @@ return {
     opts = {
       flavour = {{ .ui.theme.catppuccin | quote }},
       integrations = {
+        dap = true,
         harpoon = true,
+        octo = true,
+        render_markdown = true,
       },
       custom_highlights = function(C)
         return {
