@@ -61,6 +61,7 @@ require("lazy").setup({
 
 {{- if .lang.cpp }}
 {{- $extras = append $extras "lazyvim.plugins.extras.lang.clangd" }}
+{{- $extras = append $extras "lazyvim.plugins.extras.lang.cmake" }}
 {{- end }}
 
 {{- if .lang.gleam }}

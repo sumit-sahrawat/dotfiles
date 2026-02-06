@@ -5,36 +5,15 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "cpp",
-        "cmake",
         "meson",
       },
     },
   },
   {
-    "mason-org/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     opts = {
-      ensure_installed = {
-        "mesonlsp",
-        "neocmake",
-      },
-    },
-  },
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "cmakelang",
-        "mesonlsp",
-        "neocmakelsp",
-      },
-    },
-  },
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        cmake = { "cmake_format" },
+      servers = {
+        mesonlsp = {},
       },
     },
   },

@@ -18,18 +18,10 @@ return {
     },
   },
   {
-    "mason-org/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     opts = {
-      ensure_installed = {
-        "ols",
-      },
-    },
-  },
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "ols",
+      servers = {
+        ols = {}
       },
     },
   },
