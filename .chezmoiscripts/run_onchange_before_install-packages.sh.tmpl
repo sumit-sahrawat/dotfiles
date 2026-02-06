@@ -60,6 +60,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   cask "ghostty"
 {{- end }}
 
+{{- if and .app.ghostty (not .terminal.font.pragmata) }}
+  cask "font-iosevka-ss08"
+{{- end }}
+
 {{- if .app.git }}
   brew "git"
   brew "codeberg-cli"
@@ -71,8 +75,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   cask "helium-browser"
 {{- end }}
 
-{{- if and .app.ghostty (not .terminal.font.pragmata) }}
-  cask "font-iosevka-ss08"
+{{- if .app.helix }}
+  brew "helix"
+  brew "vscode-langservers-extracted"
+  brew "yaml-language-server"
 {{- end }}
 
 {{- if .app.mpv }}
@@ -87,18 +93,16 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "node"
 {{- end }}
 
-{{- if .app.helix }}
-  brew "helix"
-  brew "vscode-langservers-extracted"
-  brew "yaml-language-server"
-{{- end }}
-
 {{- if .app.opencode }}
   brew "opencode"
 {{- end }}
 
 {{- if .app.tmux }}
   brew "tmux"
+{{- end }}
+
+{{- if .app.zellij }}
+  brew "zellij"
 {{- end }}
 
 ################################################################################
