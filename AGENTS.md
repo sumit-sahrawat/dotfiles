@@ -29,6 +29,7 @@ chezmoi run-script <script-name>
 ### Scripts Directory
 
 Located in `.chezmoiscripts/`:
+
 - `run_onchange_before_install-packages.sh.tmpl` - Installs Homebrew packages
 - `run_onchange_after_setup-macos-defaults.sh.tmpl` - Sets macOS defaults
 - `run_onchange_after_reload-helix-config.sh.tmpl` - Reloads Helix config
@@ -44,7 +45,8 @@ Located in `.chezmoiscripts/`:
 ### Language Support
 
 Configurable languages in `.chezmoi.toml.tmpl`:
-- bash (with bats-core for testing)
+
+- bash
 - cpp (cmake, meson)
 - go
 - javascript/node
@@ -53,24 +55,20 @@ Configurable languages in `.chezmoi.toml.tmpl`:
 - zig, odin, gleam, nasm
 - haskell (ghcup), java (maven), ocaml, lua, scheme, sqlite
 
-### Testing
-
-Run bash tests with bats-core:
-```bash
-bats core/tests/
-```
-
 ## Code Style Guidelines
 
 ### Templates (TOML/Go)
 
 1. **File extension**: Use `.tmpl` suffix for all templates
 2. **Conditional blocks**: Use `{{- if ... }}` with whitespace trimming (`{{-` / `-}}`)
-3. **Variable naming**: 
+3. **Variable naming**:
    - Top-level config: `app.<tool>`, `lang.<language>`, `ui.<setting>`
    - Variables: snake_case (e.g., `$catppuccin`, `$pragmata`)
 4. **Default values**: Use `dig` with defaults: `{{ dig "section" "key" default_value . }}`
 5. **Prompt questions**: Use `promptBoolOnce` or `promptStringOnce` for interactive setup
+6. **Code organization**:
+   - Headers: `################################################################################`
+   - Sections: INPUT → UI → Apps → LANGS → Chezmoi
 
 ### Shell Scripts (Bash)
 
@@ -97,7 +95,7 @@ bats core/tests/
 
 - **Indentation**: 2 spaces for TOML/config
 - **Line length**: Prefer readability over strict limits
-- ** ordering**: 
+- **ordering**:
   - Config sections in logical order (INPUT → UI → Apps → LANGS)
   - Alphabetical within categories where sensible
   - Comments with `#` for sections
