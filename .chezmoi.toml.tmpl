@@ -74,6 +74,13 @@ app.helix = {{ $helix := dig "app" "helix" true . }}{{ $helix }}
 
 app.lm_studio = {{ $lm_studio := dig "app" "lm_studio" true . }}{{ $lm_studio }}
 
+{{- if $lm_studio }}
+
+lm_studio.model.id = {{ dig "lm_studio" "model" "id" "qwen/qwen3-coder-next" . | quote }}
+lm_studio.model.name = {{ dig "lm_studio" "model" "name" "Qwen3 Coder Next" . | quote }}
+
+{{- end }}
+
 app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}

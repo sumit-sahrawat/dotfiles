@@ -1,0 +1,32 @@
+{{- if .app.opencode -}}
+
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
+  "enabled_providers": [
+{{- if .app.lm_studio }}
+    "lm_studio"
+{{- end }}
+  ],
+  "keybinds": {
+    "command_list": "alt+p",
+  },
+  "provider": {
+{{- if .app.lm_studio }}
+    "lm_studio": {
+      "models": {
+        {{ .lm_studio.model.id | quote }}: {
+          "name": {{ .lm_studio.model.name | quote }}
+        }
+      },
+      "name": "LM Studio",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:1234/v1"
+      }
+    }
+{{- end }}
+  }
+}
+
+{{- end }}
