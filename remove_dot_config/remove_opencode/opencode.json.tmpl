@@ -1,11 +1,16 @@
 {{- if .app.opencode -}}
 
+{{- $sep := ternary "," "" (and .app.lm_studio .opencode.private.enabled) -}}
+
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
   "enabled_providers": [
 {{- if .app.lm_studio }}
-    "lm_studio"
+    "lm_studio" {{- $sep }}
+{{- end }}
+{{- if .opencode.private.enabled }}
+    {{ .opencode.private.provider.id | quote }}
 {{- end }}
   ],
   "keybinds": {
@@ -23,6 +28,21 @@
       "npm": "@ai-sdk/openai-compatible",
       "options": {
         "baseURL": "http://localhost:1234/v1"
+      }
+    } {{- $sep }}
+{{- end }}
+{{- if .opencode.private.enabled }}
+    {{ .opencode.private.provider.id | quote }}: {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": {{ .opencode.private.provider.name | quote }},
+      "options": {
+        "baseURL": {{ .opencode.private.provider.baseURL | quote }},
+        "apiKey": {{ .opencode.private.provider.apiKey | quote }},
+      },
+      "models": {
+        {{ .opencode.private.provider.model.id | quote }}: {
+          "name": {{ .opencode.private.provider.model.name | quote }},
+        }
       }
     }
 {{- end }}

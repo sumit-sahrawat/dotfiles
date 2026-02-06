@@ -85,7 +85,24 @@ app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
 
-app.opencode = {{ dig "app" "opencode" true . }}
+app.opencode = {{ $opencode := dig "app" "opencode" true . }}{{ $opencode }}
+
+{{- if $opencode }}
+
+opencode.private.enabled = {{ $opencode_private := dig "opencode" "private" "enabled" false . }}{{ $opencode_private }}
+
+{{- if $opencode_private }}
+
+opencode.private.provider.id = {{ promptStringOnce . "opencode.private.provider.id" "[opencode] Private Provider ID" | quote }}
+opencode.private.provider.name = {{ promptStringOnce . "opencode.private.provider.name" "[opencode] Private Provider Name" | quote }}
+opencode.private.provider.baseURL = {{ promptStringOnce . "opencode.private.provider.baseURL" "[opencode] Private Provider Base URL" | quote }}
+opencode.private.provider.apiKey = {{ promptStringOnce . "opencode.private.provider.apiKey" "[opencode] Private Provider API Key" | quote }}
+opencode.private.provider.model.id = {{ promptStringOnce . "opencode.private.provider.model.id" "[opencode] Private Provider Model ID" | quote }}
+opencode.private.provider.model.name = {{ promptStringOnce . "opencode.private.provider.model.name" "[opencode] Private Provider Model Name" | quote }}
+
+{{- end }}
+
+{{- end }}
 
 app.tmux = {{ dig "app" "tmux" true . }}
 
