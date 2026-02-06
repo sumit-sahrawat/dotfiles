@@ -2,6 +2,7 @@
 
 .nvim.lua
 .nvim/
+.lazy.lua
 .neoconf.json
 
 ### Helix Editor ###
