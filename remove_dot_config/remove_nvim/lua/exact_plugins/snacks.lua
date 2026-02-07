@@ -13,6 +13,9 @@ return {
       indent = {
         enabled = false,
       },
+      lazygit = {
+        configure = false,
+      },
     },
   },
 }

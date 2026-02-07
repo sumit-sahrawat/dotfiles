@@ -1,0 +1,16 @@
+{{- if .app.git -}}
+
+{{- if .app.neovim }}
+
+os:
+  editPreset: "nvim-remote"
+
+{{- end }}
+
+gui:
+  nerdFontsVersion: "3"
+
+{{- $theme_path := list ".config/lazygit/catppuccin/themes/" .ui.theme.catppuccin  "/peach.yml" }}
+{{ include (joinPath .chezmoi.homeDir $theme_path) | indent 2 }}
+
+{{- end }}
