@@ -106,8 +106,6 @@ opencode.private.provider.model.name = {{ promptStringOnce . "opencode.private.p
 
 app.wezterm = {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
 
-app.zellij = {{ dig "app" "zellij" true . }}
-
 app.zsh = {{ dig "app" "zsh" true . }}
 
 {{- if or $ghostty $wezterm }}
