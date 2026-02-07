@@ -1,0 +1,17 @@
+{{- if .app.searxng -}}
+
+#!/usr/bin/env zsh
+
+cd ~/.searxng
+
+COMMAND="${1}"
+
+case "${COMMAND}" in
+  docker-start) docker compose up -d ;;
+  docker-stop) docker compose down ;;
+  docker-ps) docker ps ;;
+  mcp-status) curl localhost:3000/health ;;
+  *) echo "Usage: ${0} [start|stop]" ;;
+esac
+
+{{- end }}

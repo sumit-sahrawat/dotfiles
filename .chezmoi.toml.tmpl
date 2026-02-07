@@ -34,7 +34,9 @@ ui.dock.tilesize = {{ dig "ui" "dock" "tilesize" 48 . }}
 
 app.direnv = {{ dig "app" "direnv" true . }}
 
-app.docker = {{ dig "app" "docker" true . }}
+{{- $searxng := dig "app" "searxng" true . }}
+
+app.docker = {{ or $searxng (dig "app" "docker" true .) }}
 
 app.ghostty = {{ $ghostty := dig "app" "ghostty" true . }}{{ $ghostty }}
 
@@ -99,6 +101,14 @@ opencode.private.provider.model.id = {{ promptStringOnce . "opencode.private.pro
 opencode.private.provider.model.name = {{ promptStringOnce . "opencode.private.provider.model.name" "[opencode] Private Provider Model Name" | quote }}
 
 {{- end }}
+
+{{- end }}
+
+app.searxng = {{ $searxng }}
+
+{{- if $searxng }}
+
+searxng.secret = {{ dig "searxng" "secret" (output "openssl" "rand" "-hex" "32") . | quote }}
 
 {{- end }}
 
