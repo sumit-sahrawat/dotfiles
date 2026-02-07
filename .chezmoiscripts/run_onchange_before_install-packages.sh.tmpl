@@ -97,9 +97,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "opencode"
 {{- end }}
 
-{{- if .app.tmux }}
-  brew "tmux"
-{{- end }}
 
 {{- if .app.zellij }}
   brew "zellij"

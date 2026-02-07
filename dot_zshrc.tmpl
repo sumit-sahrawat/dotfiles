@@ -12,7 +12,6 @@ POSTEDIT=$'\n\n\e[2A'
 zstyle ':z4h:' auto-update      'no'
 zstyle ':z4h:bindkey' keyboard  'mac'
 
-# zstyle ':z4h:' start-tmux command tmux -u new -A -D -t z4h
 zstyle ':z4h:' prompt-at-bottom no
 zstyle ':z4h:' start-tmux       no
 
@@ -220,11 +219,7 @@ alias e='${EDITOR}'
 alias o='open'
 alias q='exit'
 
-{{- if .app.tmux }}
 
-alias m=tmux
-
-{{- end }}
 
 {{- if .app.zellij }}
 

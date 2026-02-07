@@ -104,8 +104,6 @@ opencode.private.provider.model.name = {{ promptStringOnce . "opencode.private.p
 
 {{- end }}
 
-app.tmux = {{ dig "app" "tmux" true . }}
-
 app.wezterm = {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
 
 app.zellij = {{ dig "app" "zellij" true . }}

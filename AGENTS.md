@@ -110,5 +110,5 @@ No Cursor or Copilot rules found. Create `.cursor/rules/` or `.github/copilot-in
 2. **macOS-only**: Code assumes macOS (see `.chezmoi.toml.tmpl:2`)
 3. **XDG compliance**: Uses `~/.config` via `XDG_CONFIG_HOME`
 4. **Homebrew**: Centralized package management via Brewfile
-5. **Terminal apps**: ghostty/wezterm for terminal, tmux/zellij for session management
+5. **Terminal apps**: ghostty/wezterm for terminal, zellij for session management
 6. **Edit**: neovim/helix/vim (configurable via `tool.editor`)
