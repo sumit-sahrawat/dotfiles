@@ -70,8 +70,6 @@ git.isolated.dirs = {{ dig "git" "isolated" "dirs" (list) . | toToml }}
 
 app.helium = {{ dig "app" "helium" true . }}
 
-app.helix = {{ $helix := dig "app" "helix" true . }}{{ $helix }}
-
 app.lm_studio = {{ $lm_studio := dig "app" "lm_studio" true . }}{{ $lm_studio }}
 
 {{- if $lm_studio }}
@@ -116,7 +114,7 @@ terminal.font.size = {{ dig "terminal" "font" "size" 16 . }}
 
 {{- end }}
 
-tool.editor = {{ ternary "nvim" (ternary "hx" "vim" $helix) $neovim | quote }}
+tool.editor = {{ ternary "nvim" "vim" $neovim | quote }}
 tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
 
 ################################################################################

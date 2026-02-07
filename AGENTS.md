@@ -32,7 +32,6 @@ Located in `.chezmoiscripts/`:
 
 - `run_onchange_before_install-packages.sh.tmpl` - Installs Homebrew packages
 - `run_onchange_after_setup-macos-defaults.sh.tmpl` - Sets macOS defaults
-- `run_onchange_after_reload-helix-config.sh.tmpl` - Reloads Helix config
 - `run_onchange_after_reload-keymap.sh.tmpl` - Reloads keymap
 - `run_onchange_after_setup-*.sh.tmpl` - Language/tool setup scripts
 
@@ -80,7 +79,7 @@ Configurable languages in `.chezmoi.toml.tmpl`:
 ### Naming Conventions
 
 - **Files**: snake_case with `.tmpl` suffix
-- **Variables**: snake_case (e.g., `$neovim`, `$helix`)
+- **Variables**: snake_case (e.g., `$neovim`)
 - **Config keys**: dot notation (e.g., `app.neovim`, `lang.python`)
 - **Functions**: snake_case
 
@@ -111,4 +110,4 @@ No Cursor or Copilot rules found. Create `.cursor/rules/` or `.github/copilot-in
 3. **XDG compliance**: Uses `~/.config` via `XDG_CONFIG_HOME`
 4. **Homebrew**: Centralized package management via Brewfile
 5. **Terminal apps**: ghostty/wezterm for terminal
-6. **Edit**: neovim/helix/vim (configurable via `tool.editor`)
+6. **Edit**: neovim/vim (configurable via `tool.editor`)

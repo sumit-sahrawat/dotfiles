@@ -75,11 +75,7 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   cask "helium-browser"
 {{- end }}
 
-{{- if .app.helix }}
-  brew "helix"
-  brew "vscode-langservers-extracted"
-  brew "yaml-language-server"
-{{- end }}
+
 
 {{- if .app.mpv }}
   brew "mpv"
