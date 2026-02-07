@@ -27,7 +27,11 @@
     "visualizeSpeculativeDecoding": false,
     "chatFullWidth": false,
     "neverAskForToolConfirmation": false,
-    "skipToolConfirmationPatterns": [],
+    "skipToolConfirmationPatterns": [
+{{- if .app.searxng }}
+      "mcp/searxng-http:*"
+{{- end }}
+    ],
     "showChatUtilityMenuLabels": true,
     "pinnedPlugins": [],
     "showRoleAndInsertButtons": false,
@@ -86,7 +90,7 @@
     "appNavigationBarPosition": "left",
     "showTabStripScrollBar": false,
     "tabStripFullStripStyle": false,
-    "openDownloadsPaneOnStartNewModelDownload": false
+    "openDownloadsPaneOnStartNewModelDownload": true
   },
   "configPresetInclusiveness": {
     "speculativeDecoding": false
@@ -105,7 +109,8 @@
     "0.4.0 Onboarding",
     "REST API Onboarding",
     "Server Settings New Features",
-    "Trash Deletion Onboarding"
+    "Trash Deletion Onboarding",
+    "mcp.json Warning"
   ],
   "dismissedConversationSnackbars": [],
   "pre030ChatsMigrated": 3,
@@ -123,4 +128,4 @@
   "appIntroAcceptedForBuild": null
 }
 
-{{- end }}
+{{- end -}}
