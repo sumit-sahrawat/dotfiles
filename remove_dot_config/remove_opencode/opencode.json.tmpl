@@ -5,9 +5,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
+  "plugin": [
+{{- if .app.lm_studio }}
+    "opencode-lmstudio@latest"
+{{- end }}
+  ],
   "enabled_providers": [
 {{- if .app.lm_studio }}
-    "lm_studio" {{- $sep }}
+    "lmstudio" {{- $sep }}
 {{- end }}
 {{- if .opencode.private.enabled }}
     {{ .opencode.private.provider.id | quote }}
@@ -17,20 +22,6 @@
     "command_list": "alt+p",
   },
   "provider": {
-{{- if .app.lm_studio }}
-    "lm_studio": {
-      "models": {
-        {{ .lm_studio.model.id | quote }}: {
-          "name": {{ .lm_studio.model.name | quote }}
-        }
-      },
-      "name": "LM Studio",
-      "npm": "@ai-sdk/openai-compatible",
-      "options": {
-        "baseURL": "http://localhost:1234/v1"
-      }
-    } {{- $sep }}
-{{- end }}
 {{- if .opencode.private.enabled }}
     {{ .opencode.private.provider.id | quote }}: {
       "npm": "@ai-sdk/openai-compatible",
