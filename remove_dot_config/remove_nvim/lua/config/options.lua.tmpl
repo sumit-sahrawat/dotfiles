@@ -2,12 +2,16 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.g.snacks_animate = false
-vim.o.conceallevel = 0
+-- allow directory local rc files (.nvim.lua, .nvimrc, .exrc)
 vim.o.exrc = true
+
+-- disable animations globally
+vim.g.snacks_animate = false
 
 {{- if .lang.rust }}
 
+-- use main branch for blink.cmp to build the rust helper from source and
+-- avoid issues when fetching from github
 vim.g.lazyvim_blink_main = true
 
 {{- end }}
