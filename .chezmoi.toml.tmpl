@@ -108,7 +108,7 @@ app.searxng = {{ $searxng }}
 
 {{- if $searxng }}
 
-searxng.secret = {{ dig "searxng" "secret" (output "openssl" "rand" "-hex" "32") . | quote }}
+searxng.secret = {{ dig "searxng" "secret" (output "openssl" "rand" "-hex" "32" | trim) . | quote }}
 
 {{- end }}
 
