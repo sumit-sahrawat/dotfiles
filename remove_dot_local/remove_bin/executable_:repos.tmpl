@@ -37,7 +37,7 @@ while read -r line; do
 
   if [[ ! -d "${target}" ]]; then
     trying_to 'Cloning'  "${remote}" 'to' "${target}"
-    git clone --quiet "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
+    git clone --recursive --quiet "${remote}" "${target}" || failed_to 'clone' "${remote}" 'to' "${target}"
     continue
   fi
 
