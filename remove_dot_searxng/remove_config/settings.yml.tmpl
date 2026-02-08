@@ -5,8 +5,8 @@ server:
   secret_key: {{ .searxng.secret | quote }}
   limiter: false
   image_proxy: true
-redis:
-  url: redis://redis:6379/0
+valkey:
+  url: valkey://valkey:6379/0
 search:
   formats:
     - html
