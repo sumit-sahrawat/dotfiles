@@ -111,10 +111,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "groovysdk"
 {{- end }}
 
-{{- if .lang.haskell }}
-  brew "ghcup"
-{{- end }}
-
 {{- if .lang.java }}
   brew "maven"
   brew "openjdk"
