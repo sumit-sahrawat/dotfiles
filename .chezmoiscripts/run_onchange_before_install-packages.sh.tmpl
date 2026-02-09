@@ -107,10 +107,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "meson"
 {{- end }}
 
-{{- if .lang.go }}
-  brew "go"
-{{- end }}
-
 {{- if .lang.groovy }}
   brew "groovysdk"
 {{- end }}
