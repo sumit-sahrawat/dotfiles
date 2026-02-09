@@ -107,10 +107,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "meson"
 {{- end }}
 
-{{- if .lang.gleam }}
-  brew "gleam"
-{{- end }}
-
 {{- if .lang.go }}
   brew "go"
 {{- end }}
