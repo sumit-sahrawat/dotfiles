@@ -144,10 +144,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "rustup"
 {{- end }}
 
-{{- if .lang.sqlite }}
-  brew "sqlite"
-{{- end }}
-
 {{- if .lang.zig }}
   brew "zig"
 {{- end }}
