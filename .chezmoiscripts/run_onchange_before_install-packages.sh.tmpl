@@ -131,11 +131,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "luarocks"
 {{- end }}
 
-{{- if .lang.ocaml }}
-  brew "ocaml"
-  brew "dune"
-{{- end }}
-
 {{- if .lang.odin }}
   brew "odin"
 {{- end }}
