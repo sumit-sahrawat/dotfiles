@@ -27,5 +27,14 @@ return {
         },
       },
     },
+    keys = {
+      {
+        "<leader>sP",
+        function()
+          Snacks.picker.pickers()
+        end,
+        desc = "Snacks Pickers",
+      },
+    },
   },
 }
