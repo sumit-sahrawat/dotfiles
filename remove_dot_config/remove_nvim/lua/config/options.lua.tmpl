@@ -7,11 +7,3 @@ vim.o.exrc = true
 
 -- disable animations globally
 vim.g.snacks_animate = false
-
-{{- if .lang.rust }}
-
--- use main branch for blink.cmp to build the rust helper from source and
--- avoid issues when fetching from github
-vim.g.lazyvim_blink_main = true
-
-{{- end }}
