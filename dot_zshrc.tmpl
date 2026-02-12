@@ -190,10 +190,6 @@ function :sup {
   brew update
   brew upgrade
 
-{{- if .lang.rust }}
-  rustup update
-{{- end }}
-
   z4h update
 
   z4h source --compile ~/.zsh/private-update.zsh

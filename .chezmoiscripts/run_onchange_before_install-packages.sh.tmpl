@@ -141,7 +141,7 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 {{- end }}
 
 {{- if .lang.rust }}
-  brew "rustup"
+  brew "rust"
 {{- end }}
 
 {{- if .lang.zig }}
