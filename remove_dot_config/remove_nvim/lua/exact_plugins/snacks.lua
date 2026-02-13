@@ -24,6 +24,9 @@ return {
             nav_k = false,
             nav_l = false,
           },
+          wo = {
+            winbar = "",
+          },
         },
       },
     },
