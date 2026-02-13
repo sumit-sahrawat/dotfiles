@@ -7,7 +7,7 @@ return {
       highlight = {
         groups = {
           InclineNormal = { default = true, group = "lualine_a_normal" },
-          InclineNormalNC = { default = true, group = "Comment" },
+          InclineNormalNC = { default = true, group = "lualine_b_normal" },
         },
       },
       window = {
