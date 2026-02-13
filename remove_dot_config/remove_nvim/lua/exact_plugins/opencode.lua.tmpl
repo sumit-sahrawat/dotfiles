@@ -2,19 +2,16 @@
 
 return {
   {
-    "folke/sidekick.nvim",
+    "yetone/avante.nvim",
     opts = {
-      nes = {
-        enabled = false,
+      provider = "opencode",
+      acp_providers = {
+        opencode = {
+          command = "opencode",
+          args = { "acp" },
+        },
       },
     },
-    keys = {
-      {
-        "<leader>ai",
-        function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
-        desc = "Sidekick Toggle Opencode",
-      },
-    }
   },
 }
 
