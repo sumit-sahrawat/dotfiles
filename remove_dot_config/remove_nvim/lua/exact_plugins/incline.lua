@@ -3,7 +3,6 @@ return {
     "b0o/incline.nvim",
     event = "VeryLazy",
     opts = {
-      hide = { cursorline = true },
       highlight = {
         groups = {
           InclineNormal = { default = true, group = "lualine_a_normal" },
