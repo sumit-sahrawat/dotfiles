@@ -102,7 +102,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 
 {{- if .lang.bash }}
   brew "bash"
-  brew "bats-core"
 {{- end }}
 
 {{- if .lang.cpp }}
