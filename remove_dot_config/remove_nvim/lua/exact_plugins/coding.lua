@@ -13,6 +13,12 @@ return {
     "saecki/live-rename.nvim",
   },
   {
+    -- smart indent detection
+    "NMAC427/guess-indent.nvim",
+    event = "BufReadPost",
+    opts = {},
+  },
+  {
     -- enable keybinds for live-rename iff LSP is active
     "neovim/nvim-lspconfig",
     opts = {
