@@ -26,6 +26,33 @@ return {
     },
   },
   {
+    -- harpoon at last cursor position
+    "cbochs/grapple.nvim",
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons", lazy = true },
+    },
+    opts = {
+      scope = "git",
+    },
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = "Grapple",
+    keys = function()
+      local keys = {
+        { "<leader>H", "<cmd>Grapple toggle<cr>", desc = "Harpoon File" },
+        { "<leader>h", "<cmd>Grapple toggle_tags<cr>", desc = "Harpoon Quick Menu" },
+      }
+
+      for i = 1, 9 do
+        table.insert(keys, {
+          "<leader>" .. i,
+          "<cmd>Grapple select index=" .. i .. "<cr>",
+          desc = "Harpoon to File" .. i,
+        })
+      end
+      return keys
+    end,
+  },
+  {
     -- sub-word motions for camel/pascal cased words
     "chrisgrieser/nvim-spider",
     lazy = true,
