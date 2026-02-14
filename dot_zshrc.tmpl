@@ -71,7 +71,7 @@ z4h install hlissner/zsh-autopair
 z4h init || return
 
 # Colors for ls, tree, fd, etc.
-export LS_COLORS="{{- output "vivid" "generate" (list "catppuccin" .ui.theme.catppuccin | join "-") | trim -}}"
+export LS_COLORS="{{- output "vivid" "generate" (printf "catppuccin-%s" .ui.theme.catppuccin) | trim -}}"
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 # We manually update via :sup so no auto-update for brew.
