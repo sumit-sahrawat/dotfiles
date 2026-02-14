@@ -13,6 +13,19 @@ return {
     },
   },
   {
+    "folke/todo-comments.nvim",
+    opts = {
+      highlight = {
+        -- vim regex to support both "TOOD:" and "TODO(...):"
+        pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]],
+      },
+      search = {
+        -- ripgrep regex to support both "TOOD:" and "TODO(...):"
+        pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]],
+      },
+    },
+  },
+  {
     -- sub-word motions for camel/pascal cased words
     "chrisgrieser/nvim-spider",
     lazy = true,
