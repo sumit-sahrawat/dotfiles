@@ -19,6 +19,12 @@ return {
     opts = {},
   },
   {
+    -- auto-close unedited buffers
+    "chrisgrieser/nvim-early-retirement",
+    config = true,
+    event = "VeryLazy",
+  },
+  {
     -- enable keybinds for live-rename iff LSP is active
     "neovim/nvim-lspconfig",
     opts = {
