@@ -52,7 +52,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 {{- end }}
 
 {{- if .app.docker }}
-  cask "docker-desktop"
+  brew "colima"
+  brew "docker"
+  brew "docker-compose"
+  brew "docker-credential-helper"
   brew "lazydocker"
 {{- end }}
 
