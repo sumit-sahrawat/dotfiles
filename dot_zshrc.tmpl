@@ -205,6 +205,12 @@ alias ai='opencode'
 
 {{- end }}
 
+{{- if .app.neovim }}
+
+alias leet='nvim leetcode.nvim'
+
+{{- end }}
+
 # chezmoi
 alias :ha='chezmoi add'
 alias :hA='chezmoi add --template'
