@@ -1,5 +1,19 @@
 return {
   {
+    "folke/trouble.nvim",
+    opts = {
+      modes = {
+        symbols = {
+          win = { position = "top" },
+        },
+        lsp = {
+          win = { position = "top" },
+        },
+      },
+    },
+  },
+  {
+    -- sub-word motions for camel/pascal cased words
     "chrisgrieser/nvim-spider",
     lazy = true,
     keys = {

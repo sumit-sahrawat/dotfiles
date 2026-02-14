@@ -1,5 +1,43 @@
 return {
   {
+    -- status line
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        component_separators = "",
+        section_separators = "",
+      },
+    },
+  },
+  {
+    -- space efficient alternative to winbar
+    "b0o/incline.nvim",
+    event = "VeryLazy",
+    opts = {
+      highlight = {
+        groups = {
+          InclineNormal = { default = true, group = "lualine_a_normal" },
+          InclineNormalNC = { default = true, group = "lualine_b_normal" },
+        },
+      },
+      window = {
+        margin = {
+          vertical = 0,
+          horizontal = 1,
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>uW",
+        function()
+          require("incline").toggle()
+        end,
+        desc = "Toggle Incline",
+      },
+    },
+  },
+  {
     "folke/snacks.nvim",
     ---@type snacks.Config
     opts = {
