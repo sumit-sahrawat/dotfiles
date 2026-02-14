@@ -27,8 +27,8 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": {{ .opencode.private.provider.name | quote }},
       "options": {
-        "baseURL": {{ .opencode.private.provider.baseURL | quote }},
-        "apiKey": {{ .opencode.private.provider.apiKey | quote }},
+        "baseURL": {{ printf "{env:%s}" .opencode.private.provider.env.baseURL | quote }},
+        "apiKey": {{ printf "{env:%s}" .opencode.private.provider.env.apiKey | quote }},
       },
       "models": {
         {{ .opencode.private.provider.model.id | quote }}: {
