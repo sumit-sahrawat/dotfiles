@@ -26,6 +26,16 @@ return {
     },
   },
   {
+    -- dyamically change cursor + cursorline colors
+    "rasulomaroff/reactive.nvim",
+    opts = {
+      load = {
+        '{{ printf "catppuccin-%s-cursor" .ui.theme.catppuccin }}',
+        '{{ printf "catppuccin-%s-cursorline" .ui.theme.catppuccin }}',
+      },
+    },
+  },
+  {
     -- harpoon at last cursor position
     "cbochs/grapple.nvim",
     dependencies = {
