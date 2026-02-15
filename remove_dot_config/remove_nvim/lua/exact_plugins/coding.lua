@@ -25,6 +25,66 @@ return {
     event = "VeryLazy",
   },
   {
+    -- tree-sitter based movement
+    "aaronik/treewalker.nvim",
+    cmd = "Treewalker",
+    opts = {
+      scope_confined = true,
+    },
+    keys = {
+      {
+        "<leader>Tk",
+        "<cmd>Treewalker Up<cr>",
+        desc = "Treewalker Up",
+      },
+      {
+        "<leader>Tj",
+        "<cmd>Treewalker Down<cr>",
+        desc = "Treewalker Down",
+      },
+      {
+        "<leader>Tl",
+        "<cmd>Treewalker Right<cr>",
+        desc = "Treewalker Right",
+      },
+      {
+        "<leader>Th",
+        "<cmd>Treewalker Left<cr>",
+        desc = "Treewalker Left",
+      },
+      {
+        "<leader>TK",
+        "<cmd>Treewalker SwapUp<cr>",
+        desc = "Treewalker SwapUp",
+      },
+      {
+        "<leader>TJ",
+        "<cmd>Treewalker SwapDown<cr>",
+        desc = "Treewalker SwapDown",
+      },
+      {
+        "<leader>TL",
+        "<cmd>Treewalker SwapRight<cr>",
+        desc = "Treewalker SwapRight",
+      },
+      {
+        "<leader>TH",
+        "<cmd>Treewalker SwapLeft<cr>",
+        desc = "Treewalker SwapLeft",
+      },
+      {
+        "<c-t>",
+        function()
+          require("which-key").show({
+            keys = "<leader>T",
+            loop = true,
+          })
+        end,
+        desc = "Treewalker Hydra",
+      },
+    },
+  },
+  {
     -- enable keybinds for live-rename iff LSP is active
     "neovim/nvim-lspconfig",
     opts = {
@@ -80,7 +140,7 @@ return {
     },
     keys = {
       {
-        "<C-=>",
+        "<c-=>",
         function()
           require("treesj").toggle()
         end,
