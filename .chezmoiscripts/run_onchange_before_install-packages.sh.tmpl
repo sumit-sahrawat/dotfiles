@@ -79,8 +79,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   cask "helium-browser"
 {{- end }}
 
-
-
 {{- if .app.mpv }}
   brew "mpv"
   brew "yt-dlp"
@@ -91,6 +89,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "neovim"
   brew "tree-sitter-cli"
   brew "node"
+{{- end }}
+
+{{- if .app.ollama }}
+  brew "ollama"
 {{- end }}
 
 {{- if .app.opencode }}

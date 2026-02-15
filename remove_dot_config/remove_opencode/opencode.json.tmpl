@@ -1,9 +1,14 @@
 {{- if .app.opencode -}}
 
+{{- $sep := ternary "," "" (and .app.ollama .opencode.private.enabled) -}}
+
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
   "enabled_providers": [
+{{- if .app.ollama }}
+    "ollama" {{- $sep }}
+{{- end }}
 {{- if .opencode.private.enabled }}
     {{ .opencode.private.provider.id | quote }}
 {{- end }}
@@ -12,6 +17,20 @@
     "command_list": "alt+p",
   },
   "provider": {
+{{- if .app.ollama }}
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama [Local]",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        {{ .ollama.model.id | quote }}: {
+          "name": {{ .ollama.model.name | quote }},
+        }
+      }
+    } {{- $sep }}
+{{- end }}
 {{- if .opencode.private.enabled }}
     {{ .opencode.private.provider.id | quote }}: {
       "npm": "@ai-sdk/openai-compatible",

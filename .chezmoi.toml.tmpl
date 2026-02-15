@@ -76,6 +76,15 @@ app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
 
+app.ollama = {{ $ollama := dig "app" "ollama" true . }}{{ $ollama }}
+
+{{- if $ollama }}
+
+ollama.model.id = {{ promptStringOnce . "ollama.model.id" "[ollama] Model ID" | quote }}
+ollama.model.name = {{ promptStringOnce . "ollama.model.name" "[ollama] Model Name" | quote }}
+
+{{- end }}
+
 app.opencode = {{ $opencode := dig "app" "opencode" true . }}{{ $opencode }}
 
 {{- if $opencode }}
