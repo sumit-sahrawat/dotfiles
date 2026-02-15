@@ -3,4 +3,4 @@
 {{- $rel := printf ".config/yazi/catppuccin/themes/%s/catppuccin-%s-%s.toml" $flavor $flavor $accent -}}
 {{- $full := joinPath .chezmoi.homeDir $rel -}}
 {{- $tmTheme := printf "~/.config/bat/themes/themes/Catppuccin %s.tmTheme" (.ui.theme.catppuccin | title) -}}
-{{- include $full | replaceAllRegex "syntect_theme.*" (printf "syntect_theme = %s" ($tmTheme | quote)) }}
+{{- include $full | replaceAllRegex "syntect_theme.*" (printf "syntect_theme = %s" ($tmTheme | quote)) | replaceAllRegex "[]" "" }}
