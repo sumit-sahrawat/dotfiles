@@ -1,19 +1,9 @@
 {{- if .app.opencode -}}
 
-{{- $sep := ternary "," "" (and .app.lm_studio .opencode.private.enabled) -}}
-
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
-  "plugin": [
-{{- if .app.lm_studio }}
-    "opencode-lmstudio@latest"
-{{- end }}
-  ],
   "enabled_providers": [
-{{- if .app.lm_studio }}
-    "lmstudio" {{- $sep }}
-{{- end }}
 {{- if .opencode.private.enabled }}
     {{ .opencode.private.provider.id | quote }}
 {{- end }}
