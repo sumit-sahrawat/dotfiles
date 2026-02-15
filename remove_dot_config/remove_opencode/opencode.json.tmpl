@@ -37,6 +37,14 @@
       }
     }
 {{- end }}
+  },
+  "mcp": {
+{{- if .app.searxng }}
+    "SearXNG": {
+      "type": "remote",
+      "url": "http://localhost:3000/mcp"
+    }
+{{- end }}
   }
 }
 
