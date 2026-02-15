@@ -50,13 +50,20 @@ return {
       local keys = {
         { "<leader>H", "<cmd>Grapple toggle<cr>", desc = "Harpoon File" },
         { "<leader>h", "<cmd>Grapple toggle_tags<cr>", desc = "Harpoon Quick Menu" },
+        { "<leader><c-H>", "<cmd>Grapple toggle scope=global<cr>", desc = "Harpoon File (global scope)" },
+        { "<leader><c-h>", "<cmd>Grapple toggle_tags scope=global<cr>", desc = "Harpoon Quick Menu (global scope)" },
       }
 
       for i = 1, 9 do
         table.insert(keys, {
           "<leader>" .. i,
           "<cmd>Grapple select index=" .. i .. "<cr>",
-          desc = "Harpoon to File" .. i,
+          desc = "Harpoon to File " .. i,
+        })
+        table.insert(keys, {
+          "<leader><c-" .. i .. ">",
+          "<cmd>Grapple select scope=global index=" .. i .. "<cr>",
+          desc = "Harpoon to File " .. i .. " (global scope)",
         })
       end
       return keys
