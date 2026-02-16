@@ -1,13 +1,11 @@
-{{- if .lang.lua -}}
-
 return {
   {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
         lua = { "selene" },
-      }
-    }
+      },
+    },
   },
   {
     "stevearc/conform.nvim",
@@ -27,5 +25,3 @@ return {
     },
   },
 }
-
-{{- end }}

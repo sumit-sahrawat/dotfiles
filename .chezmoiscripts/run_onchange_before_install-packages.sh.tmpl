@@ -130,12 +130,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "jq"
 {{- end }}
 
-{{- if .lang.lua }}
-  brew "lua"
-  brew "busted"
-  brew "luarocks"
-{{- end }}
-
 {{- if .lang.odin }}
   brew "odin"
 {{- end }}
