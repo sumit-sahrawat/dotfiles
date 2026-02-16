@@ -168,6 +168,15 @@ autoload -Uz zmv
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
+function :bg {
+  if [[ ${#} -eq 0 ]]; then
+    echo "Usage: ${0} [CMD] [ARGS..]" >&2
+    return 1
+  fi
+
+  "${@}" </dev/null &>/dev/null & disown
+}
+
 function :sup {
   chezmoi update --init --apply --refresh-externals
 
@@ -229,9 +238,7 @@ alias :tGA='eza --tree --ignore-glob .git'
 
 {{- if .app.mpv }}
 
-function :mpv {
-  mpv "${@}" </dev/null &>/dev/null & disown
-}
+alias :mpv=':bg mpv'
 
 function :yt {
   yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
