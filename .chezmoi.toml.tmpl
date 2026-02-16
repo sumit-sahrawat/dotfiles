@@ -80,8 +80,7 @@ app.ollama = {{ $ollama := dig "app" "ollama" true . }}{{ $ollama }}
 
 {{- if $ollama }}
 
-ollama.model.id = {{ promptStringOnce . "ollama.model.id" "[ollama] Model ID" | quote }}
-ollama.model.name = {{ promptStringOnce . "ollama.model.name" "[ollama] Model Name" | quote }}
+ollama.models = {{ dig "ollama" "models" (list) . | toToml }}
 
 {{- end }}
 
@@ -97,8 +96,7 @@ opencode.private.provider.id = {{ promptStringOnce . "opencode.private.provider.
 opencode.private.provider.name = {{ promptStringOnce . "opencode.private.provider.name" "[opencode] Private Provider Name" | quote }}
 opencode.private.provider.env.baseURL = {{ promptStringOnce . "opencode.private.provider.env.baseURL" "[opencode] Private Provider Base URL" | quote }}
 opencode.private.provider.env.apiKey = {{ promptStringOnce . "opencode.private.provider.env.apiKey" "[opencode] Private Provider API Key" | quote }}
-opencode.private.provider.model.id = {{ promptStringOnce . "opencode.private.provider.model.id" "[opencode] Private Provider Model ID" | quote }}
-opencode.private.provider.model.name = {{ promptStringOnce . "opencode.private.provider.model.name" "[opencode] Private Provider Model Name" | quote }}
+opencode.private.provider.models = {{ dig "opencode" "private" "provider" "models" (list) . | toToml }}
 
 {{- end }}
 
