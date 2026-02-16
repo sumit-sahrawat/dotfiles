@@ -106,6 +106,9 @@ app.searxng = {{ $searxng }}
 
 {{- if $searxng }}
 
+searxng.host = {{ dig "searxng" "host" "localhost" . | quote }}
+searxng.port = {{ dig "searxng" "port" 42001 . }}
+searxng.mcp.port = {{ dig "searxng" "mcp" "port" 42002 . }}
 searxng.secret = {{ dig "searxng" "secret" (output "openssl" "rand" "-hex" "32" | trim) . | quote }}
 
 {{- end }}
