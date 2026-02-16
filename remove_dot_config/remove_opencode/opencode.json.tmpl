@@ -1,55 +1,29 @@
 {{- if .app.opencode -}}
 
-{{- $sep := ternary "," "" (and .app.ollama .opencode.private.enabled) -}}
+{{- $models := dict }}
+{{- range .opencode.provider.models }}
+{{- $models = set $models . (dict) }}
+{{- end }}
 
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
   "enabled_providers": [
-{{- if .app.ollama }}
-    "ollama" {{- $sep }}
-{{- end }}
-{{- if .opencode.private.enabled }}
-    {{ .opencode.private.provider.id | quote }}
-{{- end }}
+    {{ .opencode.provider.id | quote }}
   ],
   "keybinds": {
     "command_list": "alt+p",
   },
   "provider": {
-{{- if .app.ollama }}
-
-{{- $ollama_models := dict }}
-{{- range .ollama.models }}
-{{- $ollama_models = set $ollama_models . (dict) }}
-{{- end }}
-
-    "ollama": {
+    {{ .opencode.provider.id | quote }}: {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama [Local]",
+      "name": {{ .opencode.provider.name | quote }},
       "options": {
-        "baseURL": "http://localhost:11434/v1"
+        "baseURL": {{ printf "{env:%s}" .opencode.provider.env.baseURL | quote }},
+        "apiKey": {{ printf "{env:%s}" .opencode.provider.env.apiKey | quote }},
       },
-      "models": {{ $ollama_models | toJson }}
-    } {{- $sep }}
-{{- end }}
-{{- if .opencode.private.enabled }}
-
-{{- $private_models := dict }}
-{{- range .opencode.private.provider.models }}
-{{- $private_models = set $private_models . (dict) }}
-{{- end }}
-
-    {{ .opencode.private.provider.id | quote }}: {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": {{ .opencode.private.provider.name | quote }},
-      "options": {
-        "baseURL": {{ printf "{env:%s}" .opencode.private.provider.env.baseURL | quote }},
-        "apiKey": {{ printf "{env:%s}" .opencode.private.provider.env.apiKey | quote }},
-      },
-      "models": {{ $private_models | toJson }}
+      "models": {{ $models | toJson }}
     }
-{{- end }}
   },
   "mcp": {
 {{- if .app.searxng }}
