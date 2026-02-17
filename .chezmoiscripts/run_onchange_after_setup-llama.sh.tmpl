@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- if .ai.on.local -}}
+
+{{- $plist_path := joinPath .chezmoi.homeDir "Library/LaunchAgents/com.example.llama.cpp.plist" }}
+
+# {{ include $plist_path | sha256sum }}
+launchctl load -w {{ $plist_path | quote }}
+
+{{- end }}

@@ -1,29 +1,57 @@
 {{- if .app.opencode -}}
 
-{{- $models := dict }}
-{{- range .opencode.provider.models }}
-{{- $models = set $models . (dict) }}
-{{- end }}
+{{- $sep := ternary "," "" (and (not (empty .ai.local.models)) (and (not (empty .ai.cloud.models)))) }}
 
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
   "enabled_providers": [
-    {{ .opencode.provider.id | quote }}
+{{- if .ai.local.models }}
+    {{ .ai.local.provider.id | quote }} {{- $sep }}
+{{- end }}
+{{- if .ai.cloud.models }}
+    {{ .ai.cloud.provider.id | quote }}
+{{- end }}
   ],
   "keybinds": {
     "command_list": "alt+p",
   },
   "provider": {
-    {{ .opencode.provider.id | quote }}: {
+
+{{- if .ai.local.models }}
+
+{{- $local_models := dict }}
+{{- range .ai.local.models }}
+{{- $local_models = set $local_models . (dict) }}
+{{- end }}
+    {{ .ai.local.provider.id | quote }}: {
       "npm": "@ai-sdk/openai-compatible",
-      "name": {{ .opencode.provider.name | quote }},
+      "name": {{ .ai.local.provider.name | quote }},
       "options": {
-        "baseURL": {{ printf "{env:%s}" .opencode.provider.env.baseURL | quote }},
-        "apiKey": {{ printf "{env:%s}" .opencode.provider.env.apiKey | quote }},
+        "baseURL": {{ printf "http://localhost:%d/v1" .ai.local.provider.port | quote }},
       },
-      "models": {{ $models | toJson }}
+      "models": {{ $local_models | toJson }}
+    } {{- $sep }}
+
+{{- end }}
+
+{{- if .ai.cloud.models }}
+
+{{- $cloud_models := dict }}
+{{- range .ai.cloud.models }}
+{{- $cloud_models = set $cloud_models . (dict) }}
+{{- end }}
+    {{ .ai.cloud.provider.id | quote }}: {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": {{ .ai.cloud.provider.name | quote }},
+      "options": {
+        "baseURL": {{ .ai.cloud.provider.url | quote }},
+        "key": {{ .ai.cloud.provider.key | quote }}
+      },
+      "models": {{ $cloud_models | toJson }}
     }
+
+{{- end }}
   },
   "mcp": {
 {{- if .app.searxng }}

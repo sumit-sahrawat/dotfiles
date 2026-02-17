@@ -174,7 +174,7 @@ function :bg {
     return 1
   fi
 
-  "${@}" </dev/null &>/dev/null & disown
+  "${@}"&>/dev/null & disown
 }
 
 function :sup {
@@ -243,7 +243,51 @@ alias :tGA='eza --tree --ignore-glob .git'
 alias :mpv=':bg mpv'
 
 function :yt {
-  yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q </dev/null &>/dev/null & disown"
+  yt-dlp "${@}" --exec "mpv %(filepath,_filename|)q&>/dev/null & disown"
+}
+
+{{- end }}
+
+{{- if .ai.on.local }}
+
+# fetch models using llama-cli to start a prompt and sending an /exit
+function :llama-pull {
+  if [[ -n "${1}" ]]; then
+    llama-cli --prompt '/exit' -hf "${1}"
+  else
+    echo "Usage: ${0} [MODEL]"
+  fi
+}
+
+# fetch all local models configured in chezmoi config
+function :llama-pull-all {
+{{- range .ai.local.models }}
+  :llama-pull {{ . | quote }}
+{{- end }}
+}
+
+function :llama-load {
+  if [[ -n "${1}" ]]; then
+    curl -s 'http://localhost:{{ .ai.local.provider.port }}/models/load' -d "{ \"model\": \"${1}\" }" | jq .
+  else
+    echo "Usage: ${0} [MODEL]"
+  fi
+}
+
+function :llama-unload {
+  if [[ -n "${1}" ]]; then
+    curl -s 'http://localhost:{{ .ai.local.provider.port }}/models/unload' -d "{ \"model\": \"${1}\" }" | jq .
+  else
+    echo "Usage: ${0} [MODEL]"
+  fi
+}
+
+function :llama-models {
+  curl -s 'http://localhost:{{ .ai.local.provider.port }}/models' | jq -r '.data[].id'
+}
+
+function :llama-ps {
+  curl -s 'http://localhost:{{ .ai.local.provider.port }}/models' | jq -r '.data.[] | select(.status.value == "loaded") | .id'
 }
 
 {{- end }}

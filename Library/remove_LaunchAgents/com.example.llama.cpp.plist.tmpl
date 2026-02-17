@@ -1,0 +1,39 @@
+{{- if .ai.on.local -}}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KeepAlive</key>
+	<dict>
+		<key>SuccessfulExit</key>
+		<true/>
+	</dict>
+	<key>Label</key>
+	<string>com.example.llama.cpp</string>
+	<key>LimitLoadToSessionType</key>
+	<array>
+		<string>Aqua</string>
+		<string>Background</string>
+		<string>LoginWindow</string>
+		<string>StandardIO</string>
+		<string>System</string>
+	</array>
+	<key>ProgramArguments</key>
+	<array>
+		<string>{{ .homebrew.prefix }}/bin/llama-server</string>
+		<string>--port</string>
+		<string>{{ .ai.local.provider.port }}</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>{{ .homebrew.prefix }}/var/log/llama-server.log</string>
+	<key>StandardOutPath</key>
+	<string>{{ .homebrew.prefix }}/var/log/llama-server.log</string>
+	<key>WorkingDirectory</key>
+	<string>{{ .chezmoi.homeDir }}</string>
+</dict>
+</plist>
+
+{{- end }}

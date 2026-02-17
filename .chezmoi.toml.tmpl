@@ -5,6 +5,8 @@
 
 [data]
 
+homebrew.prefix = "/opt/homebrew"
+
 ################################################################################
 # INPUT
 ################################################################################
@@ -76,17 +78,7 @@ app.mpv = {{ dig "app" "mpv" true . }}
 
 app.neovim = {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
 
-app.opencode = {{ $opencode := dig "app" "opencode" true . }}{{ $opencode }}
-
-{{- if $opencode }}
-
-opencode.provider.id = {{ promptStringOnce . "opencode.provider.id" "[opencode] Provider ID" | quote }}
-opencode.provider.name = {{ promptStringOnce . "opencode.provider.name" "[opencode] Provider Name" | quote }}
-opencode.provider.env.baseURL = {{ promptStringOnce . "opencode.provider.env.baseURL" "[opencode] Provider Base URL" | quote }}
-opencode.provider.env.apiKey = {{ promptStringOnce . "opencode.provider.env.apiKey" "[opencode] Provider API Key" | quote }}
-opencode.provider.models = {{ dig "opencode" "provider" "models" (list) . | toToml }}
-
-{{- end }}
+app.opencode = {{ dig "app" "opencode" true . }}
 
 app.searxng = {{ $searxng }}
 
@@ -113,6 +105,33 @@ terminal.font.size = {{ dig "terminal" "font" "size" 16 . }}
 
 tool.editor = {{ ternary "nvim" "vim" $neovim | quote }}
 tool.merge = {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
+
+################################################################################
+# Artificial Intelligence
+################################################################################
+
+ai.on.local = {{ $ai_on_local := dig "ai" "on" "local" true . }}{{ $ai_on_local }}
+
+{{- if $ai_on_local }}
+
+ai.local.models = {{ dig "ai" "local" "models" (list) . | toToml }}
+ai.local.provider.id = {{ dig "ai" "local" "provider" "id" "local" . | quote }}
+ai.local.provider.name = {{ dig "ai" "local" "provider" "name" "[Local]" . | quote }}
+ai.local.provider.port = {{ dig "ai" "local" "provider" "port" 42000 . }}
+
+{{- end }}
+
+ai.on.cloud = {{ $ai_on_cloud := dig "ai" "on" "cloud" true . }}{{ $ai_on_cloud }}
+
+{{- if $ai_on_cloud }}
+
+ai.cloud.models = {{ dig "ai" "cloud" "models" (list) . | toToml }}
+ai.cloud.provider.id = {{ promptStringOnce . "ai.cloud.provider.id" "[ai] cloud.provider.id" | quote }}
+ai.cloud.provider.name = {{ promptStringOnce . "ai.cloud.provider.name" "[ai] cloud.provider.name" | quote }}
+ai.cloud.provider.url = {{ promptStringOnce . "ai.cloud.provider.url" "[ai] cloud.provider.url" | quote }}
+ai.cloud.provider.key = {{ promptStringOnce . "ai.cloud.provider.key" "[ai] cloud.provider.key" | quote }}
+
+{{- end }}
 
 ################################################################################
 # Programming Languages
