@@ -55,6 +55,7 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 {{- if .app.docker }}
   brew "colima"
   brew "docker"
+  brew "docker-buildx"
   brew "docker-compose"
   brew "docker-credential-helper"
   brew "lazydocker"
