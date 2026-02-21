@@ -24,6 +24,8 @@
 		<string>{{ .homebrew.prefix }}/bin/llama-server</string>
 		<string>--port</string>
 		<string>{{ .ai.local.provider.port }}</string>
+		<string>--models-preset</string>
+		<string>{{ joinPath .chezmoi.homeDir ".config/llama-server/models.ini" }}</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>

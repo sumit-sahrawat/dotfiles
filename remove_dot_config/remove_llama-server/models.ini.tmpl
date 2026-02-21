@@ -1,0 +1,11 @@
+{{- if .ai.on.local -}}
+
+# model presets
+
+{{- range .ai.local.models }}
+
+[{{ . }}]
+
+{{- end }}
+
+{{- end }}
