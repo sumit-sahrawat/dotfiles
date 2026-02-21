@@ -1,0 +1,182 @@
+{{- if ne .chezmoi.os "darwin" -}}
+{{-     writeToStdout "[dotfiles] We only support MacOS. Aborting.\n" -}}
+{{-     exit 1 -}}
+{{- end -}}
+
+data:
+  homebrew:
+    prefix: "/opt/homebrew"
+
+  diff:
+    pager: "delta"
+
+  merge:
+    command: "nvim"
+    args: [ {{- list "-d" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" | quoteList | join ", " -}} ]
+
+  input:
+    keyboard:
+      caps2ctrl: {{ dig "input" "keyboard" "caps2ctrl" true . }}
+      repeat:
+        delay: 195
+        interval: 15
+    mouse:
+      linear: {{ dig "input" "mouse" "linear" true . }}
+
+  ui:
+    theme:
+
+      {{- $catppuccin := dig "ui" "theme" "catppuccin" "macchiato" . }}
+      catppuccin: {{ $catppuccin | quote }}
+
+      {{- $is_dark := ne $catppuccin "latte" }}
+      is_dark: {{ $is_dark }}
+
+    night_shift:
+      enabled: {{ dig "ui" "night_shift" "enabled" true . }}
+      temperature: {{ dig "ui" "night_shift" "temperature" 50 . }}
+
+    dock:
+      tilesize: {{ dig "ui" "dock" "tilesize" 48 . }}
+
+  app:
+    direnv: {{ dig "app" "direnv" true . }}
+
+    {{- $searxng := dig "app" "searxng" true . }}
+
+    {{- $docker := or $searxng (dig "app" "docker" true .) }}
+    docker: {{ $docker }}
+
+    {{- $ghostty := dig "app" "ghostty" true . }}
+    ghostty: {{ $ghostty }}
+
+    {{- $git := dig "app" "git" true . }}
+    git: {{ $git }}
+    helium: {{ dig "app" "helium" true . }}
+    mpv: {{ dig "app" "mpv" true . }}
+    neovim: {{ $neovim := dig "app" "neovim" true . }}{{ $neovim }}
+    opencode: {{ dig "app" "opencode" true . }}
+    searxng: {{ $searxng }}
+    wezterm: {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
+    zsh: {{ dig "app" "zsh" true . }}
+
+  lang:
+    bash: {{ dig "lang" "bash" true . }}
+    cpp: {{ dig "lang" "cpp" true . }}
+    groovy: {{ dig "lang" "groovy" true . }}
+    java: {{ dig "lang" "java" true . }}
+    javascript: {{ dig "lang" "javascript" true . }}
+    jq: {{ dig "lang" "jq" true . }}
+    odin: {{ dig "lang" "odin" true . }}
+    python: {{ dig "lang" "python" true . }}
+    rust: {{ dig "lang" "rust" true . }}
+    zig: {{ dig "lang" "zig" true . }}
+
+  tool:
+    editor: {{ ternary "nvim" "vim" $neovim | quote }}
+    merge: {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
+
+{{- if $git }}
+
+  git:
+    alias:
+      prefix: {{ dig "git" "alias" "prefix" ":g" . | quote }}
+
+{{- $default_name := "Sumit Sahrawat" }}
+{{- $default_email := "sumit-sahrawat@noreply.codeberg.org" }}
+{{- $default_key_name := "id_ed25519" }}
+{{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
+
+    global:
+      user:
+        name: {{ dig "git" "global" "user" "name" $default_name . | quote }}
+        email: {{ dig "git" "global" "user" "email" $default_email . | quote }}
+        key_name: {{ $global_key_name := dig "git" "global" "user" "key_name" $default_key_name . }}{{ $global_key_name | quote }}
+        key: {{ joinPath $ssh_dir $global_key_name | quote }}
+
+    isolated:
+
+      {{- $git_isolated := promptBoolOnce . "git.isolated.enabled" "Use isolated directories for git" }}
+      enabled: {{ $git_isolated }}
+
+{{- if $git_isolated }}
+
+      dirs = {{ dig "git" "isolated" "dirs" (list) . | toYaml }}
+      user:
+        name: {{ dig "git" "isolated" "user" "name" $default_name . | quote }}
+        email: {{ promptStringOnce . "git.isolated.user.email" "Committer email address for isolated dirs" | quote }}
+
+        {{- $isolated_key_name := promptStringOnce . "git.isolated.user.key_name" "SSH key name for isolated dirs" }}
+        key_name: {{ $isolated_key_name | quote }}
+        key: {{ joinPath $ssh_dir $isolated_key_name | quote }}
+
+{{- end }}
+
+{{- end }}
+
+{{- if $searxng }}
+
+  searxng:
+    host: {{ dig "searxng" "host" "localhost" . | quote }}
+    port: {{ dig "searxng" "port" 42001 . }}
+    mcp:
+      port: {{ dig "searxng" "mcp" "port" 42002 . }}
+    secret: {{ dig "searxng" "secret" (output "openssl" "rand" "-hex" "32" | trim) . | quote }}
+
+{{- end }}
+
+{{- if or $ghostty $wezterm }}
+
+  terminal:
+    font:
+      pragmata: {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
+      family: {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
+      size: {{ dig "terminal" "font" "size" 16 . }}
+
+{{- end }}
+
+  ai:
+    on:
+      local: {{ $ai_on_local := dig "ai" "on" "local" true . }}{{ $ai_on_local }}
+      cloud: {{ $ai_on_cloud := dig "ai" "on" "cloud" true . }}{{ $ai_on_cloud }}
+
+{{- if $ai_on_local }}
+
+    local:
+      provider:
+        id: {{ dig "ai" "local" "provider" "id" "local" . | quote }}
+        name: {{ dig "ai" "local" "provider" "name" "[Local]" . | quote }}
+        port: {{ dig "ai" "local" "provider" "port" 42000 . }}
+
+      {{- $local_models := dig "ai" "local" "models" (list) . }}
+      models:
+      {{- if empty $local_models }}
+      {{- " []" }}
+      {{- else }}
+      {{- range $local_models }}
+        - {{ . | quote }}
+      {{- end }}
+      {{- end }}
+
+{{- end }}
+
+{{- if $ai_on_cloud }}
+
+    cloud:
+      provider:
+        id: {{ promptStringOnce . "ai.cloud.provider.id" "[ai] cloud.provider.id" | quote }}
+        name: {{ promptStringOnce . "ai.cloud.provider.name" "[ai] cloud.provider.name" | quote }}
+        url: {{ promptStringOnce . "ai.cloud.provider.url" "[ai] cloud.provider.url" | quote }}
+        key: {{ promptStringOnce . "ai.cloud.provider.key" "[ai] cloud.provider.key" | quote }}
+
+      {{- $cloud_models := dig "ai" "cloud" "models" (list) . }}
+      models:
+      {{- if empty $cloud_models }}
+      {{- " []" }}
+      {{- else }}
+      {{- range $cloud_models }}
+        - {{ . | quote }}
+      {{- end }}
+      {{- end }}
+
+{{- end }}
