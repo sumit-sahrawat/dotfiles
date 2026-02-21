@@ -5,6 +5,9 @@
 {{- range .ai.local.models }}
 
 [{{ .id }}]
+{{- if hasKey . "name" }}
+alias = {{ .name }}
+{{- end }}
 
 {{- end }}
 

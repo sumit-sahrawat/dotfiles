@@ -1,66 +1,102 @@
 {{- if .app.opencode -}}
 
-{{- $sep := ternary "," "" (and (not (empty .ai.local.models)) (and (not (empty .ai.cloud.models)))) }}
+{{- $enabled_providers := list -}}
 
-{
-  "$schema": "https://opencode.ai/config.json",
-  "theme": "catppuccin-{{ .ui.theme.catppuccin }}",
-  "enabled_providers": [
-{{- if .ai.local.models }}
-    {{ .ai.local.provider.id | quote }} {{- $sep }}
-{{- end }}
-{{- if .ai.cloud.models }}
-    {{ .ai.cloud.provider.id | quote }}
-{{- end }}
-  ],
-  "keybinds": {
-    "command_list": "alt+p",
-  },
-  "provider": {
+{{- if .ai.local.models -}}
+  {{- $enabled_providers = append $enabled_providers .ai.local.provider.id -}}
+{{- end -}}
 
-{{- if .ai.local.models }}
+{{- if .ai.cloud.models -}}
+  {{- $enabled_providers = append $enabled_providers .ai.cloud.provider.id -}}
+{{- end -}}
 
-{{- $local_models := dict }}
-{{- range .ai.local.models }}
-{{- $local_models = set $local_models .id (dict) }}
-{{- end }}
-    {{ .ai.local.provider.id | quote }}: {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": {{ .ai.local.provider.name | quote }},
-      "options": {
-        "baseURL": {{ printf "http://localhost:%d/v1" .ai.local.provider.port | quote }},
-      },
-      "models": {{ $local_models | toJson }}
-    } {{- $sep }}
+{{- $providers := dict -}}
 
-{{- end }}
+{{- if .ai.local.models -}}
 
-{{- if .ai.cloud.models }}
+  {{- $local_models := dict -}}
+  {{- range .ai.local.models -}}
+    {{- $config := dict -}}
+    {{- if hasKey . "name" -}}
+      {{- $config = set $config "name" .name -}}
+    {{- end -}}
+    {{- $local_models = set $local_models .id $config -}}
+  {{- end -}}
 
-{{- $cloud_models := dict }}
-{{- range .ai.cloud.models }}
-{{- $cloud_models = set $cloud_models .id (dict) }}
-{{- end }}
-    {{ .ai.cloud.provider.id | quote }}: {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": {{ .ai.cloud.provider.name | quote }},
-      "options": {
-        "baseURL": {{ .ai.cloud.provider.url | quote }},
-        "key": {{ .ai.cloud.provider.key | quote }}
-      },
-      "models": {{ $cloud_models | toJson }}
-    }
+  {{- $providers = set $providers .ai.local.provider.id (dict
+        "npm" "@ai-sdk/openai-compatible"
+        "name" .ai.local.provider.name
+        "options" (dict "baseURL" (printf "http://localhost:%d/v1" .ai.local.provider.port ))
+        "models" $local_models
+  )
+  -}}
 
-{{- end }}
-  },
-  "mcp": {
-{{- if .app.searxng }}
-    "SearXNG": {
-      "type": "remote",
-      "url": "http://localhost:{{ .searxng.mcp.port }}/mcp"
-    }
-{{- end }}
-  }
-}
+{{- end -}}
+
+{{- if .ai.local.models -}}
+
+  {{- $local_models := dict -}}
+  {{- range .ai.local.models -}}
+    {{- $config := dict -}}
+    {{- if hasKey . "name" -}}
+      {{- $config = set $config "name" .name -}}
+    {{- end -}}
+    {{- $local_models = set $local_models .id $config -}}
+  {{- end -}}
+
+  {{- $providers = set $providers .ai.local.provider.id (dict
+        "npm" "@ai-sdk/openai-compatible"
+        "name" .ai.local.provider.name
+        "options" (dict "baseURL" (printf "http://localhost:%d/v1" .ai.local.provider.port))
+        "models" $local_models
+      )
+  -}}
+
+{{- end -}}
+
+{{- if .ai.cloud.models -}}
+
+  {{- $cloud_models := dict -}}
+  {{- range .ai.cloud.models -}}
+    {{- $config := dict -}}
+    {{- if hasKey . "name" -}}
+      {{- $config = set $config "name" .name -}}
+    {{- end -}}
+    {{- $cloud_models = set $cloud_models .id $config -}}
+  {{- end -}}
+
+  {{- $providers = set $providers .ai.cloud.provider.id (dict
+        "npm" "@ai-sdk/openai-compatible"
+        "name" .ai.cloud.provider.name
+        "options" (dict
+          "baseURL" .ai.cloud.provider.url
+          "key" .ai.cloud.provider.key
+        )
+        "models" $cloud_models
+      )
+  -}}
+
+{{- end -}}
+
+{{- $mcp := dict -}}
+
+{{- if .app.searxng -}}
+  {{- $mcp = set $mcp "SearXNG" (dict
+        "type" "remote"
+        "url" (printf "http://localhost:%d/mcp" .searxng.mcp.port)
+      )
+  -}}
+{{- end -}}
+
+{{- $result := dict
+      "$schema" "https://opencode.ai/config.json"
+      "theme" (printf "catppuccin-%s" .ui.theme.catppuccin)
+      "enabled_providers" $enabled_providers
+      "keybinds" (dict "command_list" "alt+p")
+      "provider" $providers
+      "mcp" $mcp
+}}
+
+{{- $result | toPrettyJson -}}
 
 {{- end }}
