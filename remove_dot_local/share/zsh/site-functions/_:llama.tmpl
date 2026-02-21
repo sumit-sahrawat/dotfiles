@@ -1,0 +1,22 @@
+{{- if .ai.on.local -}}
+
+#compdef :llama
+
+local -a all_commands
+
+# Define available commands
+all_commands=(
+  'pull:Pull a model'
+  'pull-all:Pull all configured models'
+  'load:Load a model'
+  'unload:Unload a model'
+  'models:List available models'
+  'ps:List loaded models'
+)
+
+# If no arguments, show all commands
+if [[ ${#} -eq 0 ]]; then
+  _describe 'command' all_commands
+fi
+
+{{- end }}
