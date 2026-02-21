@@ -152,13 +152,11 @@ lang.zig = {{ dig "lang" "zig" true . }}
 # Chezmoi
 ################################################################################
 
-[diff]
-pager = "delta"
+diff.pager = "delta"
 
 {{- if $neovim }}
 
-[merge]
-command = "nvim"
-args = {{ list "-d" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" | toToml }}
+merge.command = "nvim"
+merge.args = {{ list "-d" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" | toToml }}
 
 {{- end }}
