@@ -148,15 +148,7 @@ data:
         name: {{ dig "ai" "local" "provider" "name" "[Local]" . | quote }}
         port: {{ dig "ai" "local" "provider" "port" 42000 . }}
 
-      {{- $local_models := dig "ai" "local" "models" (list) . }}
-      models:
-      {{- if empty $local_models }}
-      {{- " []" }}
-      {{- else }}
-      {{- range $local_models }}
-        - {{ . | quote }}
-      {{- end }}
-      {{- end }}
+{{ (dict "models" (dig "ai" "local" "models" (list) .)) | toYaml | trim | indent 6 }}
 
 {{- end }}
 
@@ -169,14 +161,6 @@ data:
         url: {{ promptStringOnce . "ai.cloud.provider.url" "[ai] cloud.provider.url" | quote }}
         key: {{ promptStringOnce . "ai.cloud.provider.key" "[ai] cloud.provider.key" | quote }}
 
-      {{- $cloud_models := dig "ai" "cloud" "models" (list) . }}
-      models:
-      {{- if empty $cloud_models }}
-      {{- " []" }}
-      {{- else }}
-      {{- range $cloud_models }}
-        - {{ . | quote }}
-      {{- end }}
-      {{- end }}
+{{ (dict "models" (dig "ai" "cloud" "models" (list) .)) | toYaml | trim | indent 6 }}
 
 {{- end }}

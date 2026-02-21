@@ -22,7 +22,7 @@
 
 {{- $local_models := dict }}
 {{- range .ai.local.models }}
-{{- $local_models = set $local_models . (dict) }}
+{{- $local_models = set $local_models .id (dict) }}
 {{- end }}
     {{ .ai.local.provider.id | quote }}: {
       "npm": "@ai-sdk/openai-compatible",
@@ -39,7 +39,7 @@
 
 {{- $cloud_models := dict }}
 {{- range .ai.cloud.models }}
-{{- $cloud_models = set $cloud_models . (dict) }}
+{{- $cloud_models = set $cloud_models .id (dict) }}
 {{- end }}
     {{ .ai.cloud.provider.id | quote }}: {
       "npm": "@ai-sdk/openai-compatible",
