@@ -10,6 +10,9 @@ return {
     },
   },
   {
+    "HiPhish/rainbow-delimiters.nvim",
+  },
+  {
     -- space efficient alternative to winbar
     "b0o/incline.nvim",
     event = "VeryLazy",
