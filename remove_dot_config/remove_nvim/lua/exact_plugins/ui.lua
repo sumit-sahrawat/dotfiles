@@ -48,9 +48,6 @@ return {
           explorer = { hidden = true },
         },
       },
-      indent = {
-        enabled = false,
-      },
       lazygit = {
         configure = false,
       },
