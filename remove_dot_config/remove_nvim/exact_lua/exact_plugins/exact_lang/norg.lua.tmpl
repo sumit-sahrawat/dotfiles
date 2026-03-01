@@ -25,6 +25,7 @@ return {
           },
         },
         ["core.concealer"] = {},
+        ["core.text-objects"] = {},
         ["core.completion"] = {
           config = { engine = { module_name = "external.lsp-completion" } },
         },
@@ -57,6 +58,12 @@ return {
 
       { "<M-h>", "<Plug>(neorg.promo.demote.range)gv", mode = "v", desc = "Demote Recursively", ft = "norg" },
       { "<M-l>", "<Plug>(neorg.promo.promote.range)gv", mode = "v", desc = "Promote Recursively", ft = "norg" },
+
+      { "<M-k>", "<Plug>(neorg.text-objects.item-up)", desc = "Move Item Up", ft = "norg" },
+      { "<M-j>", "<Plug>(neorg.text-objects.item-down)", desc = "Move Item Down", ft = "norg" },
+
+      { "ih", "<Plug>(neorg.text-objects.textobject.heading.inner)", mode = { "o", "x" }, desc = "heading", ft = "norg" },
+      { "ah", "<Plug>(neorg.text-objects.textobject.heading.outer)", mode = { "o", "x" }, desc = "heading", ft = "norg" },
 
       { "<leader>ol", "", desc = "+list" },
       { "<leader>oli", "<Plug>(neorg.pivot.list.invert)", desc = "Invert" },
