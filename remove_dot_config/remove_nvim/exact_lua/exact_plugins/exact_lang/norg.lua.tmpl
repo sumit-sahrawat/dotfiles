@@ -1,0 +1,76 @@
+return {
+  {
+    "nvim-neorg/neorg",
+    lazy = false,
+    dependencies = {
+      "nvim-neorg/tree-sitter-norg",
+      "benlubas/neorg-interim-ls",
+    },
+    opts = {
+      load = {
+        ["core.defaults"] = {},
+        ["core.keybinds"] = {
+          config = {
+            default_keybinds = false,
+          },
+        },
+        ["core.dirman"] = {
+          config = {
+            index = "index.norg",
+            workspaces = {
+{{- range $key, $value := .neovim.neorg.workspaces }}
+              {{ $key }} = {{ $value | quote }},
+{{- end }}
+            },
+          },
+        },
+        ["core.concealer"] = {},
+        ["core.completion"] = {
+          config = { engine = { module_name = "external.lsp-completion" } },
+        },
+        ["external.interim-ls"] = {},
+      },
+    },
+    keys = {
+      -- global keybinds
+      { "<leader>o", "", desc = "+neorg" },
+
+      { "<leader>on", "<Plug>(neorg.dirman.new-note)", desc = "New Note" },
+
+      { "<leader>oj", "", desc = "+journal" },
+      { "<leader>ojj", "<cmd>Neorg journal custom<cr>", desc = "Journal by Date" },
+      { "<leader>ojy", "<cmd>Neorg journal yesterday<cr>", desc = "Yesterday's Journal" },
+      { "<leader>ojt", "<cmd>Neorg journal today<cr>", desc = "Today's Journal" },
+      { "<leader>ojm", "<cmd>Neorg journal tomorrow<cr>", desc = "Tomorrow's Journal" },
+
+      -- ftype specific keybinds
+      { "<C-CR>", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", desc = "Cycle Task State", ft = "norg" },
+
+      { "<leader>oc", "<cmd>Neorg toc<cr>", desc = "Table of Contents", ft = "norg" },
+      { "<leader>om", "<cmd>Neorg toc<cr>", desc = "Magnify", ft = "norg" },
+
+      { "<M-h>", "<Plug>(neorg.promo.demote.nested)", mode = { "n", "i" }, desc = "Demote Recursively", ft = "norg" },
+      { "<M-S-h>", "<Plug>(neorg.promo.demote)", mode = { "n", "i" }, desc = "Demote", ft = "norg" },
+
+      { "<M-l>", "<Plug>(neorg.promo.promote.nested)", mode = { "n", "i" }, desc = "Promote Recursively", ft = "norg" },
+      { "<M-S-l>", "<Plug>(neorg.promo.promote)", mode = { "n", "i" }, desc = "Promote", ft = "norg" },
+
+      { "<M-h>", "<Plug>(neorg.promo.demote.range)gv", mode = "v", desc = "Demote Recursively", ft = "norg" },
+      { "<M-l>", "<Plug>(neorg.promo.promote.range)gv", mode = "v", desc = "Promote Recursively", ft = "norg" },
+
+      { "<leader>ol", "", desc = "+list" },
+      { "<leader>oli", "<Plug>(neorg.pivot.list.invert)", desc = "Invert" },
+      { "<leader>olt", "<Plug>(neorg.pivot.list.toggle)", desc = "Toggle" },
+
+      { "<leader>ot", "", desc = "+task" },
+      { "<leader>ota", "<Plug>(neorg.qol.todo-items.todo.task-ambiguous)", desc = "Ambiguous" },
+      { "<leader>otc", "<Plug>(neorg.qol.todo-items.todo.task-cancelled)", desc = "Cancelled" },
+      { "<leader>otd", "<Plug>(neorg.qol.todo-items.todo.task-done)", desc = "Done" },
+      { "<leader>oth", "<Plug>(neorg.qol.todo-items.todo.task-on-hold)", desc = "On Hold" },
+      { "<leader>oti", "<Plug>(neorg.qol.todo-items.todo.task-important)", desc = "Important" },
+      { "<leader>otp", "<Plug>(neorg.qol.todo-items.todo.task-pending)", desc = "Pending" },
+      { "<leader>otr", "<Plug>(neorg.qol.todo-items.todo.task-recurring)", desc = "Recurring" },
+      { "<leader>otu", "<Plug>(neorg.qol.todo-items.todo.task-undone)", desc = "Undone" },
+    },
+  },
+}
