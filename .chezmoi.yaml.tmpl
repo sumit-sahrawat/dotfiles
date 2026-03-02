@@ -7,13 +7,6 @@ data:
   homebrew:
     prefix: "/opt/homebrew"
 
-  diff:
-    pager: "delta"
-
-  merge:
-    command: "nvim"
-    args: [ {{- list "-d" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" | quoteList | join ", " -}} ]
-
   input:
     keyboard:
       caps2ctrl: {{ dig "input" "keyboard" "caps2ctrl" true . }}
@@ -75,6 +68,17 @@ data:
   tool:
     editor: {{ ternary "nvim" "vim" $neovim | quote }}
     merge: {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
+
+  diff:
+    pager: "delta"
+
+{{- if $neovim }}
+
+  merge:
+    command: "nvim"
+    args: [ {{- list "-d" "{{ .Destination }}" "{{ .Source }}" "{{ .Target }}" | quoteList | join ", " -}} ]
+
+{{- end }}
 
 {{- if $git }}
 
