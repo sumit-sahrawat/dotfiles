@@ -131,7 +131,7 @@ data:
     font:
       pragmata: {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
       family: {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
-      size: {{ dig "terminal" "font" "size" 16 . }}
+      size: {{ dig "terminal" "font" "size" 18 . }}
 
 {{- end }}
 
