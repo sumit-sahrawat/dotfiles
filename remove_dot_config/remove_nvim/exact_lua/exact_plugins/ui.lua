@@ -1,5 +1,24 @@
 return {
   {
+    -- notification style popups
+    "folke/noice.nvim",
+    opts = {
+      routes = {
+        {
+          view = "messages",
+          filter = {
+            event = "msg_show",
+            kind = {
+              "shell_out",
+              "shell_err",
+              "shell_ret",
+            },
+          },
+        },
+      },
+    },
+  },
+  {
     -- status line
     "nvim-lualine/lualine.nvim",
     opts = {
