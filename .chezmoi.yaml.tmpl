@@ -114,14 +114,6 @@ data:
 
 {{- end }}
 
-{{- if $neovim }}
-
-  neovim:
-    neorg:
-{{ dict "workspaces" (dig "neovim" "neorg" "workspaces" (dict) .) | toYaml | trim | indent 6 }}
-
-{{- end }}
-
 {{- if $searxng }}
 
   searxng:
