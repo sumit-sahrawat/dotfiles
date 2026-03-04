@@ -146,6 +146,7 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 
 {{- if .lang.rust }}
   brew "rust"
+  brew "rust-analyzer"
 {{- end }}
 
 {{- if .lang.zig }}
