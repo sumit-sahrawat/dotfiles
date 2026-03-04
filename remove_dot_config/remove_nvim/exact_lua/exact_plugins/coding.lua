@@ -88,9 +88,6 @@ return {
     -- enable keybinds for live-rename iff LSP is active
     "neovim/nvim-lspconfig",
     opts = {
-      codelens = {
-        enabled = true,
-      },
       servers = {
         ["*"] = {
           keys = {
