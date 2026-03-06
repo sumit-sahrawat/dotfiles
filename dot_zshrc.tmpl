@@ -123,11 +123,17 @@ z4h load --compile zimfw/git
 
 alias "${gprefix}"=lazygit
 
-# lga = lg with --all
+# lga = lg with --all branches
 alias "${gprefix}lga"="${gprefix}lg --all"
 
-# lgl = lg with --branches
+# lgl = lg with (local) --branches
 alias "${gprefix}lgl"="${gprefix}lg --branches"
+
+# lt = log topology/structure
+alias "${gprefix}lt"="${gprefix}lg --simplify-by-decoration --branches"
+
+# lta = lt with --all
+alias "${gprefix}lta"="${gprefix}lg --simplify-by-decoration --all"
 
 # cst = commit show stat
 alias "${gprefix}cst"="git show --stat"
