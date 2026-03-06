@@ -26,6 +26,10 @@
 		<string>{{ .ai.local.provider.port }}</string>
 		<string>--models-preset</string>
 		<string>{{ joinPath .chezmoi.homeDir ".config/llama-server/models.ini" }}</string>
+{{- if gt .ai.local.provider.idle_timeout 0 }}
+		<string>--sleep-idle-seconds</string>
+		<string>{{ .ai.local.provider.idle_timeout }}</string>
+{{- end }}
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
