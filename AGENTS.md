@@ -1,13 +1,15 @@
 # AGENTS.md
 
-## Build/Lint/Test Commands
+## About This Repository
 
-This is a **chezmoi dotfiles repository** managing macOS configurations.
+This is a **chezmoi dotfiles repository** managing macOS configurations. All configuration is templated using Go templates and deployed via chezmoi.
+
+## Build/Lint/Test Commands
 
 ### Chezmoi Commands
 
 ```bash
-# View currentchezmoi configuration
+# View managed files
 chezmoi managed
 
 # Preview changes before applying
@@ -24,6 +26,9 @@ chezmoi git pull
 
 # Run a specific script manually
 chezmoi run-script <script-name>
+
+# Edit configuration
+chezmoi edit
 ```
 
 ### Scripts Directory
@@ -43,20 +48,21 @@ Located in `.chezmoiscripts/`:
 
 ### Language Support
 
-Configurable languages in `.chezmoi.toml.tmpl`:
+Configurable languages in `.chezmoi.yaml.tmpl`:
 
 - bash
 - cpp (cmake, meson)
 - go
+- java (maven)
 - javascript/node
-- python (with uv)
-- rust (with rustup)
-- zig, odin, gleam, nasm
-- haskell (ghcup), java (maven), ocaml, lua, scheme, sqlite
+- odin
+- python (uv)
+- rust
+- zig
 
 ## Code Style Guidelines
 
-### Templates (TOML/Go)
+### Templates (TOML/YAML/Go)
 
 1. **File extension**: Use `.tmpl` suffix for all templates
 2. **Conditional blocks**: Use `{{- if ... }}` with whitespace trimming (`{{-` / `-}}`)
@@ -87,27 +93,24 @@ Configurable languages in `.chezmoi.toml.tmpl`:
 
 1. Check prerequisites before operations
 2. Use `|| return` in templates for shell safety
-3. Validate OS (currently macOS-only: `.chezmoi.toml.tmpl:1`)
+3. Validate OS (currently macOS-only: `.chezmoi.yaml.tmpl:1`)
 4. Use `brew bundle` with `--no-upgrade --quiet`
 
 ### Formatting
 
 - **Indentation**: 2 spaces for TOML/config
 - **Line length**: Prefer readability over strict limits
-- **ordering**:
+- **Ordering**:
   - Config sections in logical order (INPUT → UI → Apps → LANGS)
   - Alphabetical within categories where sensible
   - Comments with `#` for sections
 
-## Existing Rules (cursorrules/copilot-instructions)
-
-No Cursor or Copilot rules found. Create `.cursor/rules/` or `.github/copilot-instructions.md` if needed.
-
 ## Additional Notes
 
 1. **Always test changes** with `chezmoi diff` before `chezmoi apply`
-2. **macOS-only**: Code assumes macOS (see `.chezmoi.toml.tmpl:2`)
+2. **macOS-only**: Code assumes macOS (see `.chezmoi.yaml.tmpl:1`)
 3. **XDG compliance**: Uses `~/.config` via `XDG_CONFIG_HOME`
 4. **Homebrew**: Centralized package management via Brewfile
 5. **Terminal apps**: ghostty/wezterm for terminal
-6. **Edit**: neovim/vim (configurable via `tool.editor`)
+6. **Editor**: neovim/vim (configurable via `tool.editor`)
+
