@@ -7,49 +7,40 @@ set -euo pipefail
 COMMAND="${1}"
 shift
 
+ALL_MODELS=(
+  {{- range .ai.local.models }}
+  {{ .id | quote }}
+  {{- end }}
+)
+
+TARGET_MODELS=("${@:-${ALL_MODELS[@]}}")
+
 BASE_URL='http://localhost:{{ .ai.local.provider.port }}'
 
 function pull {
-  MODEL="${1}";
-  llama-cli --prompt '/exit' -hf "${MODEL}";
+  for MODEL in "${TARGET_MODELS[@]}"; do
+    llama-cli --prompt '/exit' -hf "${MODEL}"
+  done
 }
 
-function call {
-  local CURL_ARGS=(-s)
-
+function get {
   local ENDPOINT="${1}"
-  shift
+  curl -s "${BASE_URL}/${ENDPOINT}"
+}
 
-  CURL_ARGS+=("${BASE_URL}/${ENDPOINT}")
-
-  if [[ ${#} -gt 0 ]]; then
-    local MODEL="${1}"
-    shift
-
-    CURL_ARGS+=(
-      -d
-      "{ \"model\": \"${MODEL}\" }"
-    )
-  fi
-
-  curl "${CURL_ARGS[@]}"
+function post {
+  local ENDPOINT="${1}"
+  for MODEL in "${TARGET_MODELS[@]}"; do
+    curl -s "${BASE_URL}/${ENDPOINT}" -d "{ \"model\": \"${MODEL}\" }" | jq .
+  done
 }
 
 case "${COMMAND}" in
-pull) pull "${1}" ;;
-pull-all)
-  {{- range .ai.local.models }}
-  pull {{ .id | quote }}
-  {{- end }}
-  ;;
-load)
-  call models/load "${1}" ;;
-unload)
-  call models/unload "${1}" ;;
-models)
-  call models | jq -r '.data[].id' ;;
-ps)
-  call models | jq -r '.data.[] | select(.status.value == "loaded") | .id' ;;
+pull) pull ;;
+load) post models/load ;;
+unload) post models/unload ;;
+models) get models | jq -r '.data[].id' ;;
+ps) get models | jq -r '.data.[] | select(.status.value == "loaded") | .id' ;;
 *)
   echo "Unknown command: ${COMMAND}"
   exit 1
