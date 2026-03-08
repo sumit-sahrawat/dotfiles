@@ -66,6 +66,9 @@ z4h install zimfw/git
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
+# Case insensitive search in less
+LESS+="I"
+
 # Colors for ls, tree, fd, etc.
 export LS_COLORS="{{- output "vivid" "generate" (printf "catppuccin-%s" .ui.theme.catppuccin) | trim -}}"
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
