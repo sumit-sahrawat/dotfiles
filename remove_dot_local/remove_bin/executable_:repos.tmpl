@@ -77,6 +77,9 @@ while read -r line; do
 
       if [[ ${current_branch} == ${target_branch} ]]; then
         trying_to "Already on branch '${target_branch}' for" "${remote}" 'at' "${target}"
+      else
+        trying_to "Checkout branch '${target_branch}' for" "${remote}" 'at' "${target}"
+        git -C "${target}" checkout "${target_branch}"
       fi
       ;;
     *)
