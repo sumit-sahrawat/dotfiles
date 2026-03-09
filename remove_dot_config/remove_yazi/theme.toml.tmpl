@@ -1,16 +1,15 @@
-{{- $flavor := .ui.theme.catppuccin -}}
-{{- $accent := "blue" }}
-{{- $rel := printf ".config/yazi/catppuccin/themes/%s/catppuccin-%s-%s.toml" $flavor $flavor $accent -}}
-{{- $catppuccin := include (joinPath .chezmoi.homeDir $rel) | fromToml -}}
+{{- $flavor := printf "catppuccin-%s" .ui.theme.catppuccin -}}
 {{- $tmTheme := printf "~/.config/bat/themes/themes/Catppuccin %s.tmTheme" (.ui.theme.catppuccin | title) -}}
+{{- $mode := ternary "dark" "light" .ui.theme.is_dark -}}
 
 {{- $sep_flat := dict "open" "" "close" "" -}}
 {{- $padding_flat := dict "open" "█" "close" "█" -}}
 
-{{- $overrides := dict
+{{- $config := dict
+  "flavor" (dict $mode $flavor)
   "mgr" (dict "syntect_theme" $tmTheme)
   "status" (dict "sep_left" $sep_flat "sep_right" $sep_flat)
   "indicator" (dict "padding" $padding_flat)
 -}}
 
-{{- mergeOverwrite $catppuccin $overrides | toToml }}
+{{- $config | toToml }}
