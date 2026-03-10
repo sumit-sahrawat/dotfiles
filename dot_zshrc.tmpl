@@ -214,6 +214,9 @@ alias c='bat --style=plain'
 alias b='bat --style=default'
 alias f='yazi'
 alias e='${EDITOR}'
+{{- if .app.neovim }}
+alias n='nvim -R'
+{{- end }}
 alias o='open'
 alias q='exit'
 
