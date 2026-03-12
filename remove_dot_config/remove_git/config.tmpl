@@ -1,11 +1,6 @@
 {{- if .app.git -}}
 
-[user]
-  name = {{ .git.global.user.name }}
-  email = {{ .git.global.user.email }}
-  signingkey = {{ .git.global.user.key }}
 [core]
-  sshCommand = "ssh -i {{ .git.global.user.key | squote }} -o IdentitiesOnly=yes"
   pager = delta
   excludesFile = ~/.config/git/ignore
 [interactive]
@@ -45,12 +40,27 @@
   format = ssh
 [gpg "ssh"]
   allowedSignersFile = ~/.config/git/allowed_signers
+
+{{- range $file, $host := dict "codeberg" "codeberg.org" "github" "github.com" }}
+
+[includeIf "hasconfig:remote.*.url:git@{{ $host }}:**/**"]
+  path = ~/.config/git/{{ $file }}
+[includeIf "hasconfig:remote.*.url:ssh://git@{{ $host }}:**/**"]
+  path = ~/.config/git/{{ $file }}
+[includeIf "hasconfig:remote.*.url:https://{{ $host }}/**"]
+  path = ~/.config/git/{{ $file }}
+
+{{- end }}
+
 {{- if .git.isolated.enabled }}
 {{- range .git.isolated.dirs }}
+
 [includeIf "gitdir:{{ . }}/**"]
   path = ~/.config/git/isolated
+
 {{- end }}
 {{- end }}
+
 [include]
   path = ~/.config/git/private
 

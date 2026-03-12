@@ -5,7 +5,7 @@
 
 {{- $neovim := dig "app" "neovim" true . -}}
 
-{{- if $neovim }}
+{{- if $neovim -}}
 
 merge:
   command: "nvim"
@@ -90,16 +90,19 @@ data:
       prefix: {{ dig "git" "alias" "prefix" ":g" . | quote }}
 
 {{- $default_name := "Sumit Sahrawat" }}
-{{- $default_email := "sumit-sahrawat@noreply.codeberg.org" }}
-{{- $default_key_name := "id_ed25519" }}
 {{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
 
-    global:
-      user:
-        name: {{ dig "git" "global" "user" "name" $default_name . | quote }}
-        email: {{ dig "git" "global" "user" "email" $default_email . | quote }}
-        key_name: {{ $global_key_name := dig "git" "global" "user" "key_name" $default_key_name . }}{{ $global_key_name | quote }}
-        key: {{ joinPath $ssh_dir $global_key_name | quote }}
+    codeberg:
+      name: {{ dig "git" "codeberg" "name" "Sumit Sahrawat" . | quote }}
+      email: {{ dig "git" "codeberg" "email" "sumit-sahrawat@noreply.codeberg.org" . | quote }}
+      key_name: {{ $codeberg_key_name := dig "git" "codeberg" "key_name" "id_ed25519" . }}{{ $codeberg_key_name | quote }}
+      key: {{ joinPath $ssh_dir $codeberg_key_name | quote }}
+
+    github:
+      name: {{ dig "git" "github" "name" "Sumit Sahrawat" . | quote }}
+      email: {{ dig "git" "github" "email" "139506625+sumit-sahrawat@users.noreply.github.com" . | quote }}
+      key_name: {{ $github_key_name := dig "git" "github" "key_name" "id_ed25519" . }}{{ $github_key_name | quote }}
+      key: {{ joinPath $ssh_dir $github_key_name | quote }}
 
     isolated:
 

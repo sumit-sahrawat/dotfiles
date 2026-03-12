@@ -1,4 +1,5 @@
-{{ .git.global.user.email }} {{ output "cat" (printf "%s.pub" .git.global.user.key) | trim }}
+{{ .git.codeberg.email }} {{ output "cat" (printf "%s.pub" .git.codeberg.key) | trim }}
+{{ .git.github.email }} {{ output "cat" (printf "%s.pub" .git.github.key) | trim }}
 
 {{- if .git.isolated.enabled }}
 {{ .git.isolated.user.email }} {{ output "cat" (printf "%s.pub" .git.isolated.user.key) | trim }}

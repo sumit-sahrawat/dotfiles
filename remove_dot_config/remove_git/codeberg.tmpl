@@ -1,0 +1,6 @@
+[user]
+  name = {{ .git.codeberg.name }}
+  email = {{ .git.codeberg.email }}
+  signingkey = {{ .git.codeberg.key }}
+[core]
+  sshCommand = "ssh -i {{ .git.codeberg.key | squote }} -o IdentitiesOnly=yes"
