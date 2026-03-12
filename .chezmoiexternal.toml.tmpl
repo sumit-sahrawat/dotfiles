@@ -41,6 +41,15 @@ refreshPeriod = "168h"
 
 {{- end }}
 
+{{- if and .app.obsidian .app.opencode }}
+
+[".config/opencode/skills/obsidian-skills"]
+type = "git-repo"
+url = "https://github.com/kepano/obsidian-skills.git"
+refreshPeriod = "168h"
+
+{{- end }}
+
 {{- if .lang.java }}
 
 [".cache/bazel-eclipse"]
