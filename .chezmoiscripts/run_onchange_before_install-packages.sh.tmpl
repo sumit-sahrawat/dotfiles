@@ -96,6 +96,7 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 
 {{- if .app.obsidian }}
   cask "obsidian"
+  cask "font-overpass"
 {{- end }}
 
 {{- if .app.opencode }}
