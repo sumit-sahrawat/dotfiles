@@ -5,9 +5,6 @@
 {{- range .ai.local.models }}
 
 [{{ .id }}]
-{{- if hasKey . "name" }}
-alias = {{ .name }}
-{{- end }}
 {{- if hasKey . "llama" }}
 {{ .llama | toIni }}
 {{- end }}
