@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{- $agency_dir := joinPath .chezmoi.homeDir ".config/agency" }}
+
+# {{ output "git" "-C" $agency_dir "rev-parse" "HEAD" }}
+
+cd {{ $agency_dir | quote }}
+git clean -dffx
+./scripts/convert.sh --tool opencode
