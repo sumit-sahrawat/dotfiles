@@ -67,6 +67,9 @@ return {
           explorer = { hidden = true },
         },
       },
+      image = {
+        enabled = true,
+      },
       lazygit = {
         configure = false,
       },
