@@ -94,6 +94,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "node"
 {{- end }}
 
+{{- if .app.obsidian }}
+  cask "obsidian"
+{{- end }}
+
 {{- if .app.opencode }}
   brew "opencode"
 {{- end }}
