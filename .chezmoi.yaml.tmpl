@@ -64,7 +64,6 @@ data:
     obsidian: {{ dig "app" "obsidian" true . }}
     opencode: {{ dig "app" "opencode" true . }}
     searxng: {{ $searxng }}
-    wezterm: {{ $wezterm := dig "app" "wezterm" true . }}{{ $wezterm }}
     zsh: {{ dig "app" "zsh" true . }}
 
   lang:
@@ -135,7 +134,7 @@ data:
 
 {{- end }}
 
-{{- if or $ghostty $wezterm }}
+{{- if $ghostty }}
 
   terminal:
     font:

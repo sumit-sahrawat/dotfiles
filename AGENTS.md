@@ -111,6 +111,5 @@ Configurable languages in `.chezmoi.yaml.tmpl`:
 2. **macOS-only**: Code assumes macOS (see `.chezmoi.yaml.tmpl:1`)
 3. **XDG compliance**: Uses `~/.config` via `XDG_CONFIG_HOME`
 4. **Homebrew**: Centralized package management via Brewfile
-5. **Terminal apps**: ghostty/wezterm for terminal
+5. **Terminal apps**: ghostty for terminal
 6. **Editor**: neovim/vim (configurable via `tool.editor`)
-
