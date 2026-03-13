@@ -1,33 +1,38 @@
 {{- if .app.ghostty -}}
 
-shell-integration = none
+# Reference: ghostty +show-config --default --docs
+
+font-family = {{ .terminal.font.family | quote }}
+font-synthetic-style = false
+font-size = {{ .terminal.font.size }}
+font-shaping-break = cursor
+window-title-font-family = {{ .terminal.font.family | quote }}
+
+theme = catppuccin-{{ .ui.theme.catppuccin }}.conf
+window-colorspace = display-p3
 
 custom-shader = shaders/cursor.glsl
 
-font-family = {{ .terminal.font.family }}
-font-size = {{ .terminal.font.size }}
-font-synthetic-style = false
-font-thicken = false
-
-font-shaping-break = cursor
-
 macos-option-as-alt = true
-
-theme = catppuccin-{{ .ui.theme.catppuccin }}.conf
-
-macos-titlebar-style = tabs
-
-link-previews = osc8
-
-confirm-close-surface = false
-
-maximize = true
-
-adjust-cursor-thickness = 2
-
-window-padding-balance = true
+shell-integration = none
+scrollback-limit = 10000000
 
 quick-terminal-animation-duration = 0.1
+
+adjust-cursor-thickness = 2
+macos-titlebar-style = tabs
+maximize = true
+minimum-contrast = 1.1
+mouse-hide-while-typing = true
+window-padding-balance = true
+
+notify-on-command-finish = always
+notify-on-command-finish-after = 5s
+
+clipboard-paste-protection = false
+confirm-close-surface = false
+
+auto-update = off
 
 # remove default keybinds
 keybind = clear
