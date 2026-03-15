@@ -14,6 +14,11 @@ return {
         width = "full",
         border = "thick",
       },
+      anti_conceal = {
+        ignore = {
+          code_background = false, -- make cursorline work in code blocks
+        },
+      },
     },
   },
 }
