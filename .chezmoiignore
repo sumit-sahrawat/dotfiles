@@ -4,3 +4,7 @@
 {{- if not .app.neovim }}
 /.config/nvim/
 {{- end }}
+
+{{- if not .app.searxng }}
+/.searxng/
+{{- end }}
