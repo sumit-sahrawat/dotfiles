@@ -46,6 +46,7 @@ data:
       tilesize: {{ dig "ui" "dock" "tilesize" 48 . }}
 
   app:
+    brave: {{ dig "app" "brave" true . }}
     direnv: {{ dig "app" "direnv" true . }}
 
     {{- $searxng := dig "app" "searxng" true . }}

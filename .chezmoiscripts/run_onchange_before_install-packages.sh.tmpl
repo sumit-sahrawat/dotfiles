@@ -51,6 +51,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 # Apps
 ################################################################################
 
+{{- if .app.brave }}
+  cask "brave-browser"
+{{- end }}
+
 {{- if .app.direnv }}
   brew "direnv"
 {{- end }}
