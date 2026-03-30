@@ -1,6 +1,12 @@
 {{- if .app.git -}}
 
-{{- if .app.neovim -}}
+git:
+  pagers:
+    - pager: delta --paging=never --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+    - pager: delta --paging=never --hyperlinks-file-link-format="lazygit-edit://{path}:{line}" --side-by-side
+    - externalDiffCommand: difft --color=always
+
+{{- if .app.neovim }}
 
 os:
   editPreset: "nvim-remote"
