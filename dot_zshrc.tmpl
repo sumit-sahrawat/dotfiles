@@ -157,6 +157,13 @@ alias ${gprefix}ids="${aliases[${gprefix}id]/git/git-split}"
 alias ${gprefix}lds="${aliases[${gprefix}ld]/git/git-split}"
 alias ${gprefix}sds="${aliases[${gprefix}sd]/git/git-split}"
 
+# aliases with s[y]ntax aware diffs via difftastic
+alias ${gprefix}wdy="${aliases[${gprefix}wd]} --ext-diff"
+alias ${gprefix}csy="${aliases[${gprefix}cs]} --ext-diff"
+alias ${gprefix}idy="${aliases[${gprefix}id]} --ext-diff"
+alias ${gprefix}ldy="${aliases[${gprefix}ld]} --ext-diff"
+alias ${gprefix}sdy="${aliases[${gprefix}sd]} --ext-diff"
+
 unset gprefix
 
 {{- end }}
