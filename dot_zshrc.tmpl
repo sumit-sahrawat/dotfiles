@@ -141,6 +141,9 @@ alias "${gprefix}lta"="${gprefix}lg --simplify-by-decoration --all"
 # cst = commit show stat
 alias "${gprefix}cst"="git show --stat"
 
+# allow overrides for remote name
+alias ${gprefix}pc="${aliases[${gprefix}pc]/origin/\"\${origin:-origin\}\"}"
+
 # aliases without delta [p]lain
 alias git-plain='git -c core.pager= -c interactive.diffFilter='
 alias ${gprefix}wdp="${aliases[${gprefix}wd]/git/git-plain}"
