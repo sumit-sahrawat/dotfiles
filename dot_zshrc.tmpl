@@ -145,20 +145,20 @@ alias "${gprefix}cst"="git show --stat"
 alias ${gprefix}pc="${aliases[${gprefix}pc]/origin/\"\${origin:-origin\}\"}"
 
 # aliases without delta [p]lain
-alias git-plain='git -c core.pager= -c interactive.diffFilter='
-alias ${gprefix}wdp="${aliases[${gprefix}wd]/git/git-plain}"
-alias ${gprefix}csp="${aliases[${gprefix}cs]/git/git-plain}"
-alias ${gprefix}idp="${aliases[${gprefix}id]/git/git-plain}"
-alias ${gprefix}ldp="${aliases[${gprefix}ld]/git/git-plain}"
-alias ${gprefix}sdp="${aliases[${gprefix}sd]/git/git-plain}"
+{{- $git_plain := "git -c core.pager= -c interactive.diffFilter=" }}
+alias ${gprefix}wdp="${aliases[${gprefix}wd]/git/{{ $git_plain }}}"
+alias ${gprefix}csp="${aliases[${gprefix}cs]/git/{{ $git_plain }}}"
+alias ${gprefix}idp="${aliases[${gprefix}id]/git/{{ $git_plain }}}"
+alias ${gprefix}ldp="${aliases[${gprefix}ld]/git/{{ $git_plain }}}"
+alias ${gprefix}sdp="${aliases[${gprefix}sd]/git/{{ $git_plain }}}"
 
 # aliases with [s]ide-by-side diffs in delta
-alias git-split='git -c delta.side-by-side=true'
-alias ${gprefix}wds="${aliases[${gprefix}wd]/git/git-split}"
-alias ${gprefix}css="${aliases[${gprefix}cs]/git/git-split}"
-alias ${gprefix}ids="${aliases[${gprefix}id]/git/git-split}"
-alias ${gprefix}lds="${aliases[${gprefix}ld]/git/git-split}"
-alias ${gprefix}sds="${aliases[${gprefix}sd]/git/git-split}"
+{{- $git_split := "git -c delta.side-by-side=true" }}
+alias ${gprefix}wds="${aliases[${gprefix}wd]/git/{{ $git_split }}}"
+alias ${gprefix}css="${aliases[${gprefix}cs]/git/{{ $git_split }}}"
+alias ${gprefix}ids="${aliases[${gprefix}id]/git/{{ $git_split }}}"
+alias ${gprefix}lds="${aliases[${gprefix}ld]/git/{{ $git_split }}}"
+alias ${gprefix}sds="${aliases[${gprefix}sd]/git/{{ $git_split }}}"
 
 # aliases with s[y]ntax aware diffs via difftastic
 alias ${gprefix}wdy="${aliases[${gprefix}wd]} --ext-diff"
