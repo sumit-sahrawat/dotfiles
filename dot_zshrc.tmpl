@@ -138,8 +138,10 @@ alias "${gprefix}lt"="${gprefix}lg --simplify-by-decoration --branches"
 # lta = lt with --all
 alias "${gprefix}lta"="${gprefix}lg --simplify-by-decoration --all"
 
-# cst = commit show stat
-alias "${gprefix}cst"="git show --stat"
+# aliases with --s[t]at
+alias "${gprefix}cst"="${aliases[${gprefix}cs]} --stat"
+alias "${gprefix}idt"="${aliases[${gprefix}id]} --stat"
+alias "${gprefix}wdt"="${aliases[${gprefix}wd]} --stat"
 
 # allow overrides for remote name
 alias ${gprefix}pc="${aliases[${gprefix}pc]/origin/\"\${origin:-origin\}\"}"
