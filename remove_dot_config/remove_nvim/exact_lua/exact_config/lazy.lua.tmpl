@@ -76,7 +76,7 @@ require("lazy").setup({
 {{- end }}
 
 {{- range $extra := sortAlpha $extras }}
-    { "LazyVim/LazyVim", import = {{ $extra | quote }} },
+    { import = {{ $extra | quote }} },
 {{- end }}
 
     -- import/override with your plugins
