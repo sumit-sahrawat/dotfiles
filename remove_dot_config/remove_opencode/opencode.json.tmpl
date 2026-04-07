@@ -62,6 +62,9 @@
     {{- if hasKey . "name" -}}
       {{- $config = set $config "name" .name -}}
     {{- end -}}
+    {{- if hasKey . "opencode" -}}
+      {{- $config = merge $config .opencode -}}
+    {{- end -}}
     {{- $cloud_models = set $cloud_models .id $config -}}
   {{- end -}}
 
