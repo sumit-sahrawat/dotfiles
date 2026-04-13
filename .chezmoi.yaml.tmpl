@@ -82,6 +82,13 @@ data:
     editor: {{ ternary "nvim" "vim" $neovim | quote }}
     merge: {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
 
+{{- if $docker }}
+
+  docker:
+    colima: {{ dig "docker" "colima" true . }}
+
+{{- end }}
+
 {{- if $git }}
 
   git:

@@ -61,12 +61,17 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 {{- end }}
 
 {{- if .app.docker }}
+  brew "lazydocker"
+
+  {{- if .docker.colima }}
   brew "colima"
   brew "docker"
   brew "docker-buildx"
   brew "docker-compose"
   brew "docker-credential-helper"
-  brew "lazydocker"
+  {{- else }}
+  cask "docker-desktop"
+  {{- end }}
 {{- end }}
 
 {{- if .app.ghostty }}
