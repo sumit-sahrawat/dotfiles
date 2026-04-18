@@ -94,7 +94,15 @@ data:
 
   claude_code:
     latest: {{ dig "claude_code" "latest" true . }}
-{{ dict "settings" (dig "claude_code" "settings" (dict) .) | toYaml | trim | indent 4 }}
+    settings:
+      $schema: "https://json.schemastore.org/claude-code-settings.json"
+      cleanupPeriodDays: 30
+      includeCoAuthoredBy: false
+      env:
+        DISABLE_BUG_COMMAND: "1"
+        DISABLE_ERROR_REPORTING: "1"
+        DISABLE_TELEMETRY: "1"
+{{ dict "overrides" (dig "claude_code" "overrides" (dict) .) | toYaml | trim | indent 4 }}
 
 {{- end }}
 
