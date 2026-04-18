@@ -92,7 +92,9 @@ data:
 
 {{- if $claude_code }}
 
-{{ dict "claude_code" (dig "claude_code" (dict) .) | toYaml | indent 2 }}
+  claude_code:
+    latest: {{ dig "claude_code" "latest" true . }}
+{{ dict "settings" (dig "claude_code" "settings" (dict) .) | toYaml | trim | indent 4 }}
 
 {{- end }}
 
