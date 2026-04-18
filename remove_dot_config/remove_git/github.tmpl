@@ -1,6 +1,10 @@
+{{- if .app.git -}}
+
 [user]
   name = {{ .git.github.name }}
   email = {{ .git.github.email }}
   signingkey = {{ .git.github.key }}
 [core]
   sshCommand = "ssh -i {{ .git.github.key | squote }} -o IdentitiesOnly=yes"
+
+{{- end }}

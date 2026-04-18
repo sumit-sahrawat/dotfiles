@@ -42,7 +42,7 @@ pull) pull ;;
 load) post models/load ;;
 unload) post models/unload ;;
 models) get models | jq -r '.data[].id' ;;
-ps) get models | jq -r '.data.[] | select(.status.value == "loaded") | .id' ;;
+ps) get models | jq -r '.data[] | select(.status.value == "loaded") | .id' ;;
 restart) launchctl unload "${PLIST}" && sleep 0.1 && launchctl load "${PLIST}" ;;
 *)
   echo "Unknown command: ${COMMAND}"
