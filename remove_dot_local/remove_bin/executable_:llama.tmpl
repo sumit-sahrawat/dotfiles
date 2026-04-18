@@ -1,4 +1,4 @@
-{{- if .ai.on.local -}}
+{{- if .app.llama -}}
 
 #!/usr/bin/env bash
 
@@ -10,14 +10,14 @@ COMMAND="${1}"
 shift
 
 ALL_MODELS=(
-  {{- range .ai.local.models }}
+  {{- range .llama.models }}
   {{ .id | quote }}
   {{- end }}
 )
 
 TARGET_MODELS=("${@:-${ALL_MODELS[@]}}")
 
-BASE_URL='http://localhost:{{ .ai.local.provider.port }}'
+BASE_URL='http://localhost:{{ .llama.port }}'
 
 function pull {
   for MODEL in "${TARGET_MODELS[@]}"; do

@@ -1,4 +1,4 @@
-{{- if .ai.on.local -}}
+{{- if .app.llama -}}
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -23,12 +23,12 @@
 	<array>
 		<string>{{ .homebrew.prefix }}/bin/llama-server</string>
 		<string>--port</string>
-		<string>{{ .ai.local.provider.port }}</string>
+		<string>{{ .llama.port }}</string>
 		<string>--models-preset</string>
 		<string>{{ joinPath .chezmoi.homeDir ".config/llama-server/models.ini" }}</string>
-{{- if gt .ai.local.provider.idle_timeout 0 }}
+{{- if gt .llama.idle_timeout 0 }}
 		<string>--sleep-idle-seconds</string>
-		<string>{{ .ai.local.provider.idle_timeout }}</string>
+		<string>{{ .llama.idle_timeout }}</string>
 {{- end }}
 	</array>
 	<key>RunAtLoad</key>

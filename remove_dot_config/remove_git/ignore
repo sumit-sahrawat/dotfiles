@@ -5,11 +5,9 @@
 .lazy.lua
 .neoconf.json
 
-### Cursor ###
-.cursor/
-
 ### Claude Code ###
-.claude/
+.claude/settings.local.json
+CLAUDE.local.md
 
 ### C++ ###
 

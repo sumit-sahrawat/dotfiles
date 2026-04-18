@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-{{- if .ai.on.local -}}
+{{- if .app.llama -}}
 
 {{- $plist_path := joinPath .chezmoi.homeDir "Library/LaunchAgents/com.example.llama.cpp.plist" }}
 

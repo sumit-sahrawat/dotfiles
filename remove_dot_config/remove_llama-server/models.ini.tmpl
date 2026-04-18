@@ -1,8 +1,8 @@
-{{- if .ai.on.local -}}
+{{- if .app.llama -}}
 
 # model presets
 
-{{- range .ai.local.models }}
+{{- range .llama.models }}
 
 [{{ .id }}]
 {{- if hasKey . "llama" }}

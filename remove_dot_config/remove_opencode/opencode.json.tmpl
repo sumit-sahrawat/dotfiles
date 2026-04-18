@@ -1,92 +1,29 @@
 {{- if .app.opencode -}}
 
-{{- $enabled_providers := list -}}
+{{- $provider_id := "local" -}}
 
-{{- if .ai.local.models -}}
-  {{- $enabled_providers = append $enabled_providers .ai.local.provider.id -}}
-{{- end -}}
-
-{{- if .ai.cloud.models -}}
-  {{- $enabled_providers = append $enabled_providers .ai.cloud.provider.id -}}
-{{- end -}}
-
-{{- $providers := dict -}}
-
-{{- if .ai.local.models -}}
-
-  {{- $local_models := dict -}}
-  {{- range .ai.local.models -}}
-    {{- $config := dict -}}
-    {{- if hasKey . "name" -}}
-      {{- $config = set $config "name" .name -}}
-    {{- end -}}
-    {{- $local_models = set $local_models .id $config -}}
+{{- $models := dict -}}
+{{- range .llama.models -}}
+  {{- $config := dict -}}
+  {{- if hasKey . "name" -}}
+    {{- $config = set $config "name" .name -}}
   {{- end -}}
-
-  {{- $providers = set $providers .ai.local.provider.id (dict
-        "npm" "@ai-sdk/openai-compatible"
-        "name" .ai.local.provider.name
-        "options" (dict "baseURL" (printf "http://localhost:%d/v1" .ai.local.provider.port ))
-        "models" $local_models
-  )
-  -}}
-
+  {{- $models = set $models .id $config -}}
 {{- end -}}
 
-{{- if .ai.local.models -}}
-
-  {{- $local_models := dict -}}
-  {{- range .ai.local.models -}}
-    {{- $config := dict -}}
-    {{- if hasKey . "name" -}}
-      {{- $config = set $config "name" .name -}}
-    {{- end -}}
-    {{- $local_models = set $local_models .id $config -}}
-  {{- end -}}
-
-  {{- $providers = set $providers .ai.local.provider.id (dict
-        "npm" "@ai-sdk/openai-compatible"
-        "name" .ai.local.provider.name
-        "options" (dict "baseURL" (printf "http://localhost:%d/v1" .ai.local.provider.port))
-        "models" $local_models
-      )
-  -}}
-
-{{- end -}}
-
-{{- if .ai.cloud.models -}}
-
-  {{- $cloud_models := dict -}}
-  {{- range .ai.cloud.models -}}
-    {{- $config := dict -}}
-    {{- if hasKey . "name" -}}
-      {{- $config = set $config "name" .name -}}
-    {{- end -}}
-    {{- if hasKey . "opencode" -}}
-      {{- $config = merge $config .opencode -}}
-    {{- end -}}
-    {{- $cloud_models = set $cloud_models .id $config -}}
-  {{- end -}}
-
-  {{- $providers = set $providers .ai.cloud.provider.id (dict
-        "npm" "@ai-sdk/openai-compatible"
-        "name" .ai.cloud.provider.name
-        "options" (dict
-          "baseURL" .ai.cloud.provider.url
-          "apiKey" .ai.cloud.provider.key
-        )
-        "models" $cloud_models
-      )
-  -}}
-
-{{- end -}}
+{{- $providers := dict $provider_id (dict
+      "npm" "@ai-sdk/openai-compatible"
+      "name" "llama.cpp"
+      "options" (dict "baseURL" (printf "http://localhost:%d/v1" (int .llama.port)))
+      "models" $models
+    )
+-}}
 
 {{- $mcp := dict -}}
-
 {{- if .app.searxng -}}
   {{- $mcp = set $mcp "SearXNG" (dict
         "type" "remote"
-        "url" (printf "http://localhost:%d/mcp" .searxng.mcp.port)
+        "url" (printf "http://localhost:%d/mcp" (int .searxng.mcp.port))
       )
   -}}
 {{- end -}}
@@ -94,12 +31,12 @@
 {{- $result := dict
       "$schema" "https://opencode.ai/config.json"
       "theme" (printf "catppuccin-%s" .ui.theme.catppuccin)
-      "enabled_providers" $enabled_providers
+      "enabled_providers" (list $provider_id)
       "keybinds" (dict "command_list" "<leader>p")
       "provider" $providers
       "mcp" $mcp
-}}
+-}}
 
-{{- $result | toPrettyJson -}}
+{{ $result | toPrettyJson }}
 
 {{- end }}

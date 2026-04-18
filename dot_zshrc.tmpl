@@ -186,7 +186,7 @@ z4h bindkey z4h-accept-line Enter
 
 if test -n "${GHOSTTY_RESOURCES_DIR}"; then
   # extra keybinds to make keys like shift+enter work like enter in ZLE while
-  # also supporting separate behavior in TUIs like opencode/claude-code
+  # also supporting separate behavior in TUIs like claude-code
   bindkey ';2;13~' z4h-accept-line  # shift-enter
   bindkey ';5;13~' z4h-accept-line  # ctrl-enter
   bindkey ';6;13~' z4h-accept-line  # ctrl-shift-enter
@@ -231,14 +231,6 @@ alias n='nvim -R'
 {{- end }}
 alias o='open'
 alias q='exit'
-
-{{- if .app.opencode }}
-
-alias ai='opencode'
-alias aic='opencode --continue'
-alias air='opencode --resume'
-
-{{- end }}
 
 {{- if .app.neovim }}
 

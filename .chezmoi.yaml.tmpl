@@ -47,6 +47,9 @@ data:
 
   app:
     brave: {{ dig "app" "brave" true . }}
+
+    {{- $claude_code := dig "app" "claude_code" true . }}
+    claude_code: {{ $claude_code }}
     direnv: {{ dig "app" "direnv" true . }}
 
     {{- $searxng := dig "app" "searxng" true . }}
@@ -59,10 +62,15 @@ data:
 
     {{- $git := dig "app" "git" true . }}
     git: {{ $git }}
+
+    {{- $llama := dig "app" "llama" true . }}
+    llama: {{ $llama }}
     mpv: {{ dig "app" "mpv" true . }}
     neovim: {{ $neovim }}
     obsidian: {{ dig "app" "obsidian" true . }}
-    opencode: {{ dig "app" "opencode" true . }}
+
+    {{- $opencode := and $llama (dig "app" "opencode" true .) }}
+    opencode: {{ $opencode }}
     searxng: {{ $searxng }}
     zsh: {{ dig "app" "zsh" true . }}
 
@@ -81,6 +89,12 @@ data:
   tool:
     editor: {{ ternary "nvim" "vim" $neovim | quote }}
     merge: {{ ternary "nvimdiff" "vimdiff" $neovim | quote }}
+
+{{- if $claude_code }}
+
+{{ dict "claude_code" (dig "claude_code" (dict) .) | toYaml | indent 2 }}
+
+{{- end }}
 
 {{- if $docker }}
 
@@ -130,6 +144,16 @@ data:
 
 {{- end }}
 
+{{- if $llama }}
+
+  llama:
+    port: {{ dig "llama" "port" 42000 . }}
+    idle_timeout: {{ dig "llama" "idle_timeout" 300 . }}
+
+{{ dict "models" (dig "llama" "models" (list) .) | toYaml | trim | indent 4 }}
+
+{{- end }}
+
 {{- if $searxng }}
 
   searxng:
@@ -148,36 +172,5 @@ data:
       pragmata: {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
       family: {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
       size: {{ dig "terminal" "font" "size" 15 . }}
-
-{{- end }}
-
-  ai:
-    on:
-      local: {{ $ai_on_local := dig "ai" "on" "local" true . }}{{ $ai_on_local }}
-      cloud: {{ $ai_on_cloud := dig "ai" "on" "cloud" true . }}{{ $ai_on_cloud }}
-
-{{- if $ai_on_local }}
-
-    local:
-      provider:
-        id: {{ dig "ai" "local" "provider" "id" "local" . | quote }}
-        name: {{ dig "ai" "local" "provider" "name" "[Local]" . | quote }}
-        port: {{ dig "ai" "local" "provider" "port" 42000 . }}
-        idle_timeout: {{ dig "ai" "local" "provider" "idle_timeout" 300 . }}
-
-{{ dict "models" (dig "ai" "local" "models" (list) .) | toYaml | trim | indent 6 }}
-
-{{- end }}
-
-{{- if $ai_on_cloud }}
-
-    cloud:
-      provider:
-        id: {{ promptStringOnce . "ai.cloud.provider.id" "[ai] cloud.provider.id" | quote }}
-        name: {{ promptStringOnce . "ai.cloud.provider.name" "[ai] cloud.provider.name" | quote }}
-        url: {{ promptStringOnce . "ai.cloud.provider.url" "[ai] cloud.provider.url" | quote }}
-        key: {{ promptStringOnce . "ai.cloud.provider.key" "[ai] cloud.provider.key" | quote }}
-
-{{ dict "models" (dig "ai" "cloud" "models" (list) .) | toYaml | trim | indent 6 }}
 
 {{- end }}
