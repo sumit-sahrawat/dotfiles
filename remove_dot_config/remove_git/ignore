@@ -6,21 +6,21 @@
 .neoconf.json
 
 ### Claude Code ###
-.claude/settings.local.json
+**/.claude/settings.local.json
 CLAUDE.local.md
 
 ### C++ ###
 
 # ClangD LSP for C++
-/.cache/clangd/
+**/.cache/clangd/
 
 ### Python ###
 
 # virtualenv
-.venv/
-.venv.bak/
-venv/
-venv.bak/
+**/.venv/
+**/.venv.bak/
+**/venv/
+**/venv.bak/
 
 # ruff stuff
 .ruff_cache/
