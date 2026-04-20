@@ -60,12 +60,6 @@ z4h install zimfw/git
 
 {{- end }}
 
-# Install or update core components (fzf, zsh-autosuggestions, etc.) and
-# initialize Zsh. After this point console I/O is unavailable until Zsh
-# is fully initialized. Everything that requires user interaction or can
-# perform network I/O must be done above. Everything else is best done below.
-z4h init || return
-
 # Case insensitive search in less
 LESS+="I"
 
@@ -110,6 +104,12 @@ fpath=(
 
   $fpath
 )
+
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
 
 # Make history substring search highlight actually readable with dark themes.
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
