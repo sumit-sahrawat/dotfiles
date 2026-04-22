@@ -248,19 +248,19 @@ alias :hp='chezmoi apply --init'
 alias :hu='chezmoi update --init'
 alias :hU='chezmoi update --init --refresh-externals'
 
-alias ls=eza
+alias ls='eza --hyperlink'
 
 # tree: include hidden files, exclude gitignored paths, exclude .git dir
-alias :t='eza --tree --git-ignore --ignore-glob .git --all'
+alias :t='eza --hyperlink --tree --git-ignore --ignore-glob .git --all'
 
 # tree: exclude hidden files, exclude gitignored paths, exclude .git dir
-alias :tA='eza --tree --git-ignore --ignore-glob .git'
+alias :tA='eza --hyperlink --tree --git-ignore --ignore-glob .git'
 
 # tree: include hidden files, include gitignored paths, exclude .git dir
-alias :tG='eza --tree --ignore-glob .git --all'
+alias :tG='eza --hyperlink --tree --ignore-glob .git --all'
 
 # tree: exclude hidden files, include gitignored paths, exclude .git dir
-alias :tGA='eza --tree --ignore-glob .git'
+alias :tGA='eza --hyperlink --tree --ignore-glob .git'
 
 {{- if .app.mpv }}
 
