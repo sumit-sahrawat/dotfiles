@@ -20,13 +20,6 @@
 -}}
 
 {{- $mcp := dict -}}
-{{- if .app.searxng -}}
-  {{- $mcp = set $mcp "SearXNG" (dict
-        "type" "remote"
-        "url" (printf "http://localhost:%d/mcp" (int .searxng.mcp.port))
-      )
-  -}}
-{{- end -}}
 
 {{- $result := dict
       "$schema" "https://opencode.ai/config.json"

@@ -52,11 +52,6 @@ data:
     claude_code: {{ $claude_code }}
     direnv: {{ dig "app" "direnv" true . }}
 
-    {{- $searxng := dig "app" "searxng" true . }}
-
-    {{- $docker := or $searxng (dig "app" "docker" true .) }}
-    docker: {{ $docker }}
-
     {{- $ghostty := dig "app" "ghostty" true . }}
     ghostty: {{ $ghostty }}
 
@@ -71,7 +66,6 @@ data:
 
     {{- $opencode := and $llama (dig "app" "opencode" true .) }}
     opencode: {{ $opencode }}
-    searxng: {{ $searxng }}
     zsh: {{ dig "app" "zsh" true . }}
 
   lang:
@@ -103,13 +97,6 @@ data:
         DISABLE_ERROR_REPORTING: "1"
         DISABLE_TELEMETRY: "1"
 {{ dict "overrides" (dig "claude_code" "overrides" (dict) .) | toYaml | trim | indent 4 }}
-
-{{- end }}
-
-{{- if $docker }}
-
-  docker:
-    colima: {{ dig "docker" "colima" true . }}
 
 {{- end }}
 
@@ -161,17 +148,6 @@ data:
     idle_timeout: {{ dig "llama" "idle_timeout" 300 . }}
 
 {{ dict "models" (dig "llama" "models" (list) .) | toYaml | trim | indent 4 }}
-
-{{- end }}
-
-{{- if $searxng }}
-
-  searxng:
-    host: {{ dig "searxng" "host" "localhost" . | quote }}
-    port: {{ dig "searxng" "port" 42001 . }}
-    mcp:
-      port: {{ dig "searxng" "mcp" "port" 42002 . }}
-    secret: {{ dig "searxng" "secret" (output "openssl" "rand" "-hex" "32" | trim) . | quote }}
 
 {{- end }}
 

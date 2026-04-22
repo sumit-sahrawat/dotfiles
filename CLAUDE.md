@@ -31,7 +31,6 @@ Configuration is opt-in via boolean flags set interactively with `promptBoolOnce
 - `claude_code.*` — claude-code settings.json (passed through as-is via `toPrettyJson`)
 - `llama.*` — llama.cpp server config (port, idle_timeout, models)
 - `terminal.font.*` — font family/size, PragmataPro conditional
-- `docker.colima` — colima vs Docker Desktop toggle
 
 ### Conditional File Management
 
@@ -44,7 +43,7 @@ All scripts are `run_onchange_*` — idempotent, re-triggered by content hash ch
 - `before_install-packages` — `brew bundle` with inline Brewfile (conditional sections per app/lang)
 - `after_setup-macos-defaults` — system defaults
 - `after_reload-keymap` — hidutil keyboard remapping
-- `after_setup-{docker,bat,llama}` — tool-specific post-install
+- `after_setup-{bat,llama}` — tool-specific post-install
 
 ### Custom CLI Tools (`remove_dot_local/remove_bin/`)
 
