@@ -27,6 +27,15 @@ refreshPeriod = "168h"
 
 {{- end }}
 
+{{- if .app.kitty }}
+
+[".config/kitty/catppuccin"]
+type = "git-repo"
+url = "https://github.com/catppuccin/kitty.git"
+refreshPeriod = "168h"
+
+{{- end }}
+
 {{- if .app.git }}
 
 [".config/delta/themes/catppuccin"]

@@ -71,7 +71,11 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   cask "ghostty"
 {{- end }}
 
-{{- if and .app.ghostty (not .terminal.font.pragmata) }}
+{{- if .app.kitty }}
+  cask "kitty"
+{{- end }}
+
+{{- if and .app.terminal (not .terminal.font.pragmata) }}
   cask "font-iosevka-ss08"
 {{- end }}
 

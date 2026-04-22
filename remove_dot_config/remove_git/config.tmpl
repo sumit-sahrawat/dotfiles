@@ -9,6 +9,9 @@
   navigate = true  # use n and N to move between diff sections
   line-numbers = true
   hyperlinks = true
+{{- if .app.kitty }}
+  hyperlinks-file-link-format = "file://{path}#{line}"
+{{- end }}
   relative-paths = true
   features = catppuccin-{{ .ui.theme.catppuccin }}
 [include]

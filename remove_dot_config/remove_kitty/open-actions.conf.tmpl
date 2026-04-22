@@ -1,0 +1,12 @@
+{{- if .app.kitty -}}
+
+# Edit files with line-number in fragments
+protocol file
+fragment_matches [0-9]+
+action launch --cwd=current -- ${SHELL} -lic "${EDITOR} +${FRAGMENT} -- \"${FILE_PATH}\""
+
+# Edit files without line-number in fragments
+protocol file
+action launch --cwd=current -- ${SHELL} -lic "${EDITOR} -- \"${FILE_PATH}\""
+
+{{- end }}

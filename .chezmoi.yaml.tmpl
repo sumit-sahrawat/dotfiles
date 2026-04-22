@@ -58,6 +58,9 @@ data:
     {{- $git := dig "app" "git" true . }}
     git: {{ $git }}
 
+    {{- $kitty := dig "app" "kitty" true . }}
+    kitty: {{ $kitty }}
+
     {{- $llama := dig "app" "llama" true . }}
     llama: {{ $llama }}
     mpv: {{ dig "app" "mpv" true . }}
@@ -66,6 +69,9 @@ data:
 
     {{- $opencode := and $llama (dig "app" "opencode" true .) }}
     opencode: {{ $opencode }}
+
+    {{- $terminal := or $kitty $ghostty }}
+    terminal: {{ $terminal }}
     zsh: {{ dig "app" "zsh" true . }}
 
   lang:
@@ -151,7 +157,7 @@ data:
 
 {{- end }}
 
-{{- if $ghostty }}
+{{- if $terminal }}
 
   terminal:
     font:
