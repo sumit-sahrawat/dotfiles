@@ -50,18 +50,6 @@ refreshPeriod = "168h"
 
 {{- end }}
 
-
-{{- if .lang.java }}
-
-[".local/share/bazel-eclipse"]
-type = "archive"
-format = "zip"
-exact = true
-refreshPeriod = "672h"
-url = "https://opensource.salesforce.com/bazel-eclipse/latest/p2-repository.zip"
-
-{{- end }}
-
 {{- if .terminal.font.pragmata }}
 
 ["Library/Fonts/PragmataPro"]

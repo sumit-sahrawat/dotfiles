@@ -2,25 +2,14 @@
 
 return {
   {
+    "Chazmus/bazel-java.nvim",
+  },
+  {
     "mfussenegger/nvim-jdtls",
-    opts = {
-      settings = {
-        java = {
-          import = {
-            bazel = {
-              disabled = false,
-            },
-          },
-        },
-      },
-      jdtls = function(opts)
-        vim.list_extend(opts.init_options.bundles, vim.fn.glob(
-          vim.env.HOME .. "/.local/share/bazel-eclipse/plugins/*.jar",
-          false,
-          true
-        ))
-      end,
-    },
+    dependencies = { "Chazmus/bazel-java.nvim" },
+    opts = function(_, opts)
+      require("bazel-java").setup_jdtls(opts)
+    end
   },
 }
 
