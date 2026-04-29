@@ -6,3 +6,18 @@
 /.config/nvim/
 {{- end }}
 
+{{- if ne .chezmoi.os "darwin" }}
+/Library/**
+/iCloud Drive
+/Obsidian
+/.chezmoiscripts/setup-macos-defaults*
+/.chezmoiscripts/reload-keymap*
+/.chezmoiscripts/setup-llama*
+{{- end }}
+
+{{- if not .graphical }}
+/.config/ghostty/
+/.config/kitty/
+/.config/linearmouse/
+{{- end }}
+
