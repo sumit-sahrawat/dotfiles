@@ -50,7 +50,7 @@ refreshPeriod = "168h"
 
 {{- end }}
 
-{{- if .terminal.font.pragmata }}
+{{- if and .graphical (dig "terminal" "font" "pragmata" false .) }}
 
 ["Library/Fonts/PragmataPro"]
 type = "git-repo"
