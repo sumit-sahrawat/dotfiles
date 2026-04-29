@@ -13,7 +13,12 @@ zstyle ':z4h:' auto-update      'no'
 zstyle ':z4h:bindkey' keyboard  {{ .input.keyboard.type | squote }}
 
 zstyle ':z4h:' prompt-at-bottom no
+
+{{- if and .app.tmux .tmux.autostart }}
+zstyle ':z4h:' start-tmux command tmux -u new -A -D -t z4h
+{{- else }}
 zstyle ':z4h:' start-tmux       no
+{{- end }}
 
 {{- if .graphical }}
 

@@ -81,6 +81,10 @@ data:
 
     {{- $terminal := or $kitty $ghostty }}
     terminal: {{ $terminal }}
+
+    {{ $tmux := dig "app" "tmux" true . }}
+    tmux: {{ $tmux }}
+
     zsh: {{ dig "app" "zsh" true . }}
 
   lang:
@@ -173,5 +177,12 @@ data:
       pragmata: {{ $pragmata := dig "terminal" "font" "pragmata" true . }}{{ $pragmata }}
       family: {{ ternary "PragmataPro Mono Liga" "Iosevka Term SS08" $pragmata | quote }}
       size: {{ dig "terminal" "font" "size" 15 . }}
+
+{{- end }}
+
+{{- if $tmux }}
+
+  tmux:
+    autostart: {{ dig "tmux" "autostart" false . }}
 
 {{- end }}

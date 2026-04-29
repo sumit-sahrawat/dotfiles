@@ -110,6 +110,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   cask "font-overpass"
 {{- end }}
 
+{{- if .app.tmux }}
+  brew "tmux"
+{{- end }}
+
 ################################################################################
 # Programming Languages
 ################################################################################

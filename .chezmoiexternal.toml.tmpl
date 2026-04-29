@@ -58,3 +58,11 @@ url = "git@github.com:sumit-sahrawat/pragmata"
 refreshPeriod = "168h"
 
 {{- end }}
+
+{{- if .app.tmux }}
+
+[".config/tmux/plugins/catppuccin"]
+type = "git-repo"
+url = "https://github.com/catppuccin/tmux.git"
+
+{{- end }}

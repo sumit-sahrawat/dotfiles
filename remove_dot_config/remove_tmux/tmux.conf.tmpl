@@ -1,0 +1,20 @@
+{{- if .app.tmux -}}
+
+set -g mouse on
+set -g default-terminal "tmux-256color"
+set -g focus-events on
+
+# minimal status line
+set -g status-left ''
+set -g status-right ''
+
+# use window names instead of window titles
+set-option -g automatic-rename off
+set -g @catppuccin_window_text " #W"
+set -g @catppuccin_window_current_text " #W"
+
+# load catppuccin
+set -g @catppuccin_flavor {{ .ui.theme.catppuccin | quote }}
+run ~/.config/tmux/plugins/catppuccin/catppuccin.tmux
+
+{{- end }}
