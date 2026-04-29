@@ -41,7 +41,7 @@ zstyle ':z4h:direnv'         enable {{ ternary "yes" "no" .app.direnv | squote }
 zstyle ':z4h:direnv:success' notify 'no'
 
 # Instruct zsh4humans to use fzf from PATH.
-zstyle ':z4h:*'               fzf-command fzf
+zstyle ':z4h:*'               fzf-command :fzf
 
 # Recursively traverse directories when TAB-completing files.
 zstyle ':z4h:fzf-complete'    recurse-dirs 'yes'
