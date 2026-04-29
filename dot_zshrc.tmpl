@@ -10,7 +10,7 @@
 POSTEDIT=$'\n\n\e[2A'
 
 zstyle ':z4h:' auto-update      'no'
-zstyle ':z4h:bindkey' keyboard  'mac'
+zstyle ':z4h:bindkey' keyboard  {{ .input.keyboard.type | squote }}
 
 zstyle ':z4h:' prompt-at-bottom no
 zstyle ':z4h:' start-tmux       no
@@ -75,8 +75,12 @@ LESS+="I"
 export LS_COLORS="{{- output "vivid" "generate" (printf "catppuccin-%s" .ui.theme.catppuccin) | trim -}}"
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
+{{- if eq .chezmoi.os "darwin" }}
+
 # We manually update via :sup so no auto-update for brew.
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+{{- end }}
 
 # Some tools only use ~/.config instead of ~/Library when this is set
 export XDG_CONFIG_HOME=~/.config
@@ -92,7 +96,7 @@ export JUST_UNSORTED=true
 path=(
   ~/.local/bin
 
-{{- if .lang.java }}
+{{- if and .lang.java (eq .chezmoi.os "darwin") }}
   ${HOMEBREW_PREFIX}/opt/openjdk/bin
 {{- end }}
 
@@ -216,10 +220,12 @@ function :bg {
 
 function :sup {
   chezmoi update --init --apply
-
+{{ if eq .chezmoi.os "darwin" }}
   brew update
   brew upgrade
-
+{{ else }}
+  nix profile upgrade --all
+{{ end }}
   z4h update
 
   z4h source --compile ~/.zsh/private-update.zsh
@@ -234,7 +240,9 @@ alias e='${EDITOR}'
 {{- if .app.neovim }}
 alias n='nvim -R'
 {{- end }}
+{{- if eq .chezmoi.os "darwin" }}
 alias o='open'
+{{- end }}
 alias q='exit'
 
 {{- if .app.neovim }}
