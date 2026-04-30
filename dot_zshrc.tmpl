@@ -124,7 +124,7 @@ fpath=(
   $fpath
 )
 
-z4h source --compile ~/.zsh/private.zsh
+z4h source --compile ~/.zshrc.local
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -240,7 +240,9 @@ function :sup {
 {{ end }}
   z4h update
 
-  z4h source --compile ~/.zsh/private-update.zsh
+  if (( $+functions[:sup_local] )); then
+    :sup_local
+  fi
 }
 
 # Define aliases.
