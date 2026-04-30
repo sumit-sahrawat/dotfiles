@@ -4,9 +4,12 @@ set -g mouse on
 set -g default-terminal "tmux-256color"
 set -g focus-events on
 
-# minimal status line
-set -g status-left ''
-set -g status-right ''
+# no session indicator
+set -g status-left ""
+
+# short hostname
+set -g @catppuccin_host_text " #h"
+set -g status-right "#{E:@catppuccin_status_host}"
 
 # use window names instead of window titles
 set-option -g automatic-rename off
