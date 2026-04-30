@@ -1,6 +1,8 @@
 # `dotfiles`
 
-My MacOS dotfiles managed using [chezmoi](https://chezmoi.io).
+Personal dotfiles managed using [chezmoi](https://chezmoi.io).
+
+Supports macOS (graphical workstation, Homebrew) and Linux (headless SSH, Nix).
 
 ## Quickstart
 
