@@ -21,3 +21,6 @@
 /.config/linearmouse/
 {{- end }}
 
+{{- if not .app.git }}
+/.gitconfig
+{{- end }}
