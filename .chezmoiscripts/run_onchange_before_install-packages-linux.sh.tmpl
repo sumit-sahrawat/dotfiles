@@ -99,7 +99,7 @@ PACKAGES=(
 )
 
 for pkg in "${PACKAGES[@]}"; do
-  nix profile install "nixpkgs#${pkg}"
+  nix profile install "nixpkgs#${pkg}" || true
 done
 
 {{- end -}}
