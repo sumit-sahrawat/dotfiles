@@ -44,23 +44,45 @@
   format = ssh
 [gpg "ssh"]
   allowedSignersFile = ~/.config/git/allowed_signers
-
-{{- range $file, $host := dict "codeberg" "codeberg.org" "github" "github.com" }}
-
-[includeIf "hasconfig:remote.*.url:git@{{ $host }}:**/**"]
-  path = ~/.config/git/{{ $file }}
-[includeIf "hasconfig:remote.*.url:ssh://git@{{ $host }}:**/**"]
-  path = ~/.config/git/{{ $file }}
-[includeIf "hasconfig:remote.*.url:https://{{ $host }}/**"]
-  path = ~/.config/git/{{ $file }}
-
+{{- if or .git.default.name .git.default.email .git.default.key }}
+[user]
+{{- with .git.default.name }}
+  name = {{ . }}
+{{- end }}
+{{- with .git.default.email }}
+  email = {{ . }}
+{{- end }}
+{{- with .git.default.key }}
+  signingkey = {{ joinPath $.chezmoi.homeDir ".ssh" . }}
+{{- end }}
+{{- end }}
+{{- with .git.default.key }}
+[core]
+  sshCommand = "ssh -i '{{ joinPath $.chezmoi.homeDir ".ssh" . }}' -o IdentitiesOnly=yes"
 {{- end }}
 
-{{- if .git.isolated.enabled }}
-{{- range .git.isolated.dirs }}
+{{- range $rule := .git.rules }}
 
+{{- if dig "dirs" nil $rule.match }}
+{{- range $rule.match.dirs }}
 [includeIf "gitdir:{{ . }}/**"]
-  path = ~/.config/git/isolated
+  path = ~/.config/git/rules/{{ $rule.name }}
+{{- end }}
+
+{{- else }}
+{{- $host := $rule.match.host }}
+{{- $suffix := "" }}
+{{- with dig "repo" "" $rule.match }}{{ $suffix = . }}{{ end }}
+{{- with dig "owner" "" $rule.match }}{{ $suffix = printf "%s/%s" . $suffix }}{{ end }}
+{{- $suffix = trimSuffix "/" $suffix }}
+{{- if not $suffix }}{{ $suffix = "**" }}{{ end }}
+
+[includeIf "hasconfig:remote.*.url:git@{{ $host }}:{{ $suffix }}/**"]
+  path = ~/.config/git/rules/{{ $rule.name }}
+[includeIf "hasconfig:remote.*.url:ssh://git@{{ $host }}/{{ $suffix }}/**"]
+  path = ~/.config/git/rules/{{ $rule.name }}
+[includeIf "hasconfig:remote.*.url:https://{{ $host }}/{{ $suffix }}/**"]
+  path = ~/.config/git/rules/{{ $rule.name }}
 
 {{- end }}
 {{- end }}

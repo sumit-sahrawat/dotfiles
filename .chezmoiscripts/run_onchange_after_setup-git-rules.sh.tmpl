@@ -1,0 +1,27 @@
+{{- if .app.git -}}
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# {{ .git.rules | toJson }}
+
+rules_dir="${HOME}/.config/git/rules"
+mkdir -p "${rules_dir}"
+rm -f "${rules_dir}"/*
+
+{{ $ssh_dir := joinPath .chezmoi.homeDir ".ssh" -}}
+{{ range $rule := .git.rules -}}
+{{ $key_path := joinPath $ssh_dir $rule.user.key -}}
+cat > "${rules_dir}/{{ $rule.name }}" << 'RULE'
+[user]
+{{- with dig "name" "" $rule.user }}
+  name = {{ . }}
+{{- end }}
+  email = {{ $rule.user.email }}
+  signingkey = {{ $key_path }}
+[core]
+  sshCommand = "ssh -i '{{ $key_path }}' -o IdentitiesOnly=yes"
+RULE
+
+{{ end -}}
+{{- end }}

@@ -1,10 +1,6 @@
 {{- if .app.git -}}
-
-{{ .git.codeberg.email }} {{ output "cat" (printf "%s.pub" .git.codeberg.key) | trim }}
-{{ .git.github.email }} {{ output "cat" (printf "%s.pub" .git.github.key) | trim }}
-
-{{- if .git.isolated.enabled }}
-{{ .git.isolated.user.email }} {{ output "cat" (printf "%s.pub" .git.isolated.user.key) | trim }}
-{{- end }}
-
+{{ $ssh_dir := joinPath .chezmoi.homeDir ".ssh" -}}
+{{ range .git.rules -}}
+{{ .user.email }} {{ output "cat" (printf "%s.pub" (joinPath $ssh_dir .user.key)) | trim }}
+{{ end -}}
 {{- end }}

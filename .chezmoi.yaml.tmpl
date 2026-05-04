@@ -124,39 +124,38 @@ data:
   git:
     alias:
       prefix: {{ dig "git" "alias" "prefix" ":g" . | quote }}
+    default:
+      name: {{ dig "git" "default" "name" "Sumit Sahrawat" . | quote }}
+      email: {{ dig "git" "default" "email" "" . | quote }}
+      key: {{ dig "git" "default" "key" "" . | quote }}
 
-{{- $default_name := "Sumit Sahrawat" }}
-{{- $ssh_dir := joinPath .chezmoi.homeDir ".ssh" }}
+{{- $default_rules := list
+  (dict
+    "name" "github"
+    "user" (dict
+      "email" "139506625+sumit-sahrawat@users.noreply.github.com"
+      "key" "id_ed25519"
+    )
+    "match" (dict
+      "host" "github.com"
+    )
+  )
+  (dict
+    "name" "codeberg"
+    "user" (dict
+      "email" "sumit-sahrawat@noreply.codeberg.org"
+      "key" "id_ed25519"
+    )
+    "match" (dict
+      "host" "codeberg.org"
+    )
+  )
+}}
 
-    codeberg:
-      name: {{ dig "git" "codeberg" "name" "Sumit Sahrawat" . | quote }}
-      email: {{ dig "git" "codeberg" "email" "sumit-sahrawat@noreply.codeberg.org" . | quote }}
-      key_name: {{ $codeberg_key_name := dig "git" "codeberg" "key_name" "id_ed25519" . }}{{ $codeberg_key_name | quote }}
-      key: {{ joinPath $ssh_dir $codeberg_key_name | quote }}
+{{- $rules := dig "git" "rules" nil . }}
+{{- if eq $rules nil }}{{ $rules = $default_rules }}{{ end }}
 
-    github:
-      name: {{ dig "git" "github" "name" "Sumit Sahrawat" . | quote }}
-      email: {{ dig "git" "github" "email" "139506625+sumit-sahrawat@users.noreply.github.com" . | quote }}
-      key_name: {{ $github_key_name := dig "git" "github" "key_name" "id_ed25519" . }}{{ $github_key_name | quote }}
-      key: {{ joinPath $ssh_dir $github_key_name | quote }}
-
-    isolated:
-
-      {{- $git_isolated := promptBoolOnce . "git.isolated.enabled" "Use isolated directories for git" }}
-      enabled: {{ $git_isolated }}
-
-{{- if $git_isolated }}
-
-{{ dict "dirs" (dig "git" "isolated" "dirs" (list) .) | toYaml | trim | indent 6 }}
-      user:
-        name: {{ dig "git" "isolated" "user" "name" $default_name . | quote }}
-        email: {{ promptStringOnce . "git.isolated.user.email" "Committer email address for isolated dirs" | quote }}
-
-        {{- $isolated_key_name := promptStringOnce . "git.isolated.user.key_name" "SSH key name for isolated dirs" }}
-        key_name: {{ $isolated_key_name | quote }}
-        key: {{ joinPath $ssh_dir $isolated_key_name | quote }}
-
-{{- end }}
+{{ dict "rules" $rules | toYaml | trim | indent 4 }}
 
 {{- end }}
 
