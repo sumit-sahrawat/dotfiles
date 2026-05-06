@@ -82,9 +82,8 @@ data:
     {{- $terminal := or $kitty $ghostty }}
     terminal: {{ $terminal }}
 
-    {{ $tmux := dig "app" "tmux" true . }}
+    {{- $tmux := dig "app" "tmux" true . }}
     tmux: {{ $tmux }}
-
     zsh: {{ dig "app" "zsh" true . }}
 
   lang:
