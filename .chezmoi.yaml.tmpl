@@ -181,6 +181,6 @@ data:
 {{- if $tmux }}
 
   tmux:
-    autostart: {{ dig "tmux" "autostart" false . }}
+    autostart: {{ dig "tmux" "autostart" (not $graphical) . }}
 
 {{- end }}
