@@ -88,16 +88,16 @@ data:
     zsh: {{ dig "app" "zsh" true . }}
 
   lang:
-    bash: {{ dig "lang" "bash" true . }}
-    cpp: {{ dig "lang" "cpp" true . }}
-    groovy: {{ dig "lang" "groovy" true . }}
-    java: {{ dig "lang" "java" true . }}
-    javascript: {{ dig "lang" "javascript" true . }}
-    jq: {{ dig "lang" "jq" true . }}
-    odin: {{ dig "lang" "odin" true . }}
-    python: {{ dig "lang" "python" true . }}
-    rust: {{ dig "lang" "rust" true . }}
-    zig: {{ dig "lang" "zig" true . }}
+    bash: {{ dig "lang" "bash" false . }}
+    cpp: {{ dig "lang" "cpp" false . }}
+    groovy: {{ dig "lang" "groovy" false . }}
+    java: {{ dig "lang" "java" false . }}
+    javascript: {{ dig "lang" "javascript" false . }}
+    jq: {{ dig "lang" "jq" false . }}
+    odin: {{ dig "lang" "odin" false . }}
+    python: {{ dig "lang" "python" false . }}
+    rust: {{ dig "lang" "rust" false . }}
+    zig: {{ dig "lang" "zig" false . }}
 
   tool:
     editor: {{ ternary "nvim" "vim" $neovim | quote }}
