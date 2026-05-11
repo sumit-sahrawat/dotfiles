@@ -114,6 +114,27 @@ data:
         DISABLE_BUG_COMMAND: "1"
         DISABLE_ERROR_REPORTING: "1"
         DISABLE_TELEMETRY: "1"
+      enabledPlugins:
+        superpowers-extended-cc@superpowers-extended-cc-marketplace: true
+      extraKnownMarketplaces:
+        superpowers-extended-cc-marketplace:
+          source:
+            repo: pcvelz/superpowers
+            source: github
+      hooks:
+        PreToolUse:
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/pre-commit-check-tasks.sh
+            type: command
+          matcher: Bash
+        Stop:
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/stop-deflection-guard.sh
+            type: command
+          matcher: ""
+      permissions:
+        deny:
+        - EnterPlanMode
 {{ dict "overrides" (dig "claude_code" "overrides" (dict) .) | toYaml | trim | indent 4 }}
 
 {{- end }}
