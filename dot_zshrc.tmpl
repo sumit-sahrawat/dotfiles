@@ -240,6 +240,10 @@ function :sup {
 {{ end }}
   z4h update
 
+{{- if .app.claude_code }}
+  claude plugins marketplace update
+{{- end }}
+
   if (( $+functions[:sup_local] )); then
     :sup_local
   fi
