@@ -70,14 +70,9 @@ data:
     {{- $kitty := and $graphical (dig "app" "kitty" true .) }}
     kitty: {{ $kitty }}
 
-    {{- $llama := and $graphical (dig "app" "llama" true .) }}
-    llama: {{ $llama }}
     mpv: {{ and $graphical (dig "app" "mpv" true .) }}
     neovim: {{ $neovim }}
     obsidian: {{ and $graphical (dig "app" "obsidian" true .) }}
-
-    {{- $opencode := and $llama (dig "app" "opencode" true .) }}
-    opencode: {{ $opencode }}
 
     {{- $terminal := or $kitty $ghostty }}
     terminal: {{ $terminal }}
@@ -176,16 +171,6 @@ data:
 {{- if eq $rules nil }}{{ $rules = $default_rules }}{{ end }}
 
 {{ dict "rules" $rules | toYaml | trim | indent 4 }}
-
-{{- end }}
-
-{{- if $llama }}
-
-  llama:
-    port: {{ dig "llama" "port" 42000 . }}
-    idle_timeout: {{ dig "llama" "idle_timeout" 300 . }}
-
-{{ dict "models" (dig "llama" "models" (list) .) | toYaml | trim | indent 4 }}
 
 {{- end }}
 

@@ -85,14 +85,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "lazygit"
 {{- end }}
 
-{{- if .app.llama }}
-  brew "llama.cpp"
-{{- end }}
-
-{{- if .app.opencode }}
-  brew "opencode"
-{{- end }}
-
 {{- if .app.mpv }}
   brew "mpv"
   brew "yt-dlp"
