@@ -1,5 +1,3 @@
-{{- if .lang.jq }}
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -10,5 +8,3 @@ return {
     },
   },
 }
-
-{{- end }}

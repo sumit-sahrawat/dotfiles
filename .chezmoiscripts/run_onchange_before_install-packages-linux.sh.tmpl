@@ -24,6 +24,7 @@ PACKAGES=(
   eza
   fd
   fzf
+  jq
   just
   less
   mprocs
@@ -85,10 +86,6 @@ PACKAGES=(
   {{- if .lang.javascript }}
   nodejs
   nodePackages.npm
-  {{- end }}
-
-  {{- if .lang.jq }}
-  jq
   {{- end }}
 
   {{- if .lang.python }}

@@ -23,6 +23,7 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "fd"
   brew "fzf"
   brew "imagemagick"
+  brew "jq"
   brew "just"
   brew "less"
   brew "mprocs"
@@ -131,10 +132,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 {{- if .lang.javascript }}
   brew "node"
   brew "npm"
-{{- end }}
-
-{{- if .lang.jq }}
-  brew "jq"
 {{- end }}
 
 {{- if .lang.odin }}
