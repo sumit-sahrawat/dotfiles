@@ -64,6 +64,13 @@ zstyle ':z4h:fzf-complete'    recurse-dirs 'yes'
 # The default value if none of the overrides above match the hostname.
 zstyle ':z4h:ssh:*'                   enable 'no'
 
+{{- if ne .chezmoi.os "darwin" }}
+
+zstyle ':z4h:ssh-agent:' start      yes
+zstyle ':z4h:ssh-agent:' extra-args -t 20h
+
+{{- end }}
+
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
 # zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
