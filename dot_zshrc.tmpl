@@ -75,18 +75,6 @@ zstyle ':z4h:ssh-agent:' extra-args -t 20h
 # enabled hosts.
 # zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 
-# Clone additional Git repositories from GitHub.
-#
-# This doesn't do anything apart from cloning the repository and keeping it
-# up-to-date. Cloned files can be used after `z4h init`.
-
-{{- if .app.git }}
-
-# Git Aliases
-z4h install zimfw/git
-
-{{- end }}
-
 # Case insensitive search in less
 LESS+="I"
 
@@ -143,61 +131,9 @@ z4h init || return
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="standout"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="standout"
 
-# Use additional Git repositories pulled in with `z4h install`.
-
 {{- if .app.git }}
 
-gprefix={{ .git.alias.prefix | squote }}
-
-zstyle ':zim:git' aliases-prefix "${gprefix}"
-z4h load --compile zimfw/git
-
-alias "${gprefix}"=lazygit
-
-# lga = lg with --all branches
-alias "${gprefix}lga"="${gprefix}lg --all"
-
-# lgl = lg with (local) --branches
-alias "${gprefix}lgl"="${gprefix}lg --branches"
-
-# lt = log topology/structure
-alias "${gprefix}lt"="${gprefix}lg --simplify-by-decoration --branches"
-
-# lta = lt with --all
-alias "${gprefix}lta"="${gprefix}lg --simplify-by-decoration --all"
-
-# aliases with --s[t]at
-alias "${gprefix}cst"="${aliases[${gprefix}cs]} --stat"
-alias "${gprefix}idt"="${aliases[${gprefix}id]} --stat"
-alias "${gprefix}wdt"="${aliases[${gprefix}wd]} --stat"
-
-# allow overrides for remote name
-alias ${gprefix}pc="${aliases[${gprefix}pc]/origin/\"\${origin:-origin\}\"}"
-
-# aliases without delta [p]lain
-{{- $git_plain := "git -c core.pager= -c interactive.diffFilter=" }}
-alias ${gprefix}wdp="${aliases[${gprefix}wd]/git/{{ $git_plain }}}"
-alias ${gprefix}csp="${aliases[${gprefix}cs]/git/{{ $git_plain }}}"
-alias ${gprefix}idp="${aliases[${gprefix}id]/git/{{ $git_plain }}}"
-alias ${gprefix}ldp="${aliases[${gprefix}ld]/git/{{ $git_plain }}}"
-alias ${gprefix}sdp="${aliases[${gprefix}sd]/git/{{ $git_plain }}}"
-
-# aliases with [s]ide-by-side diffs in delta
-{{- $git_split := "git -c delta.side-by-side=true" }}
-alias ${gprefix}wds="${aliases[${gprefix}wd]/git/{{ $git_split }}}"
-alias ${gprefix}css="${aliases[${gprefix}cs]/git/{{ $git_split }}}"
-alias ${gprefix}ids="${aliases[${gprefix}id]/git/{{ $git_split }}}"
-alias ${gprefix}lds="${aliases[${gprefix}ld]/git/{{ $git_split }}}"
-alias ${gprefix}sds="${aliases[${gprefix}sd]/git/{{ $git_split }}}"
-
-# aliases with s[y]ntax aware diffs via difftastic
-alias ${gprefix}wdy="${aliases[${gprefix}wd]} --ext-diff"
-alias ${gprefix}csy="${aliases[${gprefix}cs]} --ext-diff"
-alias ${gprefix}idy="${aliases[${gprefix}id]} --ext-diff"
-alias ${gprefix}ldy="${aliases[${gprefix}ld]} --ext-diff"
-alias ${gprefix}sdy="${aliases[${gprefix}sd]} --ext-diff"
-
-unset gprefix
+z4h source --compile ~/.config/zsh/git.zsh
 
 {{- end }}
 
