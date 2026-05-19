@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-local files=("${@:t}")
-
-if (( ${#files} > 0 )); then
-  builtin autoload -Uz -- "${files[@]}"
-fi
