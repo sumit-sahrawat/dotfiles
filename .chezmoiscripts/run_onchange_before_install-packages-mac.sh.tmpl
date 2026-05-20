@@ -87,6 +87,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "lazygit"
 {{- end }}
 
+{{- if .app.helix }}
+  brew "helix"
+{{- end }}
+
 {{- if .app.mpv }}
   brew "mpv"
   brew "yt-dlp"

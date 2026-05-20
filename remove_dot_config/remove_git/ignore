@@ -5,6 +5,10 @@
 .lazy.lua
 .neoconf.json
 
+### Helix Editor ###
+
+.helix/
+
 ### Claude Code ###
 **/.claude/settings.local.json
 CLAUDE.local.md
