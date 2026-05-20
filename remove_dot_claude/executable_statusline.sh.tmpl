@@ -1,0 +1,73 @@
+{{- if .app.claude_code -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+branch=$(git -c core.useBuiltinFSMonitor=false rev-parse --abbrev-ref HEAD 2>/dev/null || true)
+
+input=$(cat)
+project_dir=$(echo "$input" | jq -r '.workspace.project_dir // empty')
+current_dir=$(echo "$input" | jq -r '.workspace.current_dir // empty')
+used=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+max=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
+pct=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
+
+blue=$'\e[34m'
+underline_blue=$'\e[4;34m'
+green=$'\e[32m'
+cyan=$'\e[36m'
+yellow=$'\e[33m'
+magenta=$'\e[35m'
+red=$'\e[31m'
+dim_cyan=$'\e[2;36m'
+reset=$'\e[0m'
+
+# Line 1: project dir/subdir, branch
+project="${project_dir:-$PWD}"
+dir="${project/#$HOME/\~}"
+
+if [[ -n "$current_dir" && "$current_dir" != "$project" ]]; then
+  subdir="${current_dir/#$project\//}"
+  output="${blue}${dir}/${reset}${underline_blue}${subdir}${reset}"
+else
+  output="${blue}${dir}${reset}"
+fi
+
+[[ -n "$branch" ]] && output="$output ${green}${branch}${reset}"
+
+if [[ $max -gt 0 ]]; then
+  if [[ $used -ge 150000 ]]; then
+    color="$red"
+  elif [[ $used -ge 125000 ]]; then
+    color="$magenta"
+  elif [[ $used -ge 100000 ]]; then
+    color="$yellow"
+  else
+    color="$cyan"
+  fi
+
+  if [[ $used -ge 1000 ]]; then
+    used_fmt="$((used / 1000))k"
+  else
+    used_fmt="$used"
+  fi
+  if [[ $max -ge 1000 ]]; then
+    max_fmt="$((max / 1000))k"
+  else
+    max_fmt="$max"
+  fi
+
+  bar_width=10
+  filled=$((pct * bar_width / 100))
+  empty=$((bar_width - filled))
+
+  bar="${color}"
+  for ((i = 0; i < filled; i++)); do bar+="▓"; done
+  bar+="${dim_cyan}"
+  for ((i = 0; i < empty; i++)); do bar+="░"; done
+  bar+="${reset}"
+
+  output="$output $bar ${color}${pct}%${reset} (${used_fmt}/${max_fmt})"
+fi
+
+echo "$output"
+{{- end }}
