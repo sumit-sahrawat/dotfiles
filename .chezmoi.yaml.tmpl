@@ -69,10 +69,8 @@ data:
 
     {{- $kitty := and $graphical (dig "app" "kitty" true .) }}
     kitty: {{ $kitty }}
-
     mpv: {{ and $graphical (dig "app" "mpv" true .) }}
     neovim: {{ $neovim }}
-    obsidian: {{ and $graphical (dig "app" "obsidian" true .) }}
 
     {{- $terminal := or $kitty $ghostty }}
     terminal: {{ $terminal }}

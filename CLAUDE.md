@@ -24,7 +24,7 @@ Configuration is opt-in via boolean flags set interactively with `promptBoolOnce
 
 - `input.*` — keyboard/mouse settings (caps2ctrl, repeat rates)
 - `ui.*` — theme (catppuccin flavor), night shift, dock
-- `app.<tool>` — per-app enable flags (ghostty, neovim, obsidian, claude_code, etc.)
+- `app.<tool>` — per-app enable flags (ghostty, neovim, claude_code, etc.)
 - `lang.<language>` — per-language enable flags (cpp, java, python, rust, etc.)
 - `tool.*` — editor/merge tool selection
 - `git.*` — multi-identity SSH config (codeberg, github, isolated dirs)
