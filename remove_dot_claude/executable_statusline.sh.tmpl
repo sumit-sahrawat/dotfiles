@@ -12,7 +12,6 @@ max=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
 pct=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 
 blue=$'\e[34m'
-underline_blue=$'\e[4;34m'
 green=$'\e[32m'
 cyan=$'\e[36m'
 yellow=$'\e[33m'
@@ -27,7 +26,7 @@ dir="${project/#$HOME/\~}"
 
 if [[ -n "$current_dir" && "$current_dir" != "$project" ]]; then
   subdir="${current_dir/#$project\//}"
-  output="${blue}${dir}/${reset}${underline_blue}${subdir}${reset}"
+  output="${blue}${dir}/${reset}${yellow}${subdir}${reset}"
 else
   output="${blue}${dir}${reset}"
 fi
