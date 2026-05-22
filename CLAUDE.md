@@ -13,6 +13,7 @@ chezmoi diff              # Preview changes (always do this before apply)
 chezmoi apply             # Deploy dotfiles to home directory
 chezmoi apply --dry-run   # Dry-run
 chezmoi managed           # List managed files
+chezmoi data              # Print template data (JSON format)
 chezmoi git pull          # Update from remote
 ```
 
