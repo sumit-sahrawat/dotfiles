@@ -111,6 +111,49 @@ data:
         DISABLE_TELEMETRY: "1"
         CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
         FORCE_AUTOUPDATE_PLUGINS: "1"
+      enabledPlugins:
+        superpowers-extended-cc@superpowers-extended-cc-marketplace: true
+      extraKnownMarketplaces:
+        superpowers-extended-cc-marketplace:
+          autoUpdate: true
+          source:
+            repo: pcvelz/superpowers
+            source: github
+      hooks:
+        PreToolUse:
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/pre-commit-check-tasks.sh
+            type: command
+          matcher: Bash
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/pre-task-blockedby-enforce.sh
+            type: command
+          matcher: TaskUpdate
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/pre-agent-task-dispatch-validate.sh
+            type: command
+          matcher: Agent
+        PostToolUse:
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/post-task-complete-revalidate.sh
+            type: command
+          matcher: TaskUpdate
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/post-agent-return-validate.sh
+            type: command
+          matcher: Agent
+        Stop:
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/stop-revalidate-user-gates.sh
+            type: command
+          matcher: ""
+        - hooks:
+          - command: bash ~/.claude/plugins/marketplaces/superpowers-extended-cc-marketplace/hooks/examples/stop-deflection-guard.sh
+            type: command
+          matcher: ""
+      permissions:
+        deny:
+        - EnterPlanMode
 {{ dict "overrides" (dig "claude_code" "overrides" (dict) .) | toYaml | trim | indent 4 }}
 
 {{- end }}
