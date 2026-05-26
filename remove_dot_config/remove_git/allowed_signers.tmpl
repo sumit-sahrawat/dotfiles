@@ -1,6 +1,13 @@
 {{- if .app.git -}}
 {{ $ssh_dir := joinPath .chezmoi.homeDir ".ssh" -}}
 {{ range .git.rules -}}
+# rule: {{ .name }}
 {{ .user.email }} {{ output "cat" (printf "%s.pub" (joinPath $ssh_dir .user.key)) | trim }}
-{{ end -}}
+
+{{ end }}
+{{- if and .git.default.email .git.default.key }}
+
+# default
+{{ .git.default.email }} {{ output "cat" (printf "%s.pub" (joinPath $ssh_dir .git.default.key)) | trim }}
+{{- end }}
 {{- end }}
