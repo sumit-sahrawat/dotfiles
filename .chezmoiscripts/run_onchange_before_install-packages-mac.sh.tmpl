@@ -93,6 +93,10 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
   brew "aria2"
 {{- end }}
 
+{{- if .app.opencode }}
+  brew "opencode"
+{{- end }}
+
 {{- if .app.neovim }}
   brew "neovim"
   brew "tree-sitter-cli"

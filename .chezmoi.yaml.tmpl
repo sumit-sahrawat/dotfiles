@@ -75,6 +75,9 @@ data:
     {{- $terminal := or $kitty $ghostty }}
     terminal: {{ $terminal }}
 
+    {{- $opencode := dig "app" "opencode" false . }}
+    opencode: {{ $opencode }}
+
     {{- $tmux := dig "app" "tmux" true . }}
     tmux: {{ $tmux }}
     zsh: {{ dig "app" "zsh" true . }}
@@ -155,6 +158,19 @@ data:
         deny:
         - EnterPlanMode
 {{ dict "overrides" (dig "claude_code" "overrides" (dict) .) | toYaml | trim | indent 4 }}
+
+{{- end }}
+
+{{- if $opencode }}
+
+  opencode:
+    $schema: "https://opencode.ai/config.json"
+    theme: {{ printf "catppuccin-%s" .ui.theme.catppuccin | quote }}
+    keybinds:
+      command_list: "<leader>p"
+{{- $provider_dict := dig "opencode" "provider" (dict) . }}
+{{ dict "provider" $provider_dict | toYaml | trim | indent 4 }}
+{{ dict "enabled_providers" (keys $provider_dict) | toYaml | trim | indent 4 }}
 
 {{- end }}
 
