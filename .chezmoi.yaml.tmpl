@@ -55,8 +55,6 @@ data:
 {{- end }}
 
   app:
-    brave: {{ and $graphical (dig "app" "brave" true .) }}
-
     {{- $claude_code := dig "app" "claude_code" false . }}
     claude_code: {{ $claude_code }}
     direnv: {{ dig "app" "direnv" true . }}

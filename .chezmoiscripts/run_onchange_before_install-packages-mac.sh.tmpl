@@ -56,10 +56,6 @@ brew bundle --file=/dev/stdin --no-upgrade --quiet <<EOF
 # Apps
 ################################################################################
 
-{{- if .app.brave }}
-  cask "brave-browser"
-{{- end }}
-
 {{- if .app.claude_code }}
   cask {{ ternary "claude-code@latest" "claude-code" .claude_code.latest | quote }}
 {{- end }}
