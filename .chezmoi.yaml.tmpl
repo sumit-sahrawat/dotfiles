@@ -64,6 +64,7 @@ data:
 
     {{- $git := dig "app" "git" true . }}
     git: {{ $git }}
+    helium: {{ dig "app" "helium" true . }}
 
     {{- $kitty := and $graphical (dig "app" "kitty" true .) }}
     kitty: {{ $kitty }}
