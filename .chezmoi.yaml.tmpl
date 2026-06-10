@@ -115,6 +115,7 @@ data:
         FORCE_AUTOUPDATE_PLUGINS: "1"
         CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING: "1"
         MAX_THINKING_TOKENS: "128000"
+        CLAUDE_CODE_ENABLE_AUTO_MODE: "1"
       enabledPlugins:
         superpowers-extended-cc@superpowers-extended-cc-marketplace: true
       extraKnownMarketplaces:
@@ -156,6 +157,7 @@ data:
             type: command
           matcher: ""
       permissions:
+        defaultMode: "auto"
         deny:
         - EnterPlanMode
 {{ dict "overrides" (dig "claude_code" "overrides" (dict) .) | toYaml | trim | indent 4 }}
