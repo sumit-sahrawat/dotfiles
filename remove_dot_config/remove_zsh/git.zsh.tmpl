@@ -17,8 +17,9 @@ alias ${gprefix}=lazygit
 
 # Branch (b)
 alias ${gprefix}b='git branch'
-alias ${gprefix}bc='git checkout -b'
-alias ${gprefix}bd='git checkout --detach'
+alias ${gprefix}bo='git switch'
+alias ${gprefix}bc='git switch --create'
+alias ${gprefix}bd='git switch --detach'
 alias ${gprefix}bl='git branch --list -vv'
 alias ${gprefix}bL='git branch --list -vv --all'
 alias ${gprefix}bn='git branch --no-contains'
@@ -37,8 +38,6 @@ alias ${gprefix}c='git commit --verbose'
 alias ${gprefix}ca='git commit --verbose --all'
 alias ${gprefix}cA='git commit --verbose --patch'
 alias ${gprefix}cm='git commit --message'
-alias ${gprefix}co='git checkout'
-alias ${gprefix}cO='git checkout --patch'
 alias ${gprefix}cf='git commit --amend --reuse-message HEAD'
 alias ${gprefix}cF='git commit --verbose --amend'
 alias ${gprefix}cp='git cherry-pick'
@@ -55,9 +54,9 @@ alias ${gprefix}cv='git verify-commit'
 alias ${gprefix}Cl='git --no-pager diff --name-only --diff-filter=U'
 alias ${gprefix}Ca="git add \$(${gprefix}Cl)"
 alias ${gprefix}Ce="git mergetool \$(${gprefix}Cl)"
-alias ${gprefix}Co='git checkout --ours --'
+alias ${gprefix}Co='git restore --ours --'
 alias ${gprefix}CO="${gprefix}Co \$(${gprefix}Cl)"
-alias ${gprefix}Ct='git checkout --theirs --'
+alias ${gprefix}Ct='git restore --theirs --'
 alias ${gprefix}CT="${gprefix}Ct \$(${gprefix}Cl)"
 
 # Data (d)
@@ -78,7 +77,7 @@ alias ${gprefix}fc='git pull "${origin:-origin}" "$(git-branch-current 2>/dev/nu
 alias ${gprefix}fn='git clone'
 alias ${gprefix}fm='git pull --no-rebase'
 alias ${gprefix}fr='git pull --rebase'
-alias ${gprefix}fu='git pull --ff-only --all --prune'
+alias ${gprefix}fu='git pull --ff-only --all --prune --autostash'
 
 # Grep (g)
 alias ${gprefix}g='git grep'
@@ -130,7 +129,7 @@ alias ${gprefix}mt='git mergetool'
 
 # Push (p)
 alias ${gprefix}p='git push'
-alias ${gprefix}pf='git push --force-with-lease'
+alias ${gprefix}pf='git push --force-with-lease --force-if-includes'
 alias ${gprefix}pF='git push --force'
 alias ${gprefix}pa='git push --all'
 alias ${gprefix}pA='git push --all && git push --tags --no-verify'
@@ -164,9 +163,9 @@ alias ${gprefix}sx='git stash drop'
 alias ${gprefix}sl='git stash list'
 alias ${gprefix}sd='git-delta stash show --patch --stat'
 alias ${gprefix}sp='git stash pop'
-alias ${gprefix}ss='git stash save --include-untracked'
-alias ${gprefix}sS='git stash save --patch --no-keep-index'
-alias ${gprefix}sw='git stash save --include-untracked --keep-index'
+alias ${gprefix}ss='git stash push --include-untracked'
+alias ${gprefix}sS='git stash push --patch --no-keep-index'
+alias ${gprefix}sw='git stash push --include-untracked --keep-index'
 alias ${gprefix}si='git stash push --staged'
 alias ${gprefix}su='git stash show --patch | git apply --reverse'
 
@@ -184,6 +183,8 @@ alias ${gprefix}wd='git-delta diff'
 alias ${gprefix}wD='git-delta diff --word-diff'
 alias ${gprefix}wr='git reset --soft'
 alias ${gprefix}wR='git reset --hard'
+alias ${gprefix}wo='git restore'
+alias ${gprefix}wO='git restore --patch'
 alias ${gprefix}wc='git clean --dry-run'
 alias ${gprefix}wC='git clean -d --force'
 alias ${gprefix}wm='git mv'
@@ -199,11 +200,6 @@ alias ${gprefix}Wm='git worktree move'
 alias ${gprefix}Wp='git worktree prune'
 alias ${gprefix}Wx='git worktree remove'
 alias ${gprefix}WX='git worktree remove --force'
-
-# Switch (y)
-alias ${gprefix}y='git switch'
-alias ${gprefix}yc='git switch --create'
-alias ${gprefix}yd='git switch --detach'
 
 # Misc
 alias ${gprefix}..='cd "$(git-root || print .)"'
